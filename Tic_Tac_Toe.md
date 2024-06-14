@@ -10,4 +10,16 @@
 
 ## Constants 
 to represent fixed values that do not change during the runtime of the program
+static usually used in constants 
+
+- EMPTY : empty cell ; char datatype
+- PLAYER_O and Player_X : Player using the O and Player using the X  ; char datatype
+- currentPlayer : Player X starts game , char datatype
+- SIZE : size of 
+
+## Import 
+```import java.util.Scanner;```
+read input from the console
+
+
                  
