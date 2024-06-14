@@ -27,7 +27,9 @@ read input from the console
 1. call initializeBoard method -> set up empty area -> get are game ready 
 2. call printBoard method ->  displays the current state of the game area -> here : show initial area
 3. start a while loop that runs until the game ends :<br>
-            - 
+   - call the playerAction Method and pass currentPlayer to it ->handle players actions in game
+   - call printBoard method again -> show game area after a changing action to help players know whats going on
+   - If loop : 
  
 
 
