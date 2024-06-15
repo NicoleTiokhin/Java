@@ -15,6 +15,7 @@
 ## Currently "under construction"
 ### <ul>
 ### <li> Pokemon game  </li>
+### <li> Tic - Tac - Toe Game ; using GUI </li>
 ### </ul>
 
 ## Finished Projects 
