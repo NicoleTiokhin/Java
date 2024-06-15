@@ -147,5 +147,6 @@ public class Game {
         game.startGame();
     }
 }
-``` 
+```
+## Example of how the game would work  
  
