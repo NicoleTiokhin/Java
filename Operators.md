@@ -21,7 +21,7 @@
 ##  Operators
 <img src="https://www.startertutorials.com/corejava/wp-content/uploads/2014/10/Bitwise-operators.jpg" alt="Bitwise Operators Table" width="500" />
 
-## Operators some exercises 
+## Operators :  some exercises 
 
 ### 01 
 find the maximum of two numbers using the ternary operator
@@ -37,3 +37,43 @@ public class TernaryOperator {
     }
 }
 ```
+
+### 02 
+this one was found here : https://docs.oracle.com/javase/tutorial/java/nutsandbolts/QandE/questions_operators.html
+
+In the following program, explain why the value "6" is printed twice in a row:
+```
+class PrePostDemo {
+    public static void main(String[] args){
+        int i = 3;
+        i++;
+        System.out.println(i);    // "4"
+        ++i;                     
+        System.out.println(i);    // "5"
+        System.out.println(++i);  // "6"
+        System.out.println(i++);  // "6"
+        System.out.println(i);    // "7"
+    }
+}
+```
+
+### 03 
+this one was found here : https://redi-school.github.io/intro-java/lesson3/exercise2.html
+
+Given the following program defining two variables
+```
+class Main {
+    public static void main(String[] args) {
+        int a = 16;
+        int b = 8;
+        
+    }
+}
+```
+How would you : 
+<ul>
+ <li> implement a check (using boolean operators and number operators) that tells you if both a and b are greater than 10 (hint: implement and then rerun program with different values assigned to a and b to check that it is correct)</li>
+ <li>implement a check (using boolean operators and number operators) that tells you if either a or b are smaller than 10 (hint: implement and then rerun program with different values assigned to a and b to check that it is correct)</li>
+ <li>implement a check (using boolean operators and number operators) that tells you if a is at least two times bigger than b (hint: implement and then rerun program with different values assigned to a and b to check that it is correct), i.e. for a = 16 and b = 8 your check should return true (as a is two times b)</li>
+</ul>
+
