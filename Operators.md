@@ -21,4 +21,19 @@
 ##  Operators
 <img src="https://www.startertutorials.com/corejava/wp-content/uploads/2014/10/Bitwise-operators.jpg" alt="Bitwise Operators Table" width="500" />
 
+## Operators some exercises 
 
+### 01 
+find the maximum of two numbers using the ternary operator
+
+``` java
+public class TernaryOperator {
+    public static void main(String[] args) {
+        int a = 3;
+        int b = 6;
+
+        int max = (a > b) ? a : b;
+        System.out.println("The maximum number is " + max);
+    }
+}
+```
