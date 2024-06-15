@@ -51,7 +51,7 @@ The Pokemon class represents individual Pokemon
     }
 
     public String pokedex() {
-        return name + " [Health: " + health + ", Attack Power: " + attackPower + "]";
+        return name + " [ Current Health Level : " + health + ", Current Power Level : " + attackPower + "]";
     }
 }
 ```
@@ -63,7 +63,7 @@ The Pokemon class represents individual Pokemon
    <li>Scanner object to read user input </li>
    <li>Set first attacker to pokemon1 and first defender to pokemon2 </li>
         <li> Fight Loop : <br> loop goes on until a Pokemon has fainted 
-          <br> print out current status of both Pokemon 
+          <br> print out current status of both Pokemon  and announce who´s turn it is 
           <br> current attacker attacks current defender 
         <br> check if current defender has fainted ; If true then break out of loop and send message
         <br> Temporarily store the current attacker <br>
@@ -73,6 +73,46 @@ The Pokemon class represents individual Pokemon
         wait for the user to press Enter <br>
         close Scanner object </li>
  </ul>
+
+``` java
+public class Fight {
+    private Pokemon pokemon1;
+    private Pokemon pokemon2;
+
+    public Fight(Pokemon pokemon1, Pokemon pokemon2) {
+        this.pokemon1 = pokemon1;
+        this.pokemon2 = pokemon2;
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        Pokemon currentAttacker = pokemon1;
+        Pokemon currentDefender = pokemon2;
+
+        while (!pokemon1.hasFainted() && !pokemon2.hasFainted()) {
+            System.out.println("\n" + pokemon1.pokedex());
+            System.out.println(pokemon2.pokedex());
+
+            System.out.println(currentAttacker.getName() + "'s turn to attack.");
+            currentAttacker.attack(currentDefender);
+
+            if (currentDefender.hasFainted()) {
+                System.out.println(currentDefender.getName() + " has fainted! Please bring to Pokémon Center to recover ! " + currentAttacker.getName() + " is the winner !");
+                break;
+            }
+
+            Pokemon temp = currentAttacker;
+            currentAttacker = currentDefender;
+            currentDefender = temp;
+
+            System.out.println("Please press Enter to continue...");
+            scanner.nextLine();
+        }
+
+        scanner.close();
+    }
+}
+``` 
  
 ## Game Class
 
