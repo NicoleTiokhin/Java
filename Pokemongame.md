@@ -57,6 +57,7 @@ The Pokemon class represents individual Pokemon
 ```
 
 ## Fight Class
+This class manages fight logic 
 
  <ul>
   <li>pokemon1 , pokemon2 as instances of Pokemon class </li>
@@ -115,6 +116,36 @@ public class Fight {
 ``` 
  
 ## Game Class
+This class starts the game
 
+startGame method : 
+<ul>
+  <li> initializes two Pokemons (Pokemon instances) </li>
+  <li> inform player the game is going to start </li>
+</ul>
 
+main method : 
+<ul>
+  <li>the main methid is secial to Java to start "application" </li>
+  <li>creates instance if Game class </li>
+  <li> call startGame method to start Game </li>
+</ul>
+
+``` java
+public class Game {
+    public void startGame() {
+        Pokemon pikachu = new Pokemon("Pikachu", 130, 25);
+        Pokemon bulbasaur = new Pokemon("Bulbasaur", 160, 15);
+
+        System.out.println("Begin the Pokémon battle!");
+        Fight fight = new Fight(pikachu, bulbasaur);
+        fight.start();
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.startGame();
+    }
+}
+``` 
  
