@@ -19,5 +19,6 @@
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/20191122171059/Conditional-or-Ternary-Operator-__-in-Java.jpg" alt="Conditional or Ternary Operator in Java" width="500" />
  
 ##  Operators
+<img src="https://www.startertutorials.com/corejava/wp-content/uploads/2014/10/Bitwise-operators.jpg" alt="Bitwise Operators Table" width="500" />
 
 
