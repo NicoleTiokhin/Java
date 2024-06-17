@@ -149,4 +149,33 @@ public class Game {
 }
 ```
 ## Example of how the game would work  
- 
+Pokemon 1 = Pikachu , Health: 130 , Attack Power: 25 <br>
+Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
+-> Initial State : Pikachu: 130 HP, 25 AP ; Bulbasaur: 160 HP, 15 AP <br>
+
+1. main Method in Game class starts Game <- creates an instance of Game and calls startGame
+2. The startGame Method initializes two Pokemon and returns a start message and starts the fight.
+3. First Round Output : <br>
+   Pikachu [ Current Health Level : 130, Current Power Level : 25]<br>
+   Bulbasaur [ Current Health Level : 160, Current Power Level : 15]<br>
+   Pikachu's turn to attack.<br>
+   Pikachu attacks Bulbasaur for 25 damage!<br>
+-> Bulbasaur's health decreases from 160 to 135<br>
+5. Second Round :<br>
+   Pikachu [ Current Health Level : 130, Current Power Level : 25]<br>
+   Bulbasaur [ Current Health Level : 135, Current Power Level : 15]<br>
+   Please press Enter to continue...<br>
+   Bulbasaur's turn to attack.<br>
+   Bulbasaur attacks Pikachu for 15 damage!<br>
+-> Pikachu's health decreases from 130 to 115<br>
+7. This continues until the 13th Round , where : <br>
+   Pikachu [ Current Health Level : 40, Current Power Level : 25]<br>
+   Bulbasaur [ Current Health Level : 10, Current Power Level : 15]<br>
+   Please press Enter to continue...<br>
+   Pikachu's turn to attack.<br>
+   Pikachu attacks Bulbasaur for 25 damage!<br>
+-> Bulbasaur's health decreases from 10 to -15 -> Bulbasaur faints<br>
+9. Last Output :<br>
+   Bulbasaur has fainted! Please bring to Pokémon Center to recover! Pikachu is the winner!
+
+
