@@ -9,12 +9,12 @@
 ### <li> Creating a Virtual Private Network (VPN) </li>
 ### <li> Online Book Store </li>
 ### <li> Weather System </li>
-### <li> Flipping Tiles Memory Game </li>
 ### </ul>
 
 ## Currently "under construction"
 ### <ul>
 ### <li> Tic - Tac - Toe Game ; using GUI </li>
+### <li> Flipping Tiles Memory Game </li>
 ### </ul>
 
 ## Finished Projects 
