@@ -32,3 +32,10 @@ int age = scanner.nextInt();
 scanner.close();
 ```
 
+## Input/Output : some exercises
+### 01
+reads an integer from the user and checks if it is even or odd
+
+### 02
+reads a student's points and prints the corresponding grade
+
