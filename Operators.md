@@ -26,6 +26,8 @@
 ### 01 
 find the maximum of two numbers using the ternary operator
 
+solution by me : 
+
 ``` java
 public class TernaryOperator {
     public static void main(String[] args) {
@@ -47,15 +49,16 @@ class PrePostDemo {
     public static void main(String[] args){
         int i = 3;
         i++;
-        System.out.println(i);    // "4"
+        System.out.println(i);    
         ++i;                     
-        System.out.println(i);    // "5"
-        System.out.println(++i);  // "6"
-        System.out.println(i++);  // "6"
-        System.out.println(i);    // "7"
+        System.out.println(i);    
+        System.out.println(++i);  
+        System.out.println(i++);  
+        System.out.println(i);    
     }
 }
 ```
+explanation : i initialized as 3 -> i++ -> i=4 -> ++i -> i=5 -> System.out.println(++i) -> i=6 with i being incremented before the print  -> System.out.println(i++) -> i = 6 , as in printed value is 6 as it is incremented by one after printing 
 
 ### 03 
 this one was found here : https://redi-school.github.io/intro-java/lesson3/exercise2.html
@@ -77,3 +80,18 @@ How would you :
  <li>implement a check (using boolean operators and number operators) that tells you if a is at least two times bigger than b (hint: implement and then rerun program with different values assigned to a and b to check that it is correct), i.e. for a = 16 and b = 8 your check should return true (as a is two times b)</li>
 </ul>
 
+``` java
+// Check if both a and b are greater than 10
+boolean Check = (a > 10) && (b > 10);
+System.out.println(" Are both a and b are greater than 10 ?: " + Check);
+```
+``` java
+// Check if either a or b is smaller than 10
+boolean Check = (a < 10) || (b < 10);
+System.out.println("Is a or b smaller than 10 ?: " + Check);
+```
+``` java
+// Check if a is at least two times bigger than b
+boolean Check = a >= 2 * b;
+System.out.println("Is a at least two times bigger than b ?: " + Check);
+```
