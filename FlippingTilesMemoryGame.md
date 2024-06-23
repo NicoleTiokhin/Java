@@ -176,3 +176,52 @@ public class MemoryGame {
 }
 
  ```
+## Example of how the game would work
+
+1. Game starts ; Board is displayed ; all tiles are hidden <br>
+X X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+2. User input : 0 0
+3. Output : <br>
+1 X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+4. User input : 1 1
+5. Output: <br>
+1 X X <br>
+X 2 X <br>
+X X X <br>
+Not a match. Try again.<br>
+X X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+6. User input : 1 1
+7. Output :<br>
+X 2 X <br>
+X 2 X <br>
+X X X <br>
+It's a match!<br>
+X 2 X <br>
+X 2 X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+8. several steps later
+9. game ends :<br>
+10. 1 X 3 <br>
+1 2 X <br>
+1 2 3 <br>
+It's a match!<br>
+1 X 3 <br>
+1 2 X <br>
+1 2 3 <br>
+Congratulations! You've found all the pairs.<br>
+
+
+
+
+
+   
