@@ -76,6 +76,12 @@ Finds the index of the first occurrence of a substring or character
 ```java
 int index = fullName.indexOf("Tiokhin"); 
 ```
+## Strings : Some exercises 
 
+### Palindrome Check
+
+### Anagram Check
+
+### Reverse String 
 
 
