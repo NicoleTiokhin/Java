@@ -178,4 +178,19 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 9. Last Output :<br>
    Bulbasaur has fainted! Please bring to Pokémon Center to recover! Pikachu is the winner!
 
-
+## Making the Game more elaborate 
+Ideas : 
+- Special Abilities : Like Volt Tackle for Pikachu , can be used once per Game 
+- Add more pokemon
+- Type Advantages
+- Leveling Up
+- potions to heal
+- Wild Pokémon Encounters
+- Pokémon Catching
+- NPC trainers and gym battles with  rewards for winning
+- simple animations for attacks
+- switching Pokémon mid-battle
+- Stamina : use certain moves a limited number of times before needing to rest or use a different move
+- Pokémon Centers to heal Pokémon
+- Sound and Music
+- Save and Load Game
