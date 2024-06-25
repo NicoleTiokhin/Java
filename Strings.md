@@ -80,6 +80,12 @@ int index = fullName.indexOf("Tiokhin");
 
 ### Palindrome Check
 Palindrome = reads the same backward as forward
+
+Convert string to lowercase -> case-insensitive.
+Start out at most left of the string and most right of the string .
+Go through the string parallely from the right and left and compare the letters of the different directions , until they meet 
+If the letters are the same , then its a Palindrome .
+
 ```java
 import java.util.Scanner;
 
@@ -119,8 +125,47 @@ public class PalindromeChecker {
 
 ```
 
-### Anagram Check
 
 ### Reverse String 
 
+Convert String into a character array
+Swap characters from the beginning and end of the array until meet in the middle
+Converts the array back to a string
 
+```java
+import java.util.Scanner;
+
+public class ReverseString {
+
+    public static String reverse(String str) {
+        char[] charArray = str.toCharArray();
+        
+        int left = 0;
+        int right = charArray.length - 1;
+        
+        while (left < right) {
+            char charchar = charArray[left];
+            charArray[left] = charArray[right];
+            charArray[right] = charchar;
+            
+            left++;
+            right--;
+        }
+        
+        return new String(charArray);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Please enter a string to reverse: ");
+        String input = scanner.nextLine();
+
+        String reversed = reverse(input);
+        System.out.println("Reversed string: " + reversed);
+
+        scanner.close();
+    }
+}
+
+```
