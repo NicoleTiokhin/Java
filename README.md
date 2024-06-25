@@ -3,7 +3,6 @@
 ## Ideas for Java Projects 
 
 ### <ul> 
-### <li> more elaborate Pokemon game </li> 
 ### <li> more elaborate Flipping Tiles Memory Game </li>
 ### <li> Currency converter ; get live rates from an API </li>    
 ### <li> Tic - Tac - Toe Game ; using GUI </li>
@@ -15,6 +14,7 @@
 ## Currently "under construction"
 ### <ul>
 ### <li> Tic - Tac - Toe Game ; using GUI </li>
+### <li> more elaborate Pokemon game </li> 
 ### </ul>
 
 ## Finished Projects 
