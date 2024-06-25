@@ -278,7 +278,12 @@ public class PokemonAPI {
 ```
 
 
-getDirectInfo Method : 
+getDirectInfo Method : <br>
+returns a String <br>
+fieldStart & fieldEnd : start and end of value 
+Find starting index by finding first occurrence of fieldStart in the JSON string
+Add the length of fieldStart to index -> position after  field name ends ->  value starts
+
 
 ```java
 private static String getDirectInfo(String json, String fieldStart, String fieldEnd) {
