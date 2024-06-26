@@ -201,97 +201,28 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 
 Using Pokemon API : https://pokeapi.co/docs/v2#pokemon
 
-Pokémon Class stays same 
+### Pokemon Class 
 
-New class : PokemonAPI to get Pokémon data from the API
+What did I change ? 
+package com.example; (I used the codespace on Github to add json library using maven)
+otherwise same 
 
-```java
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-```
 
-base URL for API requests : https://pokeapi.co/api/v2/pokemon/
+### New class : PokemonAPI to get Pokémon data from the API
+
+
 
 ```java
-public class PokemonAPI {
-
-    private static final String BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
-
-```
-
- getPokemon Method
- gets data for a given Pokémon name from the API and creates a Pokemon object
-
-- try-catch block to handle exceptions
-- Creates a URI object by adding the Pokémon name (converted to lowercase) to the base URL -> complete URL for API request
-- Creates an HttpClient instance to send the HTTP request
-- Create an HttpRequest
-- Send HttpRequest and receive the response , handled as a string
-- If the response code is not 200 (OK) , prints error message and return null
-- retrieve the body (contains the data,here:JSON data) of the HTTP response
-- extract the name of the Pokémon from the response body using 
-- extract the health of the Pokémon from the response body and convert it from a string to an integer using
-- extract the attack power of the Pokémon from the response body and convert it from a string to an integer using 
-(- delimiter for extractField found using the json file structure found on the pokemonapi page)
-- Create and return a new Pokemon object using the extracted info
-- catch exceptions 
-
-```java
-    public static Pokemon getPokemon(String name) {
-        try {
-            URI uri = new URI(BASE_URL + name.toLowerCase());
-            
-            HttpClient client = HttpClient.newHttpClient();
-            
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(uri) //target resource's URI
-                    .GET()    //request method
-                    .header("Accept", "application/json") // expected response in JSON format
-                    .build(); // build the HttpRequest object
-            
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            
-            if (response.statusCode() != 200) {
-                System.out.println("Failed to get data for " + name);
-                return null;
-            }
-            
-            String responseBody = response.body();
-
-            String pokemonName = getDirectInfo(responseBody, "\"name\":\"", "\"");
-
-            int health = Integer.parseInt(getNestedInfo(responseBody, "\"hp\""));
-
-            int attackPower = Integer.parseInt(getNestedInfo(responseBody, "\"attack\""));
-
-            
-            return new Pokemon(pokemonName, health, attackPower);
-            
-        } catch (Exception e) { // exception that occurs in the try block
-            e.printStackTrace(); // print details of the exception 
-            return null; // null if an exception occurs , to signal that fail
-        }
-    }
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONObject;
 
 ```
 
 
-getDirectInfo Method : <br>
-returns a String <br>
-fieldStart & fieldEnd : start and end of value 
-Find starting index by finding first occurrence of fieldStart in the JSON string
-Add the length of fieldStart to index -> position after  field name ends ->  value starts
-
-
-```java
-private static String getDirectInfo(String json, String fieldStart, String fieldEnd) {
-        int startIndex = json.indexOf(fieldStart) + fieldStart.length();
-        int endIndex = json.indexOf(fieldEnd, startIndex);
-        return json.substring(startIndex, endIndex).replace("\"", "").trim();
-    }
-```
+        
 
 
 
