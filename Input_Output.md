@@ -34,7 +34,9 @@ scanner.close();
 
 ## Input/Output : some exercises
 ### 01
-reads an integer from the user and checks if it is even or odd
+reads an integer from the user using nextInt() method of the Scanner object . and checks if it is even or odd using the modulus operator ( If num % 2 == 0, the number is even) 
+Outputs result using System.out.println
+
 ```java
 import java.util.Scanner;
 public class EvenOrOddChecker {
@@ -60,6 +62,8 @@ public class EvenOrOddChecker {
 
 ### 02
 reads a student's points (US Style) and prints the corresponding grade
+reads an integer from the user using nextInt() method of the Scanner object.
+Uses several if-else statements to assign a grade based on the score and prints right grade using System.out.print to return it  
 ```java
 import java.util.Scanner;
 
@@ -92,4 +96,35 @@ public class GradeEvaluation {
 }
 
 ```
+## Other ways 
 
+### BufferedReader
+useful for when input is big ;  reads input as strings
+
+required classes to import : 
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+```
+create a BufferedReader that uses an InputStreamReader object that reads bytes from System.in (reads from console) and converts them into characters.
+```java
+BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+```
+reads text from console waiting until user presses enter (readLine)
+```java
+String name = reader.readLine();
+```
+BufferedReader makes most sense for reading in files , as those often are bigger in size
+
+create a BufferedReader that uses a  FileReader object that read from the file located at the given location 
+```java
+BufferedReader reader = 
+  new BufferedReader(new FileReader("src/main/resources/input.txt"));
+```
+
+### System.err
+
+for error messages 
+```java
+System.err.println("Error!");
+```
