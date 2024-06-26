@@ -3,7 +3,6 @@
 ## Ideas for Java Projects 
 
 ### <ul> 
-### <li> more elaborate Flipping Tiles Memory Game </li>
 ### <li> Currency converter ; get live rates from an API </li>    
 ### <li> Creating a Virtual Private Network (VPN) </li>
 ### <li> Online Book Store </li>
@@ -14,6 +13,7 @@
 ### <ul>
 ### <li> Tic - Tac - Toe Game ; using GUI </li>
 ### <li> more elaborate Pokemon game </li> 
+### <li> more elaborate Flipping Tiles Memory Game </li>
 ### </ul>
 
 ## Finished Projects 
