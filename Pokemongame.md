@@ -202,21 +202,21 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 Using Pokemon API : https://pokeapi.co/docs/v2#pokemon
 
 ### Workflow 
-How the classes are connected to each other : 
- PokemonAPI class fetches data from the Pokémon API and returns it as a JSONObject
- Game class uses the PokemonAPI class to fetch data and create Pokemon objects
- Pokemon objects are used in the Fight class
-
-How does the "simulation" react to user input ? : 
-Game class calls PokemonAPI.getPokemonData() to get data for each Pokémon
-The data is used to create Pokemon objects with the attributes (name, health, attackPower)
-The Pokemon objects are then used in the Fight class to simulate a battle
+How the classes are connected to each other : <br>
+ PokemonAPI class fetches data from the Pokémon API and returns it as a JSONObject <br>
+ Game class uses the PokemonAPI class to fetch data and create Pokemon objects <br>
+ Pokemon objects are used in the Fight class <br>
+ <br>
+How does the "simulation" react to user input ? :  <br>
+Game class calls PokemonAPI.getPokemonData() to get data for each Pokémon <br>
+The data is used to create Pokemon objects with the attributes (name, health, attackPower) <br>
+The Pokemon objects are then used in the Fight class to simulate a battle <br>
 
 ### Pokemon Class 
 
-What did I change ? 
-package com.example; (I used the codespace on Github to add json library using maven)
-otherwise same 
+What did I change ?  <br>
+package com.example; (I used the codespace on Github to add json library using maven) <br>
+otherwise same  <br>
 
 
 ### New class : PokemonAPI to get Pokémon data from the API
