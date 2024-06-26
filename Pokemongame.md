@@ -201,6 +201,17 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 
 Using Pokemon API : https://pokeapi.co/docs/v2#pokemon
 
+### Workflow 
+How the classes are connected to each other : 
+ PokemonAPI class fetches data from the Pokémon API and returns it as a JSONObject
+ Game class uses the PokemonAPI class to fetch data and create Pokemon objects
+ Pokemon objects are used in the Fight class
+
+How does the "simulation" react to user input ? : 
+Game class calls PokemonAPI.getPokemonData() to get data for each Pokémon
+The data is used to create Pokemon objects with the attributes (name, health, attackPower)
+The Pokemon objects are then used in the Fight class to simulate a battle
+
 ### Pokemon Class 
 
 What did I change ? 
@@ -215,22 +226,98 @@ otherwise same
 ```java
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import org.json.JSONObject;
+import java.net.HttpURLConnection; // send and receive data over the web   
+import java.net.URL;// Import the URL class
+import org.json.JSONObject; // work with JSON 
+```
 
+base URL for the Pokémon API  
+
+```java
+public class PokemonAPI {
+    private static final String POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon/";
 ```
 
 
-        
-
-
+Method getPokemonData ; takes a String (the Pokémon's name) as an argument and returns a JSONObject ; can throw an Exception
+Add Pokemon name to to base URL 
+and create a URL object 
 
 ```java
+public static JSONObject getPokemonData(String pokemonName) throws Exception {
+        String pokemonURL = POKEAPI_URL + pokemonName.toLowerCase();
+        URL url = new URL(pokemonURL);
 ```
 
 
+Open a connection to the URL 
+Set the request method to "GET" -> retrieve data from the server
+```java
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+```
 
+Create a BufferedReader to read the response . It gets the input stream from the HTTP connection (conn.getInputStream()), takes the raw byte input stream(InputStreamReader) and converts into characters and read the lines of test (in)
+String variable to temporarily hold each line of text one at a time 
+Create a new StringBuilder object to append strings 
 
 ```java
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+       StringBuilder response = new StringBuilder();
+```
+
+
+Read each line from the BufferedReader until there are no more lines (readLine returns null)
+Append each line to the StringBuilder
+```java
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+```
+
+
+Close the BufferedReader
+Disconnect the HttpURLConnection
+Convert the complete response to a String, create a new JSONObject from that string
+```java
+       in.close();
+       conn.disconnect();
+
+       return new JSONObject(content.toString());
+```
+
+### Game class
+
+First of all key differences from before : 
+<ul>
+  <li>creates Pokémon using data fetched from the Pokémon API</li>
+  <li>Prompts the user to input the names of the Pokémon</li>
+  <li>Include error handling for cases where the API call might fail</li>
+  <li>Requires internet access to fetch data from the API</li>
+  <li>uses the org.json library for parsing JSON</li>
+</ul>
+
+createPokemon Method : 
+<ul>
+  <li> Method to Create a Pokémon </li>
+  <li>Take a Pokémon name as an argument and returns a Pokemon object</li>
+  <li>Call the PokemonAPI.getPokemonData method -> get data for the Pokémon name from the Pokémon API</li>
+  <li>get name, health stat,attack power stat</li>
+  <li>If error occurs , return null and an error message</li>
+</ul>
+```java
+   public Pokemon createPokemon(String pokemonName) {
+        try {
+            JSONObject data = PokemonAPI.getPokemonData(pokemonName);
+            String name = data.getString("name");
+            int health = data.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+            int attackPower = data.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
+            return new Pokemon(name, health, attackPower);
+        } catch (Exception e) {
+            System.out.println("Error fetching data for " + pokemonName);
+            e.printStackTrace();
+            return null;
+        }
+    }
 ```
