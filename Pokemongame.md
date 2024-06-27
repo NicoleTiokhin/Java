@@ -181,7 +181,6 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 # Making the Game more elaborate 
 ## Ideas : 
 - Special Abilities : Like Volt Tackle for Pikachu , can be used once per Game 
-- Add more pokemon
 - Type Advantages
 - Leveling Up
 - potions to heal
@@ -545,3 +544,4 @@ pidgeot attacks venusaur for 80 damage! <br>
 venusaur has fainted! <br>
 venusaur has fainted! Please bring to Pokémon Center to recover! pidgeot is the winner! <br>
 
+## Add  potions to heal
