@@ -450,9 +450,71 @@ public class Fight {
             System.out.println("Please press Enter to continue...");
             scanner.nextLine();
         }
-
-        scanner.close();
+       scanner.close();
     }
 }
 ```
+### Project structure on Github Codespace (jubilant space halibut)
+
+Pokemon Project inside pokemon-project Directory
+JsonExample.java : just a small example for testing whether the json library works (unimportant for project)
+pom.xml : Maven configuration files 
+rc/main/java/com/example : Java source files located there 
+target Directory : compiled classes (target/classes/com/example) and other generated files from the build process
+. <br>
+├── Concep ts_Object-Oriented_Programming .md <br>
+├── Datatypes.md <br>
+├── FlippingTilesMemoryGame.md <br>
+├── Functions.md <br>
+├── Input_Output.md <br>
+├── Operators.md <br>
+├── Pokemongame.md <br>
+├── README.md <br>
+├── Strings.md <br>
+├── Tic_Tac_Toe.md <br>
+├── _01.md <br>
+├── pokemon-project <br>
+│   ├── JsonExample.java <br>
+│   ├── pom.xml <br>
+│   ├── src <br>
+│   │   └── main <br>
+│   │       └── java <br>
+│   │           └── com <br>
+│   │               └── example <br>
+│   │                   ├── Fight.java <br>
+│   │                   ├── Game.java <br>
+│   │                   ├── Pokemon.java <br>
+│   │                   └── PokemonAPI.java <br>
+│   └── target <br>
+│       ├── classes <br>
+│       │   └── com <br>
+│       │       └── example <br>
+│       │           ├── Fight.class <br>
+│       │           ├── Game.class <br>
+│       │           ├── Pokemon.class <br>
+│       │           └── PokemonAPI.class <br>
+│       ├── generated-sources <br>
+│       │   └── annotations <br>
+│       ├── maven-archiver <br>
+│       │   └── pom.properties <br>
+│       ├── maven-status <br>
+│       │   └── maven-compiler-plugin <br>
+│       │       └── compile <br>
+│       │           └── default-compile <br>
+│       │               ├── createdFiles.lst <br>
+│       │               └── inputFiles.lst <br>
+│       └── pokemon-project-1.0-SNAPSHOT.jar <br>
+└── src <br>
+    ├── main <br>
+    │   └── java <br>
+    │       └── com <br>
+    │           └── example <br>
+    └── test <br>
+        └── java <br>
+            └── com <br>
+                └── example <br>
+
+
+       
+
 
