@@ -45,5 +45,14 @@
 ### <li>Console Input/Output </li>
 
 
+## Sources 
 
+<ul>
+  <li>Geeks for geeks </li>
+  <li> w3schools </li>
+  <li>https://www.oracle.com/java/</li>
+  <li>https://docs.oracle.com/javase/tutorial/</li>
+  <li>tutorialspoint</li>
+  <li>https://www.programiz.com/java-programming</li>
+</ul>
 
