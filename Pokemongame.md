@@ -514,7 +514,34 @@ target Directory : compiled classes (target/classes/com/example) and other gener
             └── com <br>
                 └── example <br>
 
+### Example Game Play 
+Enter the name of your first Pokémon: Eevee <br>
+Enter the name of your second Pokémon: Bulbasaur <br>
+Begin the Pokémon battle! <br>
 
-       
+eevee [Current Health Level: 55, Current Power Level: 55] <br>
+bulbasaur [Current Health Level: 45, Current Power Level: 49]<br>
+eevee's turn to attack. <br>
+eevee attacks bulbasaur for 55 damage! <br>
+bulbasaur has fainted! <br>
+bulbasaur has fainted! Please bring to Pokémon Center to recover! eevee is the winner! <br>
+        
+### Another Game Play 
+Enter the name of your first Pokémon: Venusaur  <br>
+Enter the name of your second Pokémon: Pidgeot <br>
+Begin the Pokémon battle! <br>
 
+venusaur [Current Health Level: 80, Current Power Level: 82] <br>
+pidgeot [Current Health Level: 83, Current Power Level: 80] <br>
+venusaur's turn to attack. <br>
+venusaur attacks pidgeot for 82 damage! <br>
+Please press Enter to continue... <br>
+
+
+venusaur [Current Health Level: 80, Current Power Level: 82] <br>
+pidgeot [Current Health Level: 1, Current Power Level: 80] <br>
+pidgeot's turn to attack. <br>
+pidgeot attacks venusaur for 80 damage! <br>
+venusaur has fainted! <br>
+venusaur has fainted! Please bring to Pokémon Center to recover! pidgeot is the winner! <br>
 
