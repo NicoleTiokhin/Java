@@ -220,8 +220,111 @@ It's a match!<br>
 1 2 3 <br>
 Congratulations! You've found all the pairs.<br>
 
+## Ideas on how to Elaborate Game a bit 
 
+  Let user decide how many tiles there should be (Different Board Sizes) <br>
+ ~~Time Limit~~ <br>
+  Count how many number of moves or time taken ?<br>
+  Levels of Difficulty<br>
+  GUI<br>
+</ul>
 
+## Add a Time limit 
 
+- Add a Timer to MemoryGame class
+- TimerTask to create a countdown
+- End game when time is up
 
-   
+### Updated MemoryGame class
+
+imports : 
+
+```java
+import java.util.Timer; //for scheduling tasks
+import java.util.TimerTask; //define tasks for Timer
+```
+
+new attributes : 
+
+```java
+private Timer timer; // timer for time limit 
+private boolean timeUp; // indicates when time is up 
+```
+
+new method : startTimer -> Starts a timer
+A task will run after the given time 
+Set the timeUp flag to true when the timer runs out and print a message and display the final board state and terminate the program
+
+```java
+    public void startTimer(int seconds) {
+        timer.schedule(new TimerTask() {
+            @Override // we are overriding the TimerTasks instance run method
+            public void run() { // What task should be executed when timer runs out ?
+                timeUp = true;  
+                System.out.println("Time's up! Game over.");
+                displayFinalBoard();
+                System.exit(0);  
+            }
+        }, seconds * 1000);  // Convert seconds to milliseconds -> Timer.schedule method expects milliseconds
+
+    }
+
+```
+
+Modified play method :
+
+set Timer to 3 minutes
+Continue the game loop until the time is up
+Cancel the timer if the game ends before time is up
+```java
+public void play() {
+    Scanner scanner = new Scanner(System.in);
+    startTimer(360); 
+
+    while (!timeUp) {  
+        board.displayBoard();
+        firstTile = selectTile(scanner, "first");
+        firstTile.flip();
+        board.displayBoard();
+
+        secondTile = selectTile(scanner, "second");
+        secondTile.flip();
+        board.displayBoard();
+
+        if (firstTile.getNumber() == secondTile.getNumber()) {
+            System.out.println("It's a match!");
+        } else {
+            System.out.println("Not a match. Try again.");
+            firstTile.flip();
+            secondTile.flip();
+        }
+
+        if (isGameOver()) {
+            System.out.println("Congratulations! You've found all the pairs.");
+            break;
+        }
+    }
+    timer.cancel();  
+    scanner.close();
+}
+
+```
+
+### Snipped from Example Game play 
+
+X 2 X 
+X 0 X 
+X X X 
+Not a match. Try again.
+X X X 
+X X X 
+X X X 
+Enter the coordinates of the first tile to flip (row col):
+Time's up! Game over.
+X X X 
+X X X 
+X X X 
+
+-> In future changes : Show timer after every turn 
+
+## Show timer after every turn
