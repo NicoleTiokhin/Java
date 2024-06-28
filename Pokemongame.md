@@ -186,6 +186,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - potions to heal
 - Wild Pokémon Encounters
 - add money to buy potions and stuff
+- Multi-player Mode
 - Pokémon Catching
 - NPC trainers and gym battles with  rewards for winning
 - simple animations for attacks
