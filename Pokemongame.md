@@ -185,6 +185,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - Leveling Up
 - potions to heal
 - Wild Pokémon Encounters
+- add money to buy potions and stuff
 - Pokémon Catching
 - NPC trainers and gym battles with  rewards for winning
 - simple animations for attacks
@@ -686,6 +687,18 @@ public void startGame() {
 
     scanner.close();
 }
-
 ```
+
+## Some Minor chnaged in the Project to improve User experience 
+
+### at the beginning dont exit game if pokemon name is false , prompt user write right name 
+
+### at the beginning dont exit game if potion name is false , prompt user write right name 
+
+### at the beginning give users option to choose whether they want a potion or not 
+
+
+
+
+
 
