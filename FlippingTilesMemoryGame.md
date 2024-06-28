@@ -312,18 +312,18 @@ public void play() {
 
 ### Snipped from Example Game play 
 
-X 2 X 
-X 0 X 
-X X X 
-Not a match. Try again.
-X X X 
-X X X 
-X X X 
-Enter the coordinates of the first tile to flip (row col):
-Time's up! Game over.
-X X X 
-X X X 
-X X X 
+X 2 X <br> 
+X 0 X <br> 
+X X X <br> 
+Not a match. Try again.<br> 
+X X X <br> 
+X X X <br> 
+X X X <br> 
+Enter the coordinates of the first tile to flip (row col):<br> 
+Time's up! Game over.<br> 
+X X X <br> 
+X X X <br> 
+X X X <br> 
 
 -> In future changes : Show timer after every turn 
 
