@@ -193,12 +193,13 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - Pokémon Centers to heal Pokémon
 - Sound and Music
 - Save and Load Game
-(- use pokemon API)
-- Let users decide on their pokemon on their own by typing the name in
+- ~~( use pokemon API)~~      **done**
+- ~~Let users decide on their pokemon on their own by typing the name in~~       **done**
 
 ## Let users decide on their pokemon on their own by typing the name in
 
 Using Pokemon API : https://pokeapi.co/docs/v2#pokemon
+to check how the response looks like : https://pokeapi.co/
 
 ### Workflow 
 How the classes are connected to each other : <br>
@@ -545,3 +546,146 @@ venusaur has fainted! <br>
 venusaur has fainted! Please bring to Pokémon Center to recover! pidgeot is the winner! <br>
 
 ## Add  potions to heal
+
+modifications needed to be undertaken : <br>
+Add a Potion class for handling the Healing  <br> 
+Change the Pokemon class to allow healing 
+Chnage Fight class to handle the usage of healing 
+Change Game class to let users use potions during the game 
+
+### Get the Potion Info via API in the PokemonAPI class 
+
+HEALING_API_URL : Base URL for the Healing Potions <br>
+
+getPotionData method : get data for a specific potion from the PokeAPI <br>
+construct a URL using the potion name (potionURL) <br>
+HTTP GET request to the API <br>
+read the response <br>
+convert it into a JSON object <br>
+follows same logic like  getPokemonData <br>
+
+```java
+public static JSONObject getPotionData(String potionName) throws Exception {
+        String potionURL = HEALING_API_URL + potionName.toLowerCase();
+        URL url = new URL(potionURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+
+        in.close();
+        conn.disconnect();
+
+        return new JSONObject(response.toString());
+    }
+```
+getHealingPowerFromPotionData Method :  get the amount of HP restored<br>
+potionData : JSON object representing the potion data gotten from the PokeAPI<br>
+effect_entries array :  contains  effect descriptions , first object in the effect_entries array contains the needed effect information<br>
+short_effect string : contains info about the potios effect <br>
+healingPower :short_effect string without all non-numeric characters ("Restores 20 HP." becomes "20") converted into integer<br>
+
+
+
+```java
+public static int getHealingPowerFromPotionData(JSONObject potionData) {
+        String shortEffect = potionData.getJSONArray("effect_entries")
+                                       .getJSONObject(0)
+                                       .getString("short_effect");
+        int healingPower = Integer.parseInt(shortEffect.replaceAll("[^0-9]", ""));
+        return healingPower;
+    }
+```
+
+### Updated Pokemon Class 
+maxHealth added : stores maximum possible health , so that Pokemon that has a health of max 30 doesnt get a higher health due to the potion as that would negate the Pokemon logic 
+
+heal method : increase the Pokémon's health by 'amount', make sure it doesn´t exceed the Pokemons max health and print out what happened
+```java
+public void heal(int amount) {
+        this.health += amount;
+        if (this.health > this.maxHealth) {
+            this.health = this.maxHealth;
+        }
+        System.out.println(this.name + " healed for " + amount + " health!");
+    }
+```
+
+### Updated Fight Class 
+
+added : potion object 
+
+added : while loop : <br>
+players can now choose between potion and attacking during their turn : <br>
+while loop that keeps prompting the player until they make a  valid choice (if valid choice then validChoice becomes true)<br>
+1 for attacking : attacker attacks the defender using the attack method<br>
+and 2 for healing potion : attacker heals themselves using the heal method with the potion's healing power<br>
+
+### Updated Game Class 
+
+added : createPotion Method<br>
+use the PokemonAPI.getPotionData method to fetch potion data<br>
+get the healing power using the PokemonAPI.getHealingPowerFromPotionData method<br>
+
+
+```java
+public Potion createPotion(String potionName) {
+    try {
+        JSONObject data = PokemonAPI.getPotionData(potionName);
+        int healingPower = PokemonAPI.getHealingPowerFromPotionData(data);
+        return new Potion(healingPower);
+    } catch (Exception e) { // If Error happens catch the exception, print an error message, and return null
+        System.out.println("Error fetching data for " + potionName);
+        e.printStackTrace();
+        return null;
+    }
+}
+```
+modified : startGame Method <br>
+Prompt user for Potion Name<br>
+Call createPotion(potionName) to create the potion<br>
+if the potion creation failed (returned null) exit game <br>
+
+If both Pokémon and the potion are successfully created -> creating a Fight object and calling its start method -> start battle
+
+```java
+public void startGame() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.print("Enter the name of your first Pokémon: ");
+    String firstPokemonName = scanner.nextLine();
+    Pokemon pokemon1 = createPokemon(firstPokemonName);
+
+    System.out.print("Enter the name of your second Pokémon: ");
+    String secondPokemonName = scanner.nextLine();
+    Pokemon pokemon2 = createPokemon(secondPokemonName);
+
+    if (pokemon1 == null || pokemon2 == null) {
+        System.out.println("Could not create Pokémon. Exiting game.");
+        return;
+    }
+
+    System.out.print("Enter the name of the healing item: ");
+    String potionName = scanner.nextLine();
+    Potion potion = createPotion(potionName);
+
+    if (potion == null) {
+        System.out.println("Could not create Potion. Exiting game.");
+        return;
+    }
+
+    System.out.println("Begin the Pokémon battle!");
+    Fight fight = new Fight(pokemon1, pokemon2, potion);
+    fight.start();
+
+    scanner.close();
+}
+
+```
+
