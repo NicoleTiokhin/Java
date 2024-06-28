@@ -688,6 +688,50 @@ public void startGame() {
     scanner.close();
 }
 ```
+### Example Gameplay 
+
+Enter the name of your first Pokémon: ditto
+Enter the name of your second Pokémon: Pidgeot 
+Enter the name of the healing item: potion
+Begin the Pokémon battle!
+
+ditto [Current Health Level: 48, Current Power Level: 48]
+pidgeot [Current Health Level: 83, Current Power Level: 80]
+ditto's turn.
+1. Attack
+2. Use Potion
+1
+ditto attacks pidgeot for 48 damage!
+Please press Enter to continue...
+
+
+ditto [Current Health Level: 48, Current Power Level: 48]
+pidgeot [Current Health Level: 35, Current Power Level: 80]
+pidgeot's turn.
+1. Attack
+2. Use Potion
+2
+pidgeot healed for 20 health!
+Please press Enter to continue...
+
+
+ditto [Current Health Level: 48, Current Power Level: 48]
+pidgeot [Current Health Level: 55, Current Power Level: 80]
+ditto's turn.
+1. Attack
+2. Use Potion
+1
+ditto attacks pidgeot for 48 damage!
+Please press Enter to continue...
+
+
+ditto [Current Health Level: 48, Current Power Level: 48]
+pidgeot [Current Health Level: 7, Current Power Level: 80]
+pidgeot's turn.
+1. Attack
+2. Use Potion
+
+-> Evaluation of Gameplay : There are some issues in the Gameplay that need to be addressed in the future , for example the possibility of a boring limitless game due to the current usage of the potion 
 
 ## Some Minor chnaged in the Project to improve User experience 
 
