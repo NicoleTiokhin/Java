@@ -736,14 +736,452 @@ pidgeot's turn.
 
 ## Some Minor chnaged in the Project to improve User experience 
 
-### at the beginning dont exit game if pokemon name is false , prompt user write right name 
+ at the beginning dont exit game if pokemon name is false , prompt user write right name <br>
 
-### at the beginning dont exit game if potion name is false , prompt user write right name 
+ at the beginning dont exit game if potion name is false , prompt user write right name <br>
 
-### at the beginning give users option to choose whether they want a potion or not 
+ at the beginning give users option to choose whether they want a potion or not <br>
+
+### Game Class 
+
+modified createPokemon method : <br>
+added while loop : prompt the user for a valid Pokémon name until a valid name is given  <br>
+
+```java
+public Pokemon createPokemon(String pokemonName) {
+    while (true) {
+        try {
+            JSONObject data = PokemonAPI.getPokemonData(pokemonName);
+            String name = data.getString("name");
+            int health = data.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+            int attackPower = data.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
+            return new Pokemon(name, health, attackPower);
+        } catch (Exception e) {
+            System.out.println("Error fetching data for " + pokemonName + ". Please enter a valid Pokémon name:");
+            Scanner scanner = new Scanner(System.in);
+            pokemonName = scanner.nextLine();
+        }
+    }
+}
+```
+
+modified createPotion method : <br>
+added while loop :  prompt the user for a valid potion name until a valid name is provided <br>
+
+```java
+public Potion createPotion(String potionName) {
+    while (true) {
+        try {
+            JSONObject data = PokemonAPI.getPotionData(potionName);
+            int healingPower = PokemonAPI.getHealingPowerFromPotionData(data);
+            return new Potion(healingPower);
+        } catch (Exception e) {
+            System.out.println("Error fetching data for " + potionName + ". Please enter a valid potion name:");
+            Scanner scanner = new Scanner(System.in);
+            potionName = scanner.nextLine();
+        }
+    }
+}
+
+```
+
+modified startGame method : <br> 
+ask user if they want to use a potion  <br>
+if yes : prompt to enter the name of the potion, and call createPotion <br>
+if no : proceeds without a potion <br>
+
+```java
+public void startGame() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.print("Enter the name of your first Pokémon: ");
+    String firstPokemonName = scanner.nextLine();
+    Pokemon pokemon1 = createPokemon(firstPokemonName);
+
+    System.out.print("Enter the name of your second Pokémon: ");
+    String secondPokemonName = scanner.nextLine();
+    Pokemon pokemon2 = createPokemon(secondPokemonName);
+
+    Potion potion = null;
+    System.out.print("Do you want to use a healing potion in the battle? (yes/no): ");
+    String usePotion = scanner.nextLine();
+    if (usePotion.equalsIgnoreCase("yes")) {
+        System.out.print("Enter the name of the healing item: ");
+        String potionName = scanner.nextLine();
+        potion = createPotion(potionName);
+    }
+
+    System.out.println("Begin the Pokémon battle!");
+    Fight fight = new Fight(pokemon1, pokemon2, potion);
+    fight.start();
+
+    scanner.close();
+}
+
+```
 
 
 
+### Fight Class 
+modified start method : <br>
+display option to use a potion only if a potion was given<br>
+
+```java
+public void start() {
+    Scanner scanner = new Scanner(System.in);
+    Pokemon currentAttacker = pokemon1;
+    Pokemon currentDefender = pokemon2;
+
+    while (!pokemon1.hasFainted() && !pokemon2.hasFainted()) {
+        System.out.println("\n" + pokemon1.pokedex());
+        System.out.println(pokemon2.pokedex());
+
+        boolean validChoice = false;
+        while (!validChoice) {
+            System.out.println(currentAttacker.getName() + "'s turn.");
+            System.out.println("1. Attack");
+            if (potion != null) {
+                System.out.println("2. Use Potion");
+            }
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            if (choice == 1) {
+                currentAttacker.attack(currentDefender);
+                validChoice = true;
+            } else if (choice == 2 && potion != null) {
+                currentAttacker.heal(potion.getHealingPower());
+                validChoice = true;
+            } else {
+                System.out.println("Invalid choice. Please type 1 to Attack" + (potion != null ? " or 2 to Use Healing Potion." : "."));
+            }
+        }
+
+        if (currentDefender.hasFainted()) {
+            System.out.println(currentDefender.getName() + " has fainted! Please bring to Pokémon Center to recover! " + currentAttacker.getName() + " is the winner!");
+            break;
+        }
+
+        Pokemon temp = currentAttacker;
+        currentAttacker = currentDefender;
+        currentDefender = temp;
+
+        System.out.println("Please press Enter to continue...");
+        scanner.nextLine();
+    }
+
+    scanner.close();
+}
+```
+
+### Game Play Experience Example
+
+Enter the name of your first Pokémon: ditto <br>
+Enter the name of your second Pokémon: pikachu <br>
+Do you want to use a healing potion in the battle? (yes/no): no <br>
+Begin the Pokémon battle! <br>
+
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+pikachu [Current Health Level: 35, Current Power Level: 55] <br>
+ditto's turn. <br>
+1. Attack <br>
+1 <br>
+ditto attacks pikachu for 48 damage! <br>
+pikachu has fainted! <br>
+pikachu has fainted! Please bring to Pokémon Center to recover! ditto is the winner! <br>
+
+-> The pokemon api only has potion as an option to heal hp <br>
+ <br>
+-> Ask users to type in potion yes/no instead of a specific one  <br>
+OR :  <br>
+-> To make it more fun : for this task dont use pokeapi but do on my own , by either : <br> 
+    -> generating healing potion randomly in a certain range (add luck element)<br>
+                                or : <br>
+    -> let users choose on their own  <br>
+
+## Changes due to previously described potion issue 
+
+task I am implementing here : generating healing potion randomly in a certain range <br> 
+also :  <br> 
+Pokémon cannot heal more than their maximum health <br> 
+If a Pokémon is at its maximum health and tries to use a potion, force them to choose to attack instead <br> 
+range : between 10 and 50 <br>
+
+Remove API fetch to get potion data<br> 
+Random class for generation <br> 
+
+### Modified Potion class
+
+import Random class <br>
+healingPower variable stores how much health the potion can restore <br>
+minHealingPower and maxHealingPower for the range of 10 to 50  <br>
+generate the healing boos by : <br>
+    1. Generates a random integer between 0 (inclusive) and 41 (exclusive)-> 0 to 40 <br>
+    2. do plus 10 -> move range by 10 -> 10 to 50 <br>
+
+```java
+package com.example;
+
+import java.util.Random;
+
+public class Potion {
+    private int healingPower;
+
+    public Potion() {
+        Random random = new Random();
+        this.healingPower = random.nextInt(41) + 10;
+    }
+
+    public int getHealingPower() {
+        return healingPower;
+    }
+}
+```
+### modified Game class 
+
+reflect the modified potion class in createPotion method 
+
+```java
+ public Potion createPotion() {
+        return new Potion();
+    }
+```
+
+```java
+// modification inside the startGame method
+potion = createPotion();
+```
+
+don´t ask for potion name but return potion health boost 
+
+```java
+Potion potion = null;
+        System.out.print("Do you want to use a healing potion in the battle? (yes/no): ");
+        String usePotion = scanner.nextLine();
+        if (usePotion.equalsIgnoreCase("yes")) {
+            potion = createPotion();
+            System.out.println("This potion has been created with a healing power of " + potion.getHealingPower());
+        }
+```
+
+### Modified  Pokemon class
+
+modified heal method : <br>
+let only heal up to maxhealth of pokemon<br>
+<br>
+```java
+ public void heal(int amount) {
+        if (this.health == this.maxHealth) {
+            System.out.println(this.name + " is already at full health and cannot be healed.");
+            return;
+        }
+        int healedAmount = amount;
+        if (this.health + amount > this.maxHealth) { 
+            healedAmount = this.maxHealth - this.health;
+            this.health = this.maxHealth; 
+        } else {
+            this.health += amount; 
+        }
+        System.out.println(this.name + " healed by " + healedAmount + " hp points!");
+    }
+```
+
+new method : isAtMaxHealth : checks out if pokemon is already at its best health -> used for fight class to choose whether healing option is there or force attack 
 
 
+```java
+ public boolean isAtMaxHealth() {
+        return this.health == this.maxHealth;
+    }
+```
 
+### Modified PokemonAPI class
+
+just delete all the potion fetch stuff
+
+```java
+package com.example;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONObject;
+
+public class PokemonAPI {
+    private static final String POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon/";
+
+    public static JSONObject getPokemonData(String pokemonName) throws Exception {
+        String pokemonURL = POKEAPI_URL + pokemonName.toLowerCase();
+        URL url = new URL(pokemonURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+
+        in.close();
+        conn.disconnect();
+
+        return new JSONObject(response.toString());
+    }
+}
+```
+
+### Modified  Fight class
+
+display  healing power of the potion in the choice menu <br>
+check if current attacker is at max health before allowing for usage of healing potion  <br>
+show by how much healed  <br>
+If Pokemon is at max health force to attack <br>
+
+
+```java
+public void start() {
+        Scanner scanner = new Scanner(System.in);
+        Pokemon currentAttacker = pokemon1;
+        Pokemon currentDefender = pokemon2;
+
+        while (!pokemon1.hasFainted() && !pokemon2.hasFainted()) {
+            System.out.println("\n" + pokemon1.pokedex());
+            System.out.println(pokemon2.pokedex());
+
+            boolean validChoice = false;
+            while (!validChoice) {
+                System.out.println(currentAttacker.getName() + "'s turn.");
+                System.out.println("1. Attack");
+                if (potion != null && !currentAttacker.isAtMaxHealth()) { 
+                    System.out.println("2. Use Potion (heals " + potion.getHealingPower() + " HP)");
+                }
+
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (choice == 1) {
+                    currentAttacker.attack(currentDefender);
+                    validChoice = true;
+                } else if (choice == 2 && potion != null && !currentAttacker.isAtMaxHealth()) { 
+                    currentAttacker.heal(potion.getHealingPower());
+                    validChoice = true;
+                } else {
+                    System.out.println("Invalid choice. Please type 1 to Attack" + (potion != null && !currentAttacker.isAtMaxHealth() ? " or 2 to Use Healing Potion." : "."));
+                }
+            }
+
+            if (currentDefender.hasFainted()) {
+                System.out.println(currentDefender.getName() + " has fainted! Please bring to Pokémon Center to recover! " + currentAttacker.getName() + " is the winner!");
+                break;
+            }
+
+            Pokemon temp = currentAttacker;
+            currentAttacker = currentDefender;
+            currentDefender = temp;
+
+            System.out.println("Please press Enter to continue...");
+            scanner.nextLine();
+        }
+
+        scanner.close();
+    }
+
+```
+
+## New Gameplay Experience Example
+
+Enter the name of your first Pokémon: ditto <br>
+Enter the name of your second Pokémon: pokemon  <br>
+Error fetching data for pokemon . Please enter a valid Pokémon name: <br>
+pikachu <br>
+Do you want to use a healing potion in the battle? (yes/no): yes <br>
+This potion has been created with a healing power of 36 <br>
+Begin the Pokémon battle! <br>
+ <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+pikachu [Current Health Level: 35, Current Power Level: 55] <br>
+ditto's turn. <br>
+1. Attack <br>
+1 <br>
+ditto attacks pikachu for 48 damage! <br>
+pikachu has fainted! <br>
+pikachu has fainted! Please bring to Pokémon Center to recover! ditto is the winner! <br>
+ <br>
+ <br>
+Another example :  <br>
+ <br>
+Enter the name of your first Pokémon: ditto <br>
+Enter the name of your second Pokémon: eevee <br>
+Do you want to use a healing potion in the battle? (yes/no): yes <br>
+This potion has been created with a healing power of 32 <br>
+Begin the Pokémon battle! <br>
+ <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+eevee [Current Health Level: 55, Current Power Level: 55] <br>
+ditto's turn. <br>
+1. Attack <br>
+1 <br>
+ditto attacks eevee for 48 damage! <br>
+Please press Enter to continue... <br>
+ <br>
+ <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+eevee [Current Health Level: 7, Current Power Level: 55] <br>
+eevee's turn. <br>
+1. Attack <br>
+2. Use Potion (heals 32 HP) <br>
+2 <br>
+eevee healed by 32 hp points! <br>
+Please press Enter to continue... <br>
+ <br>
+ <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+eevee [Current Health Level: 39, Current Power Level: 55] <br>
+ditto's turn. <br>
+1. Attack <br>
+1 <br>
+ditto attacks eevee for 48 damage! <br>
+eevee has fainted! <br>
+eevee has fainted! Please bring to Pokémon Center to recover! ditto is the winner! <br>
+
+## Remove double message of "has fainted"
+
+achieve this by : Remove the message from the hasFainted() method , only have fainting message in the Fight class
+
+now the new gameplay looks like this : 
+
+Enter the name of your first Pokémon: ditto <br>
+Enter the name of your second Pokémon: ditto <br>
+Do you want to use a healing potion in the battle? (yes/no): no  <br>
+Begin the Pokémon battle!  <br>
+
+ditto [Current Health Level: 48, Current Power Level: 48]  <br>
+ditto [Current Health Level: 48, Current Power Level: 48]  <br>
+ditto's turn.  <br>
+1. Attack  <br>
+1  <br>
+ditto attacks ditto for 48 damage!  <br>
+ditto has fainted! Please bring to Pokémon Center to recover! ditto is the winner!  <br>
+
+## Let user know about the randomness of the healing potion 
+
+modify message in Game class 
+
+now the new gameplay looks like this :
+
+Enter the name of your first Pokémon: ditto <br>
+Enter the name of your second Pokémon: ditto <br>
+Do you want to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no <br>
+Begin the Pokémon battle! <br>
+<br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+ditto's turn. <br>
+1. Attack <br>
+1 <br>
+ditto attacks ditto for 48 damage! <br>
+ditto has fainted! Please bring to Pokémon Center to recover! ditto is the winner! <br>
