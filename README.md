@@ -43,6 +43,8 @@
 ### <li>Arrays and Collections </li>
 ### <li>Standard Library Usage </li>
 ### <li>Console Input/Output </li>
+<br>
+<br>
 
 ### 01 (smaller exercises)
 ### <ul>
