@@ -44,6 +44,16 @@
 ### <li>Standard Library Usage </li>
 ### <li>Console Input/Output </li>
 
+### 01 (smaller exercises)
+### <ul>
+### <li> Strings</li>
+### <li>Arrays</li>
+### <li>Control Structures </li>
+### <li>Functions</li>
+### <li> Data Types</li>
+### <li>Memory Usage: Temporary storage using arrays and variables </li>
+
+
 
 ## Sources 
 
