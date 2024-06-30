@@ -328,3 +328,94 @@ X X X <br>
 -> In future changes : Show timer after every turn 
 
 ## Show timer after every turn
+
+### Updated MemoryGame class
+
+timeRemaining attribute to keeo track of the remaining time
+
+modified startTimer() Method : <br>
+Decrements timeRemaining every second and checks if it reaches 0 <br>
+```
+public void startTimer() {
+    timer.scheduleAtFixedRate(new TimerTask() { // start task after 1 second 
+        @Override
+        public void run() {
+            if (timeRemaining > 0) {
+                timeRemaining--;
+            } else {
+                timeUp = true;
+                System.out.println("Time's up! Game over.");
+                displayFinalBoard();
+                System.exit(0);
+            }
+        }
+    }, 1000, 1000); 
+}
+```
+
+modified play() Method : <br>
+display the remaining time at the start of each loop iteration and once at beginning  <br>
+call timer before loop starts to make sure  <br>
+timer counts starts from the beginning of the game and runs without resetting  <br>
+stop the timer if the game ends before the timer runs out (timer was not cancelled properly before) <br>
+
+```java
+public void play() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("You have " + timeRemaining + " seconds to solve the memory game.");
+        startTimer();
+
+        while (!timeUp) {
+            board.displayBoard();
+
+            firstTile = selectTile(scanner, "first");
+            firstTile.flip();
+            board.displayBoard();
+
+            secondTile = selectTile(scanner, "second");
+            secondTile.flip();
+            board.displayBoard();
+
+            if (firstTile.getNumber() == secondTile.getNumber()) {
+                System.out.println("It's a match!");
+            } else {
+                System.out.println("Not a match. Try again.");
+                firstTile.flip();
+                secondTile.flip();
+            }
+
+            if (isGameOver()) {
+                System.out.println("Congratulations! You've found all the pairs.");
+                break;
+            }
+
+            System.out.println("Time remaining: " + timeRemaining + " seconds");
+        }
+        timer.cancel();
+        scanner.close();
+    }
+```
+
+### New Game walkthrough 
+
+You have 120 seconds to solve the memory game. <br>
+X X X  <br>
+X X X  <br>
+X X X  <br>
+Enter the coordinates of the first tile to flip (row col): <br>
+1 <br>
+2 <br>
+X X X  <br>
+X X 4  <br>
+X X X  <br>
+Enter the coordinates of the second tile to flip (row col): <br>
+2 <br>
+3 <br>
+Invalid coordinates or tile already flipped. Please try again. <br>
+Time remaining: 1 seconds <br>
+Enter the coordinates of the second tile to flip (row col): <br>
+Time's up! Game over. <br>
+X X X  <br>
+X X 4  <br>
+X X X  <br>
+
