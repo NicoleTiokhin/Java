@@ -335,7 +335,8 @@ timeRemaining attribute to keeo track of the remaining time
 
 modified startTimer() Method : <br>
 Decrements timeRemaining every second and checks if it reaches 0 <br>
-```
+
+```java
 public void startTimer() {
     timer.scheduleAtFixedRate(new TimerTask() { // start task after 1 second 
         @Override
@@ -419,3 +420,184 @@ X X X  <br>
 X X 4  <br>
 X X X  <br>
 
+## Count how many moves were taken 
+
+### Updated 
+add moveCount attribute to track the number of moves <br>
+Incremented  moveCount after each pair of tile flips <br>
+Displaye total number of moves taken when the game ends, no matter whether the player "won" the game or time ran out <br>
+
+```java
+public void startTimer() {
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                } else {
+                    timeUp = true;
+                    System.out.println("Time's up! Game over.");
+                    System.out.println("You needed a total of: " + moveCount + " moves");//this is the change
+                    displayFinalBoard();
+                    System.exit(0);
+                }
+            }
+        }, 1000, 1000);
+    }
+```
+```java
+public void play() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("You have " + timeRemaining + " seconds to solve the memory game.");
+        startTimer();
+
+        while (!timeUp) {
+            board.displayBoard();
+
+            firstTile = selectTile(scanner, "first");
+            firstTile.flip();
+            board.displayBoard();
+
+            secondTile = selectTile(scanner, "second");
+            secondTile.flip();
+            board.displayBoard();
+            
+            moveCount++; // this is the change
+
+            if (firstTile.getNumber() == secondTile.getNumber()) {
+                System.out.println("It's a match!");
+            } else {
+                System.out.println("Not a match. Try again.");
+                firstTile.flip();
+                secondTile.flip();
+            }
+
+            if (isGameOver()) {
+                System.out.println("Congratulations! You've found all the pairs.");
+                break;
+            }
+
+            System.out.println("Time remaining: " + timeRemaining + " seconds");
+        }
+        timer.cancel();
+        scanner.close();
+    }
+```
+### New Game walkthough 
+
+You have 120 seconds to solve the memory game.<br>
+X X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+0<br>
+0<br>
+3 X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+1<br>
+0<br>
+3 X X <br>
+2 X X <br>
+X X X <br>
+Not a match.Try again.<br>
+Time remaining: 107 seconds<br>
+X X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+0<br>
+1<br>
+X 4 X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+2<br>
+0<br>
+X 4 X <br>
+X X X <br>
+0 X X <br>
+Not a match. Try again.<br>
+Time remaining: 96 seconds<br>
+X X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+0<br>
+2<br>
+X X 1 <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+1<br>
+1<br>
+X X 1 <br>
+X 2 X <br>
+X X X <br>
+Not a match. Try again.<br>
+Time remaining: 60 seconds<br>
+X X X <br>
+X X X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+1<br>
+0<br>
+X X X <br>
+2 X X <br>
+X X X <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+1<br>
+1<br>
+X X X <br>
+2 2 X <br>
+X X X <br>
+It's a match!<br>
+Time remaining: 49 seconds<br>
+X X X <br>
+2 2 X <br>
+X X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+1<br>
+2<br>
+X X X <br>
+2 2 0 <br>
+X X X <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+2<br>
+0<br>
+X X X <br>
+2 2 0 <br>
+0 X X <br>
+It's a match!<br>
+Time remaining: 30 seconds<br>
+X X X <br>
+2 2 0 <br>
+0 X X <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+1<br>
+2<br>
+Invalid coordinates or tile already flipped. Please try again.<br>
+Time remaining: 28 seconds<br>
+Enter the coordinates of the first tile to flip (row col):<br>
+2<br>
+2<br>
+X X X <br>
+2 2 0 <br>
+0 X 3 <br>
+Enter the coordinates of the second tile to flip (row col):<br>
+0<br>
+0<br>
+3 X X <br>
+2 2 0 <br>
+0 X 3 <br>
+Time remaining: 1 seconds<br>
+3 X X <br>
+2 2 0 <br>
+0 X 3 <br>
+Enter the coordinates of the first tile to flip (row col):<br>
+Time's up! Game over.<br>
+You needed a total of : 6 moves<br>
+3 X X <br>
+2 2 0 <br>
+0 X 3 <br>
