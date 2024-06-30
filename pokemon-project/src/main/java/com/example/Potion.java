@@ -1,15 +1,16 @@
 package com.example;
 
-package com.example;
+import java.util.Random;
 
 public class Potion {
-    private int healingAmount;
+    private int healingPower;
 
-    public Potion(int healingAmount) {
-        this.healingAmount = healingAmount;
+    public Potion() {
+        Random random = new Random();
+        this.healingPower = random.nextInt(41) + 10;
     }
 
-    public int getHealingAmount() {
-        return healingAmount;
+    public int getHealingPower() {
+        return healingPower;
     }
 }
