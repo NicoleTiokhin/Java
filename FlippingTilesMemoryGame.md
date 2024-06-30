@@ -224,7 +224,7 @@ Congratulations! You've found all the pairs.<br>
 
   Let user decide how many tiles there should be (Different Board Sizes) <br>
  ~~Time Limit~~ <br>
-  Count how many number of moves or time taken ?<br>
+  ~~Count how many number of moves or time taken ?~~ <br>
   Levels of Difficulty<br>
   GUI<br>
 </ul>
