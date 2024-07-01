@@ -18,7 +18,7 @@
 
 ## Finished Projects 
 ### <li> simple  Pokemon game  </li>
-### <li> simple Flipping Tiles Memory Game </li>
+### <li> Flipping Tiles Memory Game </li>
 
 ## Java Topics 
 <br>
@@ -35,7 +35,7 @@
 <br>
 <br>
 
-### simple Flipping Tiles Memory Game : 
+###  Flipping Tiles Memory Game : 
 ### <ul>
 ### <li> Object-Oriented Programming </li>
 ### <li>Methods/Functions </li>
