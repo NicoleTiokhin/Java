@@ -43,6 +43,15 @@
 ### <li>Arrays and Collections </li>
 ### <li>Standard Library Usage </li>
 ### <li>Console Input/Output </li>
+### <li>Encapsulation,Polymorphism</li>
+### <li>Collections </li>
+### <li>Timers;Class Libraries </li>
+### <li>Input Handling </li>
+### <li> Data Types </li>
+### <li>Input/Output </li>
+### <li> Complex Data Structures</li>
+### <li>Multithreading </li>
+
 <br>
 <br>
 
