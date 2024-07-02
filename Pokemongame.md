@@ -1185,3 +1185,73 @@ ditto's turn. <br>
 1 <br>
 ditto attacks ditto for 48 damage! <br>
 ditto has fainted! Please bring to Pokémon Center to recover! ditto is the winner! <br>
+
+## Add Sound and Music
+
+use this url : https://jmp.sh/s/ehCyaPh5Si1Ahrl20RyV
+
+### New Soundplayer Class
+
+```java
+import javax.sound.sampled.*; // handle audio data
+import java.io.IOException;
+import java.net.URL;
+```
+
+imported to use for : <br>
+javax.sound.sampled.AudioInputStream: get an audio input stream from a URL or file <br>
+javax.sound.sampled.AudioSystem: access to system's audio resources <br>
+javax.sound.sampled.Clip: sound clip <br>
+java.io.IOException: exception is thrown when an I/O operation fails  <br>
+java.net.URL: Uniform Resource Locator <br>
+
+playSoundFromURL method : <br>
+takes in a URL <br>
+code could throw an exception <br>
+get AudioInputStream from URL (soundURL) by trying to get an audio input stream from the URL <br>
+get a Clip resource -> audio can be loaded and then played back <br>
+open clip with the audio data from  AudioInputStream and play it <br>
+
+
+```java
+public class SoundPlayer {
+    public static void playSoundFromURL(URL soundURL) {
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        } 
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Modify Pokemon Class
+
+modify heal method : <br>
+play a sound whenever a Pokémon is healed <br>
+call  playSoundFromURL method pass URL to the sound file <br>
+catch if  URL is wrongly formatted  <br>
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+
+
+```java
+```
