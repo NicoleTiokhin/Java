@@ -1314,27 +1314,35 @@ private Pokemon switchToNext(ArrayList<Pokemon> team) {
 New method : createTeam  <br>
 create a team of Pokémon by asking the user for the number of Pokémon and their names <br>
 ask the user how many Pokémon they want in the team <br>
-iterate through a loop that runs from 1 to the size of the team  <br>
-ask the user to enter the name of each Pokémon one by one <br>
-create a Pokemon object for each  <br>
-add the created Pokemon object to the team list <br>
-and return the created team <br>
+loop continues until a valid integer is entered
+use try and catch block to attempt to read an integer from the user and clear the invalid input , if not 
+loop to Add Pokémon to the Team
+runs from 1 to the size of the team 
+create a Pokemon object for each pokemon 
+add the created Pokemon object to the team list
+return the created team
 
 ```java
 public Pokemon createPokemon(String pokemonName) {
-        while (true) {
+        while (!validInput) {
+            System.out.print("How many Pokémon do you want to have in " + teamName + "? ");
             try {
-                JSONObject data = PokemonAPI.getPokemonData(pokemonName);
-                String name = data.getString("name");
-                int health = data.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
-                int attackPower = data.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
-                return new Pokemon(name, health, attackPower);
-            } catch (Exception e) {
-                System.out.println("Error fetching data for " + pokemonName + ". Please enter a valid Pokémon name:");
-                Scanner scanner = new Scanner(System.in);
-                pokemonName = scanner.nextLine();
+                teamSize = scanner.nextInt();
+                scanner.nextLine(); 
+                validInput = true; 
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
             }
         }
+        for (int i = 1; i <= teamSize; i++) {
+            System.out.print("Please enter the name of Pokémon " + i + " for " + teamName + ": ");
+            String pokemonName = scanner.nextLine();
+            team.add(createPokemon(pokemonName));
+        }
+    
+        return team;
+    }
 ```
 
  
