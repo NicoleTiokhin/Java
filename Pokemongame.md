@@ -1186,7 +1186,18 @@ ditto's turn. <br>
 ditto attacks ditto for 48 damage! <br>
 ditto has fainted! Please bring to Pokémon Center to recover! ditto is the winner! <br>
 
-  
+## Trying to add sound
+
+turned out to be a failure , always got the message that the file type was unsupported and even though I tried out different ways and checked the file type , it still didnt work . <br>
+I tried out JLayer library and JavaFX . <br>
+
+So I did my best to revert the code back to before I did the changes for addition of soundeffects , as I dont have enough time to solve that issue right now . 
+
+
+
+
+
+
 ```java
 ```
 
