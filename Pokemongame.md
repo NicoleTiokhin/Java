@@ -1726,6 +1726,8 @@ pikachu attacks blissey for 55 damage! <br>
 blissey has fainted! Please bring to Pokémon Center to recover! <br>
 pikachu is the winner! <br>
 
+## Small modifications : Let User decide on Team Name 
+
 
 
 
