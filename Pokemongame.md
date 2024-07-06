@@ -1375,11 +1375,426 @@ public void startGame() {
 }
 ```
 
+## Fix Game Logic Error 
+
+The Game Logic Error :  you can switch to a different pokemon even when you only had one in your team and let you switch to a pokemon from another team <br> 
+-> restrict switching to only valid, non-fainted Pokémon within the current player's team <br>
+
+Prevent Switching if Only One Pokémon in the Team
+
+```java
+if (currentAttackerTeam.size() > 1) {
+    System.out.println("3. Switch Pokémon");
+}
+
+```
+
+Allow Switching Only Within the Same Team
+added currentAttackerTeam to keep track of which team the current attacker belongs to  <br>
+make sure it is a different, non-fainted Pokémon within the current attacker's team  <br>
+
+```java
+if (choice == 3 && currentAttackerTeam.size() > 1) {
+    System.out.println("What Pokemon do you want to switch to?");
+    printTeam(currentAttackerTeam, currentAttacker);
+    int switchChoice = getIntInput(scanner);
+    if (switchChoice > 0 && switchChoice <= currentAttackerTeam.size() && currentAttackerTeam.get(switchChoice - 1) != currentAttacker && !currentAttackerTeam.get(switchChoice - 1).hasFainted()) {
+        currentAttacker = currentAttackerTeam.get(switchChoice - 1);
+        validChoice = true;
+    } else {
+        System.out.println("Invalid choice. Please select a valid Pokémon to switch to.");
+    }
+}
+
+```
+
+ Alternate Teams
+ if the current attacker's team was team1, it switches to team2 in the round afterand vice versa
+ 
+
+```java
+Pokemon temp = currentAttacker;
+currentAttacker = currentDefender;
+currentDefender = temp;
+
+currentAttackerTeam = (currentAttackerTeam == team1) ? team2 : team1;
+
+```
+
+Some additional changes made when I saw during testing the gameplay that the defender attacker roles werent completely changed the right way : 
+
+
+currentDefenderTeam to keep track of which team the current defender belongs to
+
+```java
+ArrayList<Pokemon> currentAttackerTeam = team1;
+ArrayList<Pokemon> currentDefenderTeam = team2;
+
+```
+
+
+
+if the defender faints, check if all Pokémon in the defender's team have fainted. <br>
+if yes, the attacker wins. <br>
+if not, we switch to the next available Pokémon in the defender's team <br>
+
+if the defender does not faint, switch roles between the attacker and defender, and update their corresponding teams <br>
+
+before , as in why the error was there : did not correctly handle switching roles based on the faint status of Pokémon , due to the switching logic being to simplistic <br>
+
+
+```java
+if (currentDefender.hasFainted()) {
+    System.out.println(currentDefender.getName() + " has fainted! Please bring to Pokémon Center to recover!");
+    if (allFainted(currentDefenderTeam)) {
+        System.out.println(currentAttacker.getName() + " is the winner!");
+        break;
+    } else {
+        currentDefender = switchToNext(currentDefenderTeam);
+    }
+} else {
+    Pokemon temp = currentAttacker;
+    currentAttacker = currentDefender;
+    currentDefender = temp;
+
+    ArrayList<Pokemon> tempTeam = currentAttackerTeam;
+    currentAttackerTeam = currentDefenderTeam;
+    currentDefenderTeam = tempTeam;
+}
+
+System.out.println("Please press Enter to continue...");
+scanner.nextLine();
+
+```
+
+New error :  <br>
+blissey's turn. <br>
+1. Attack <br>
+3. Switch Pokémon <br>
+3 <br>
+What Pokemon do you want to switch to? <br>
+
+As you can see here I don´t have any Pokemon to change to , but i am still being required to give one , as in I still get option 3 offered <br>
+in other words :  I can still choose option 3 even though my team 1 now only has 1 pokemon that hasn't fainted  <br>
+
+where this error comes from : check for the size of the team only considers the total number of Pokémon and not the number of non-fainted Pokémon <br>
+
+Add a new Method : countActivePokemon Method  <br>
+(countDeadPokemon was the only alternative that came to mind ,but since they only faint that felt extreme and also countNotFaintedPokemon was too long) <br>
+count the number of active (non-fainted) Pokémon in the team -> conditionally show the switch option <br>
+
+
+change while loop in start Method to use countActivePokemon -> game continues as long as both teams have active Pokémon <br>
+let switch condition only be shown  if there is more than one active Pokémon in the team using countActivePokemon Method  <br>
+
+
+
+```java
+public void start() {
+        Scanner scanner = new Scanner(System.in);
+        Pokemon currentAttacker = team1.get(0);
+        Pokemon currentDefender = team2.get(0);
+        ArrayList<Pokemon> currentAttackerTeam = team1;
+        ArrayList<Pokemon> currentDefenderTeam = team2;
+
+        while (countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
+            System.out.println("\n" + getTeamStatus(team1));
+            System.out.println(getTeamStatus(team2));
+
+            boolean validChoice = false;
+            while (!validChoice) {
+                System.out.println(currentAttacker.getName() + "'s turn.");
+                System.out.println("1. Attack");
+                if (potion != null && !currentAttacker.isAtMaxHealth()) {
+                    System.out.println("2. Use Potion (heals " + potion.getHealingPower() + " HP)");
+                }
+                if (countActivePokemon(currentAttackerTeam) > 1) {
+                    System.out.println("3. Switch Pokémon");
+                }
+
+                int choice = getIntInput(scanner);
+
+                if (choice == 1) {
+                    currentAttacker.attack(currentDefender);
+                    validChoice = true;
+                } else if (choice == 2 && potion != null && !currentAttacker.isAtMaxHealth()) {
+                    currentAttacker.heal(potion.getHealingPower());
+                    validChoice = true;
+                } else if (choice == 3 && countActivePokemon(currentAttackerTeam) > 1) {
+                    System.out.println("What Pokemon do you want to switch to?");
+                    printTeam(currentAttackerTeam, currentAttacker);
+                    int switchChoice = getIntInput(scanner);
+                    if (switchChoice > 0 && switchChoice <= currentAttackerTeam.size() && currentAttackerTeam.get(switchChoice - 1) != currentAttacker && !currentAttackerTeam.get(switchChoice - 1).hasFainted()) {
+                        currentAttacker = currentAttackerTeam.get(switchChoice - 1);
+                        validChoice = true;
+                    } else {
+                        System.out.println("Invalid choice. Please select a valid Pokémon to switch to.");
+                    }
+                } else {
+                    System.out.println("Invalid choice. Please type 1 to Attack" +
+                        (potion != null && !currentAttacker.isAtMaxHealth() ? " or 2 to Use Healing Potion" : "") +
+                        (countActivePokemon(currentAttackerTeam) > 1 ? " or 3 to Switch Pokémon." : "."));
+                }
+            }
+
+            if (currentDefender.hasFainted()) {
+                System.out.println(currentDefender.getName() + " has fainted! Please bring to Pokémon Center to recover!");
+                if (allFainted(currentDefenderTeam)) {
+                    System.out.println(currentAttacker.getName() + " is the winner!");
+                    break;
+                } else {
+                    currentDefender = switchToNext(currentDefenderTeam);
+                }
+            } else {
+                Pokemon temp = currentAttacker;
+                currentAttacker = currentDefender;
+                currentDefender = temp;
+
+                ArrayList<Pokemon> tempTeam = currentAttackerTeam;
+                currentAttackerTeam = currentDefenderTeam;
+                currentDefenderTeam = tempTeam;
+            }
+
+            System.out.println("Please press Enter to continue...");
+            scanner.nextLine();
+        }
+
+        scanner.close();
+    }
+
+```
+### New Gameplay experience 
+Create the first team: <br>
+How many Pokémon do you want to have in first? 2 <br>
+Please enter the name of Pokémon 1 for first: ditto <br>
+Please enter the name of Pokémon 2 for first: Blissey <br>
+Create the second team: <br>
+How many Pokémon do you want to have in second? 1 <br> 
+Please enter the name of Pokémon 1 for second: pikachu <br>
+Do you want to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no <br>
+Begin the Pokémon battle! <br>
+
+Team Status: <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+blissey [Current Health Level: 255, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 35, Current Power Level: 55] <br>
+
+ditto's turn. <br>
+1. Attack <br>
+3. Switch Pokémon <br>
+3 <br>
+What Pokemon do you want to switch to? <br>
+2. blissey (Health: 255) <br>
+2 <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+blissey [Current Health Level: 255, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 35, Current Power Level: 55] <br>
+
+pikachu's turn. <br>
+1. Attack <br>
+1 <br>
+pikachu attacks blissey for 55 damage! <br>
+Please press Enter to continue... <br>
+
+Team Status:  <br>
+ditto [Current Health Level: 48, Current Power Level: 48]  <br>
+blissey [Current Health Level: 200, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 35, Current Power Level: 55] <br>
+
+blissey's turn. <br>
+1. Attack <br>
+3. Switch Pokémon <br>
+1 <br>
+blissey attacks pikachu for 10 damage! <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: 48, Current Power Level: 48]<br>
+blissey [Current Health Level: 200, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 25, Current Power Level: 55] <br>
+
+pikachu's turn. <br> 
+1. Attack <br>
+1 <br>
+pikachu attacks blissey for 55 damage! <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+blissey [Current Health Level: 145, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 25, Current Power Level: 55] <br>
+
+blissey's turn. <br>
+1. Attack  <br>
+3. Switch Pokémon <br>
+3 <br>
+What Pokemon do you want to switch to? <br>
+1. ditto (Health: 48) <br>
+1 <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: 48, Current Power Level: 48] <br>
+blissey [Current Health Level: 145, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 25, Current Power Level: 55] <br>
+
+pikachu's turn. <br>
+1. Attack <br>
+1 <br>
+pikachu attacks ditto for 55 damage! <br>
+ditto has fainted! Please bring to Pokémon Center to recover!<br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: -7, Current Power Level: 48] <br> 
+blissey [Current Health Level: 145, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 25, Current Power Level: 55] <br>
+
+pikachu's turn. <br>
+1. Attack <br>
+1 <br>
+pikachu attacks blissey for 55 damage!<br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: -7, Current Power Level: 48] <br>
+blissey [Current Health Level: 90, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 25, Current Power Level: 55] <br>
+
+blissey's turn. <br>
+1. Attack <br>
+1 <br>
+blissey attacks pikachu for 10 damage! <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: -7, Current Power Level: 48] <br>
+blissey [Current Health Level: 90, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 15, Current Power Level: 55] <br>
+
+pikachu's turn. <br>
+1. Attack <br>
+1 <br>
+pikachu attacks blissey for 55 damage! <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: -7, Current Power Level: 48] <br>
+blissey [Current Health Level: 35, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 15, Current Power Level: 55] <br>
+
+blissey's turn. <br>
+1. Attack <br>
+1 <br>
+blissey attacks pikachu for 10 damage! <br>
+Please press Enter to continue... <br>
+
+Team Status: <br>
+ditto [Current Health Level: -7, Current Power Level: 48] <br>
+blissey [Current Health Level: 35, Current Power Level: 10] <br>
+
+Team Status: <br>
+pikachu [Current Health Level: 5, Current Power Level: 55] <br>
+
+pikachu's turn. <br>
+1. Attack <br>
+1 <br>
+pikachu attacks blissey for 55 damage! <br>
+blissey has fainted! Please bring to Pokémon Center to recover! <br>
+pikachu is the winner! <br>
+
+
+
 
 
 
 ```java
 ```
+
+
+
+
+
+
+
+
+
+
+
+```java
+```
+
+
+
+
+
+
+
+
+
+
+
+```java
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```java
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+```java
+```
+
+
+
+
+
+
+
 
 
 
