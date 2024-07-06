@@ -1194,18 +1194,184 @@ I tried out JLayer library and JavaFX . <br>
 So I did my best to revert the code back to before I did the changes for addition of soundeffects , as I dont have enough time to solve that issue right now . 
 
 
+## Add : switching Pokémon mid-battle
+
+I´ll have to modify the Fight class to have the option to switch Pokémon mid-battle <br>
+I´ll have to change the Game class accordingly <br>
+
+### Modified Fight class
+instead of pokemon1 and pokemon2 use ArrayList<Pokemon>  (dynamically resizable)
+
+```java
+private ArrayList<Pokemon> team1;
+private ArrayList<Pokemon> team2;
+```
+
+change start Method : 
+initialize currentAttacker and currentDefender using the first Pokémon from each team <br>
+loop continues as long as not all Pokémon in either team have fainted <br>
+ 
+added methods that are called in start Method for the Game logic : <br> 
+getIntInput <br>
+allFainted <br>
+getTeamStatus <br>
+printTeam <br>
+switchToNext <br>
+
+getIntInput Method :  <br>
+make sure input received from the user is an integer <br>
+implemented after programm crashing when entered a string <br>
+using an infinite loop <br>
+tries to read an integer from the scanner <br>
+if the input is valid, it returns the integer. <br>
+else print an error message and clear the invalid input using scanner.next() <br>
+
+```java
+private int getIntInput(Scanner scanner) {
+    while (true) {
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next(); 
+        }
+    }
+}
+
+```
+
+allFainted Method : <br>
+check if all Pokémon in a team have fainted -> that  team has lost  <br>
+iterate over each Pokemon in the team <br>
+check if any Pokemon has not fainted -> if any pokemon has not fainted return false  <br>
+otherwise true  <br>
+
+```java
+private boolean allFainted(ArrayList<Pokemon> team) {
+    for (Pokemon p : team) {
+        if (!p.hasFainted()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+```
+
+getTeamStatus Method: <br>
+get a string that shows the current health and power level of each Pokémon in a team <br>
+iterate over each Pokemon in the team <br>
+append the pokedex information of each Pokemon to the StringBuilder <br>
+converts the StringBuilder to a string and returns it <br>
+```java
+private String getTeamStatus(ArrayList<Pokemon> team) {
+    StringBuilder status = new StringBuilder("Team Status:\n");
+    for (Pokemon p : team) {
+        status.append(p.pokedex()).append("\n");
+    }
+    return status.toString();
+}
+
+```
+ 
+ printTeam Method: <br>
+ print the list of Pokémon in a team <br>
+ iterate over the team <br>
+ return pokemon in team that are not the currentPokemon and have not fainted <br>
+
+
+```java
+private void printTeam(ArrayList<Pokemon> team, Pokemon currentPokemon) {
+    for (int i = 0; i < team.size(); i++) {
+        if (team.get(i) != currentPokemon && !team.get(i).hasFainted()) {
+            System.out.println((i + 1) + ". " + team.get(i).getName() + " (Health: " + team.get(i).getHealth() + ")");
+        }
+    }
+}
+
+```
+
+switchToNext Method :  <br>
+automatically select the next viable Pokémon in the team when the current defender faints <br>
+iterate over the team  <br>
+return the first Pokemon found that has not fainted <br>
+if all Pokemon have fainted, returns null <br>
+
+
+```java
+private Pokemon switchToNext(ArrayList<Pokemon> team) {
+    for (Pokemon p : team) {
+        if (!p.hasFainted()) {
+            return p;
+        }
+    }
+    return null;
+}
+```
+
+### Modified Game Class 
+
+New method : createTeam  <br>
+create a team of Pokémon by asking the user for the number of Pokémon and their names <br>
+ask the user how many Pokémon they want in the team <br>
+iterate through a loop that runs from 1 to the size of the team  <br>
+ask the user to enter the name of each Pokémon one by one <br>
+create a Pokemon object for each  <br>
+add the created Pokemon object to the team list <br>
+and return the created team <br>
+
+```java
+public Pokemon createPokemon(String pokemonName) {
+        while (true) {
+            try {
+                JSONObject data = PokemonAPI.getPokemonData(pokemonName);
+                String name = data.getString("name");
+                int health = data.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                int attackPower = data.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
+                return new Pokemon(name, health, attackPower);
+            } catch (Exception e) {
+                System.out.println("Error fetching data for " + pokemonName + ". Please enter a valid Pokémon name:");
+                Scanner scanner = new Scanner(System.in);
+                pokemonName = scanner.nextLine();
+            }
+        }
+```
+
+ 
+modified : startGame Method <br>
+modfied to use the new createTeam method  <br>
+
+```java
+public void startGame() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Create the first team:");
+    ArrayList<Pokemon> team1 = createTeam("first");
+
+    System.out.println("Create the second team:");
+    ArrayList<Pokemon> team2 = createTeam("second");
+
+    Potion potion = null;
+    System.out.print("Do you want to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+    String usePotion = scanner.nextLine();
+    if (usePotion.equalsIgnoreCase("yes")) {
+        potion = createPotion();
+        System.out.println("This potion has been created with a healing power of " + potion.getHealingPower());
+    }
+
+    System.out.println("Begin the Pokémon battle!");
+    Fight fight = new Fight(team1, team2, potion); 
+    fight.start();
+
+    scanner.close();
+}
+```
 
 
 
 
 ```java
 ```
-
-
-
-```java
-```
-
 
 
 
