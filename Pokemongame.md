@@ -1728,17 +1728,144 @@ pikachu is the winner! <br>
 
 ## Small modifications : Let User decide on Team Name 
 
+modify the createTeam method to add a teamName parameter and of course the startGame method has to be modified accordingly 
+
+### Modifed Game class 
+
+modify createTeam method :  <br>
+String parameter teamName  <br>
+
+
+
+```java
+ public ArrayList<Pokemon> createTeam(String teamName) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Pokemon> team = new ArrayList<>();
+
+        
+        int teamSize = 0;
+        boolean validInput = false;
+        
+        while (!validInput) {
+            System.out.print("How many Pokémon do you want to have in " + teamName + "? ");
+            try {
+                teamSize = scanner.nextInt();
+                scanner.nextLine();
+                validInput = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
+            }
+        }
+
+        for (int i = 1; i <= teamSize; i++) {
+            System.out.print("Please enter the name of Pokémon " + i + " for " + teamName + ": ");
+            String pokemonName = scanner.nextLine();
+            team.add(createPokemon(pokemonName));
+        }
+
+        return team;
+    }
+```
+
+modified startGame Method : 
+prompt the user to enter the name of the teams
+call the createTeam method, pass team1Name to it 
+
+```java
+System.out.print("Enter the name of your first team: ");
+String team1Name = scanner.nextLine();
+ArrayList<Pokemon> team1 = createTeam(team1Name);
+
+System.out.print("Enter the name of your second team: ");
+String team2Name = scanner.nextLine();
+ArrayList<Pokemon> team2 = createTeam(team2Name);
+
+```
+
+
+And other changes in terms of user prompts , using Team names when appropriate 
+
+
+### Modfied Fight Class 
+
+
+
+have two different methods for team status to show the name of the team when status is shown , so its easier to follow the Gameplay . <br>
+I could´ve done it in a way where I used one method instead of two , but I didnt have the time , after I had already wasted it on trying to add sounds to the game and I wnated to add other gameplay elements .
 
 
 
 
 
 ```java
+private String getTeam1Status(ArrayList<Pokemon> team1, String team1Name) {
+        StringBuilder status = new StringBuilder(team1Name + " Team Status:\n");
+        for (Pokemon p : team1) {
+            status.append(p.pokedex()).append("\n");
+        }
+        return status.toString();
+    }
+    
+    private String getTeam2Status(ArrayList<Pokemon> team2, String team2Name) {
+        StringBuilder status = new StringBuilder(team2Name + " Team Status:\n");
+        for (Pokemon p : team2) {
+            status.append(p.pokedex()).append("\n");
+        }
+        return status.toString();
+    }
 ```
 
 
+### New Gameplay experience (example) 
 
+Enter the name of your first team: team rocket <br>
+How many Pokémon do you want to have in team rocket ? 3<br>
+Please enter the name of Pokémon 1 for team rocket : snorlax<br>
+Please enter the name of Pokémon 2 for team rocket : s<br>
+Error fetching data for s. Please enter a valid Pokémon name: Mew<br>
+Please enter the name of Pokémon 3 for team rocket : meowth<br>
+Enter the name of your second team: girlbossgatekeepgaslight <br>
+How many Pokémon do you want to have in girlbossgatekeepgaslight? 2<br>
+Please enter the name of Pokémon 1 for girlbossgatekeepgaslight: pikachu<br>
+Please enter the name of Pokémon 2 for girlbossgatekeepgaslight: ditto<br>
+Do you want to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): yes<br>
+This potion has been created with a healing power of 42<br>
+Begin the Pokémon battle!<br>
 
+team rocket  Team Status:<br>
+snorlax [Current Health Level: 160, Current Power Level: 110]<br>
+mew [Current Health Level: 100, Current Power Level: 100]<br>
+meowth [Current Health Level: 40, Current Power Level: 45]<br>
+
+girlbossgatekeepgaslight Team Status:<br>
+pikachu [Current Health Level: 35, Current Power Level: 55]<br>
+ditto [Current Health Level: 48, Current Power Level: 48]<br>
+
+snorlax's turn.<br>
+1. Attack<br>
+3. Switch Pokémon<br>
+1<br>
+snorlax attacks pikachu for 110 damage!<br>
+pikachu has fainted! Please bring to Pokémon Center to recover!<br>
+Please press Enter to continue...<br>
+<br>
+team rocket  Team Status:<br>
+snorlax [Current Health Level: 160, Current Power Level: 110]<br>
+mew [Current Health Level: 100, Current Power Level: 100]<br>
+meowth [Current Health Level: 40, Current Power Level: 45]<br>
+<br>
+girlbossgatekeepgaslight Team Status:<br>
+pikachu [Current Health Level: -75, Current Power Level: 55]<br>
+ditto [Current Health Level: 48, Current Power Level: 48]<br>
+<br>
+snorlax's turn.<br>
+1. Attack<br>
+3. Switch Pokémon<br>
+1<br>
+snorlax attacks ditto for 110 damage!<br>
+ditto has fainted! Please bring to Pokémon Center to recover!<br>
+snorlax is the winner!<br>
 
 
 
