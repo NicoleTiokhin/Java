@@ -147,28 +147,5 @@ private boolean isBoardFull() {
 
 
 
-
-
-
-```java
-```
-
-
-
-
-
-
-
-
-
-```java
-```
-
-
-
-
-
-
-
-```java
-```
+## Link to photos of example Usage 
+https://app.gemoo.com/share/image-annotation/669272367968907264?codeId=vJ1eN2yXEwk7O&origin=imageurlgenerator&card=669272361807474688
