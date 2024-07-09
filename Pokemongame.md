@@ -1869,6 +1869,29 @@ snorlax is the winner!<br>
 
 
 
+## Modifiying Healing Potions
+
+I want every team to have to generate their own healing potion instead of one for all . 
+
+### Modified Fight Class
+
+
+```java
+ private String team2Name;
+ private Potion team1Potion;
+```
+
+
+```java
+```
+
+
+
+
+
+
+
+
 
 
 
@@ -1886,40 +1909,67 @@ snorlax is the winner!<br>
 
 
 
-```java
-```
-
-
-
-
-
-
-
-
-
-
 
 
 ```java
 ```
 
 
+### New Gameplay Experience Example 
+Enter the name of your first team: team rocket <br> 
+How many Pokémon do you want to have in team rocket ? 1 
+Please enter the name of Pokémon 1 for team rocket : ditto
+Enter the name of your second team: :)
+How many Pokémon do you want to have in :)? 2
+Please enter the name of Pokémon 1 for :): pikachu
+Please enter the name of Pokémon 2 for :): eevee
+Do you want to use a healing potion in the battle for team rocket ? (will be generated randomly in a range between 10 and 50) (yes/no): yes
+team rocket ´s potion has been created with a healing power of 49
+Do you want to use a healing potion in the battle for :)? (will be generated randomly in a range between 10 and 50) (yes/no): yes
+:)´s potion has been created with a healing power of 37
+Begin the Pokémon battle!
 
+team rocket  Team Status:
+ditto [Current Health Level: 48, Current Power Level: 48]
 
+:) Team Status:
+pikachu [Current Health Level: 35, Current Power Level: 55]
+eevee [Current Health Level: 55, Current Power Level: 55]
 
+ditto's turn.
+1. Attack
+1
+ditto attacks pikachu for 48 damage!
+pikachu has fainted! Please bring to Pokémon Center to recover!
+Please press Enter to continue...
 
+team rocket  Team Status:
+ditto [Current Health Level: 48, Current Power Level: 48]
 
+:) Team Status:
+pikachu [Current Health Level: -13, Current Power Level: 55]
+eevee [Current Health Level: 55, Current Power Level: 55]
 
+ditto's turn.
+1. Attack
+1
+ditto attacks eevee for 48 damage!
+Please press Enter to continue...
 
+team rocket  Team Status:
+ditto [Current Health Level: 48, Current Power Level: 48]
 
+:) Team Status:
+pikachu [Current Health Level: -13, Current Power Level: 55]
+eevee [Current Health Level: 7, Current Power Level: 55]
 
-
-
-```java
-```
-
-
-
+eevee's turn.
+1. Attack
+2. Use Potion (heals 37 HP)
+1
+eevee attacks ditto for 55 damage!
+ditto has fainted! Please bring to Pokémon Center to recover!
+eevee is the winner!
 
 
 
