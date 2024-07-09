@@ -18,12 +18,16 @@
 ## Finished Projects 
 ### <li> simple  Pokemon game  </li>
 ### <li> Flipping Tiles Memory Game </li>
+### <li> Tic Tac Toe Game </li>
+
 
 ## Java Topics 
 <br>
 <br>
 
 ### for all Algorithms
+<br>
+<br>
 
 ### Simple Pokemon Game : 
 ### <ul> 
