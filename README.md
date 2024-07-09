@@ -23,6 +23,8 @@
 <br>
 <br>
 
+### for all Algorithms
+
 ### Simple Pokemon Game : 
 ### <ul> 
 ### <li> Object-Oriented Programming</li>
@@ -69,12 +71,17 @@
 ### Tic - Tac - Toe Game 
 ### <ul>
 ### <li> Inheritance</li>
-### <li></li>
-### <li></li>
-### <li></li>
-### <li></li>
-### <li></li>
-</ul>
+### <li> Interfaces </li>
+### <li> Control Structures</li>
+### <li>Method Overriding</li>
+### <li>GUI </li>
+### <li>String Manipulation</li>
+### <li>Arrays</li>
+### <li>Object-Oriented Programming (OOP) Concepts</li>
+### <li>Data Types</li>
+### <li>iPolymorphism></li>
+### <li>Class Libraries</li>
+### </ul>
 
 ## Sources 
 
