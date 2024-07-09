@@ -73,16 +73,26 @@ public class Game {
         String team2Name = scanner.nextLine();
         ArrayList<Pokemon> team2 = createTeam(team2Name);
 
-        Potion potion = null;
-        System.out.print("Do you want to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+        Potion team1Potion = null;
+        Potion team2Potion = null; 
+
+        System.out.print("Do you want to use a healing potion in the battle for " +team1Name +"? (will be generated randomly in a range between 10 and 50) (yes/no): ");
         String usePotion = scanner.nextLine();
         if (usePotion.equalsIgnoreCase("yes")) {
-            potion = createPotion();
-            System.out.println("This potion has been created with a healing power of " + potion.getHealingPower());
+            team1Potion  = createPotion();
+            System.out.println(team1Name +"´s potion has been created with a healing power of " + team1Potion.getHealingPower());
         }
+        System.out.print("Do you want to use a healing potion in the battle for " + team2Name + "? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+        String useTeam2Potion = scanner.nextLine();
+        if (useTeam2Potion.equalsIgnoreCase("yes")) {
+          team2Potion = createPotion();
+           System.out.println(team2Name + "´s potion has been created with a healing power of " + team2Potion.getHealingPower());
+        }
+
+
     
         System.out.println("Begin the Pokémon battle!");
-        Fight fight = new Fight(team1, team2, team1Name, team2Name, potion);
+        Fight fight = new Fight(team1, team2, team1Name, team2Name, team1Potion, team2Potion);
         fight.start();
     
         scanner.close();

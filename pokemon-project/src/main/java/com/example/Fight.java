@@ -9,14 +9,16 @@ public class Fight {
     private ArrayList<Pokemon> team2;
     private String team1Name;
     private String team2Name;
-    private Potion potion;
+    private Potion team1Potion;
+    private Potion team2Potion;
 
-    public Fight(ArrayList<Pokemon> team1, ArrayList<Pokemon> team2, String team1Name, String team2Name, Potion potion) {
+    public Fight(ArrayList<Pokemon> team1, ArrayList<Pokemon> team2, String team1Name, String team2Name, Potion team1Potion, Potion team2Potion) {
         this.team1 = team1;
         this.team2 = team2;
         this.team1Name = team1Name;
         this.team2Name = team2Name;
-        this.potion = potion;
+        this.team1Potion = team1Potion;
+        this.team2Potion = team2Potion;
     }
 
 
@@ -26,6 +28,7 @@ public class Fight {
         Pokemon currentDefender = team2.get(0);
         ArrayList<Pokemon> currentAttackerTeam = team1;
         ArrayList<Pokemon> currentDefenderTeam = team2;
+        Potion currentPotion = team1Potion;
 
         while (countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
             System.out.println("\n" + getTeam1Status(team1, team1Name));
@@ -35,8 +38,8 @@ public class Fight {
             while (!validChoice) {
                 System.out.println(currentAttacker.getName() + "'s turn.");
                 System.out.println("1. Attack");
-                if (potion != null && !currentAttacker.isAtMaxHealth()) {
-                    System.out.println("2. Use Potion (heals " + potion.getHealingPower() + " HP)");
+                if (currentPotion != null && !currentAttacker.isAtMaxHealth()) {
+                    System.out.println("2. Use Potion (heals " + currentPotion.getHealingPower() + " HP)");
                 }
                 if (countActivePokemon(currentAttackerTeam) > 1) {
                     System.out.println("3. Switch Pokémon");
@@ -47,8 +50,8 @@ public class Fight {
                 if (choice == 1) {
                     currentAttacker.attack(currentDefender);
                     validChoice = true;
-                } else if (choice == 2 && potion != null && !currentAttacker.isAtMaxHealth()) {
-                    currentAttacker.heal(potion.getHealingPower());
+                } else if (choice == 2 && currentPotion != null && !currentAttacker.isAtMaxHealth()) {
+                    currentAttacker.heal(currentPotion.getHealingPower());
                     validChoice = true;
                 } else if (choice == 3 && countActivePokemon(currentAttackerTeam) > 1) {
                     System.out.println("What Pokemon do you want to switch to?");
@@ -62,7 +65,7 @@ public class Fight {
                     }
                 } else {
                     System.out.println("Invalid choice. Please type 1 to Attack" +
-                        (potion != null && !currentAttacker.isAtMaxHealth() ? " or 2 to Use Healing Potion" : "") +
+                        (currentPotion != null && !currentAttacker.isAtMaxHealth() ? " or 2 to Use Healing Potion" : "") +
                         (countActivePokemon(currentAttackerTeam) > 1 ? " or 3 to Switch Pokémon." : "."));
                 }
             }
@@ -83,6 +86,8 @@ public class Fight {
                 ArrayList<Pokemon> tempTeam = currentAttackerTeam;
                 currentAttackerTeam = currentDefenderTeam;
                 currentDefenderTeam = tempTeam;
+
+                currentPotion = (currentPotion == team1Potion) ? team2Potion : team1Potion;
             }
 
             System.out.println("Please press Enter to continue...");
