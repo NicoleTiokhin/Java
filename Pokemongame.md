@@ -1881,95 +1881,109 @@ I want every team to have to generate their own healing potion instead of one fo
  private Potion team1Potion;
 ```
 
+have a currentPotion based on attacking team , and update all potion usage to use currentPotion instead 
+```java
+Potion currentPotion = team1Potion;
+```
+
+switch Potions When Turns Change
+
 
 ```java
+currentPotion = (currentPotion == team1Potion) ? team2Potion : team1Potion;  
+```
+
+### Modified Game Class 
+
+Separate Potions for Each Team
+
+```java
+Potion team1Potion = null;  
+Potion team2Potion = null; 
+```
+
+Seperate Prompts for the potions 
+
+```java
+System.out.print("Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+String useTeam1Potion = scanner.nextLine();
+if (useTeam1Potion.equalsIgnoreCase("yes")) {
+    team1Potion = createPotion();
+    System.out.println("Team 1's potion has been created with a healing power of " + team1Potion.getHealingPower());
+}
 ```
 
 
-
-
-
-
-
-
-
-
-
-
 ```java
+System.out.print("Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+String useTeam2Potion = scanner.nextLine();
+if (useTeam2Potion.equalsIgnoreCase("yes")) {
+    team2Potion = createPotion();
+    System.out.println("Team 2's potion has been created with a healing power of " + team2Potion.getHealingPower());
+}
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
+Pass Both Potions to the Fight Constructor
 ```java
+Fight fight = new Fight(team1, team2, team1Name, team2Name, team1Potion, team2Potion);
 ```
 
 
 ### New Gameplay Experience Example 
 Enter the name of your first team: team rocket <br> 
-How many Pokémon do you want to have in team rocket ? 1 
-Please enter the name of Pokémon 1 for team rocket : ditto
-Enter the name of your second team: :)
-How many Pokémon do you want to have in :)? 2
-Please enter the name of Pokémon 1 for :): pikachu
-Please enter the name of Pokémon 2 for :): eevee
-Do you want to use a healing potion in the battle for team rocket ? (will be generated randomly in a range between 10 and 50) (yes/no): yes
-team rocket ´s potion has been created with a healing power of 49
-Do you want to use a healing potion in the battle for :)? (will be generated randomly in a range between 10 and 50) (yes/no): yes
-:)´s potion has been created with a healing power of 37
-Begin the Pokémon battle!
-
-team rocket  Team Status:
-ditto [Current Health Level: 48, Current Power Level: 48]
-
-:) Team Status:
-pikachu [Current Health Level: 35, Current Power Level: 55]
-eevee [Current Health Level: 55, Current Power Level: 55]
-
-ditto's turn.
-1. Attack
-1
-ditto attacks pikachu for 48 damage!
-pikachu has fainted! Please bring to Pokémon Center to recover!
-Please press Enter to continue...
-
-team rocket  Team Status:
-ditto [Current Health Level: 48, Current Power Level: 48]
-
-:) Team Status:
-pikachu [Current Health Level: -13, Current Power Level: 55]
-eevee [Current Health Level: 55, Current Power Level: 55]
-
-ditto's turn.
-1. Attack
-1
-ditto attacks eevee for 48 damage!
-Please press Enter to continue...
-
-team rocket  Team Status:
-ditto [Current Health Level: 48, Current Power Level: 48]
-
-:) Team Status:
-pikachu [Current Health Level: -13, Current Power Level: 55]
-eevee [Current Health Level: 7, Current Power Level: 55]
-
-eevee's turn.
-1. Attack
-2. Use Potion (heals 37 HP)
-1
-eevee attacks ditto for 55 damage!
-ditto has fainted! Please bring to Pokémon Center to recover!
-eevee is the winner!
+How many Pokémon do you want to have in team rocket ? 1 <br> 
+Please enter the name of Pokémon 1 for team rocket : ditto <br> 
+Enter the name of your second team: :) <br> 
+How many Pokémon do you want to have in :)? 2 <br> 
+Please enter the name of Pokémon 1 for :): pikachu<br> 
+Please enter the name of Pokémon 2 for :): eevee<br> 
+Do you want to use a healing potion in the battle for team rocket ? (will be generated randomly in a range between 10 and 50) (yes/no): yes <br> 
+team rocket ´s potion has been created with a healing power of 49 <br> 
+Do you want to use a healing potion in the battle for :)? (will be generated randomly in a range between 10 and 50) (yes/no): yes <br> 
+:)´s potion has been created with a healing power of 37 <br> 
+Begin the Pokémon battle! <br> 
+<br> 
+team rocket  Team Status: <br> 
+ditto [Current Health Level: 48, Current Power Level: 48] <br> 
+<br> 
+:) Team Status: <br> 
+pikachu [Current Health Level: 35, Current Power Level: 55] <br> 
+eevee [Current Health Level: 55, Current Power Level: 55] <br> 
+<br> 
+ditto's turn. <br> 
+1. Attack <br> 
+1 <br> 
+ditto attacks pikachu for 48 damage! <br> 
+pikachu has fainted! Please bring to Pokémon Center to recover! <br> 
+Please press Enter to continue... <br> 
+<br> 
+team rocket  Team Status: <br> 
+ditto [Current Health Level: 48, Current Power Level: 48] <br> 
+<br> 
+:) Team Status: <br> 
+pikachu [Current Health Level: -13, Current Power Level: 55] <br> 
+eevee [Current Health Level: 55, Current Power Level: 55] <br> 
+<br> 
+ditto's turn. <br> 
+1. Attack <br> 
+1 <br> 
+ditto attacks eevee for 48 damage! <br> 
+Please press Enter to continue... <br> 
+<br> 
+team rocket  Team Status:<br> 
+ditto [Current Health Level: 48, Current Power Level: 48]<br> 
+<br> 
+:) Team Status:<br> 
+pikachu [Current Health Level: -13, Current Power Level: 55]<br> 
+eevee [Current Health Level: 7, Current Power Level: 55]<br> 
+<br> 
+eevee's turn.<br> 
+1. Attack<br> 
+2. Use Potion (heals 37 HP)<br> 
+1<br> 
+eevee attacks ditto for 55 damage!<br> 
+ditto has fainted! Please bring to Pokémon Center to recover!<br> 
+eevee is the winner!<br> 
 
 
 
