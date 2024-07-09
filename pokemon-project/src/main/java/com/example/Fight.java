@@ -1,19 +1,24 @@
 package com.example;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Fight {
     private ArrayList<Pokemon> team1;
     private ArrayList<Pokemon> team2;
+    private String team1Name;
+    private String team2Name;
     private Potion potion;
 
-    public Fight(ArrayList<Pokemon> team1, ArrayList<Pokemon> team2, Potion potion) {
+    public Fight(ArrayList<Pokemon> team1, ArrayList<Pokemon> team2, String team1Name, String team2Name, Potion potion) {
         this.team1 = team1;
         this.team2 = team2;
+        this.team1Name = team1Name;
+        this.team2Name = team2Name;
         this.potion = potion;
     }
+
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
@@ -23,8 +28,8 @@ public class Fight {
         ArrayList<Pokemon> currentDefenderTeam = team2;
 
         while (countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
-            System.out.println("\n" + getTeamStatus(team1));
-            System.out.println(getTeamStatus(team2));
+            System.out.println("\n" + getTeam1Status(team1, team1Name));
+            System.out.println(getTeam2Status(team2, team2Name));
 
             boolean validChoice = false;
             while (!validChoice) {
@@ -53,7 +58,7 @@ public class Fight {
                         currentAttacker = currentAttackerTeam.get(switchChoice - 1);
                         validChoice = true;
                     } else {
-                        System.out.println("Invalid choice. Please select a valid Pokémon to switch to.");
+                        System.out.print("Invalid choice. Please select a valid Pokémon to switch to.");
                     }
                 } else {
                     System.out.println("Invalid choice. Please type 1 to Attack" +
@@ -117,13 +122,24 @@ public class Fight {
         return count;
     }
 
-    private String getTeamStatus(ArrayList<Pokemon> team) {
-        StringBuilder status = new StringBuilder("Team Status:\n");
-        for (Pokemon p : team) {
+    private String getTeam1Status(ArrayList<Pokemon> team1, String team1Name) {
+        StringBuilder status = new StringBuilder(team1Name + " Team Status:\n");
+        for (Pokemon p : team1) {
             status.append(p.pokedex()).append("\n");
         }
         return status.toString();
     }
+    
+    private String getTeam2Status(ArrayList<Pokemon> team2, String team2Name) {
+        StringBuilder status = new StringBuilder(team2Name + " Team Status:\n");
+        for (Pokemon p : team2) {
+            status.append(p.pokedex()).append("\n");
+        }
+        return status.toString();
+    }
+    
+    
+    
 
     private void printTeam(ArrayList<Pokemon> team, Pokemon currentPokemon) {
         for (int i = 0; i < team.size(); i++) {

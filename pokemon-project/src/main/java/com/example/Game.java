@@ -1,12 +1,19 @@
 package com.example;
 
-import org.json.JSONObject;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import org.json.JSONObject;
 
 public class Game {
+    private Scanner scanner;
+    public Game() {
+        this.scanner = new Scanner(System.in);
+    }
     public Pokemon createPokemon(String pokemonName) {
+        Scanner scanner = new Scanner(System.in);
+    
         while (true) {
             try {
                 JSONObject data = PokemonAPI.getPokemonData(pokemonName);
@@ -15,12 +22,12 @@ public class Game {
                 int attackPower = data.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
                 return new Pokemon(name, health, attackPower);
             } catch (Exception e) {
-                System.out.println("Error fetching data for " + pokemonName + ". Please enter a valid Pokémon name:");
-                Scanner scanner = new Scanner(System.in);
-                pokemonName = scanner.nextLine();
+                System.out.print("Error fetching data for " + pokemonName + ". Please enter a valid Pokémon name: ");
+                pokemonName = scanner.nextLine().trim();
             }
         }
     }
+    
 
     public Potion createPotion() {
         return new Potion();
@@ -29,6 +36,7 @@ public class Game {
     public ArrayList<Pokemon> createTeam(String teamName) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Pokemon> team = new ArrayList<>();
+
         
         int teamSize = 0;
         boolean validInput = false;
@@ -57,11 +65,13 @@ public class Game {
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
     
-        System.out.println("Create the first team:");
-        ArrayList<Pokemon> team1 = createTeam("first");
+        System.out.print("Enter the name of your first team: ");
+        String team1Name = scanner.nextLine();
+        ArrayList<Pokemon> team1 = createTeam(team1Name);
 
-        System.out.println("Create the second team:");
-        ArrayList<Pokemon> team2 = createTeam("second");
+        System.out.print("Enter the name of your second team: ");
+        String team2Name = scanner.nextLine();
+        ArrayList<Pokemon> team2 = createTeam(team2Name);
 
         Potion potion = null;
         System.out.print("Do you want to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
@@ -72,7 +82,7 @@ public class Game {
         }
     
         System.out.println("Begin the Pokémon battle!");
-        Fight fight = new Fight(team1, team2, potion); 
+        Fight fight = new Fight(team1, team2, team1Name, team2Name, potion);
         fight.start();
     
         scanner.close();
