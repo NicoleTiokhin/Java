@@ -11,7 +11,6 @@
 
 ## Currently "under construction"
 ### <ul>
-### <li> Tic - Tac - Toe Game ; using GUI </li>
 ### <li> more elaborate Pokemon game </li> 
 ### <li> more elaborate Flipping Tiles Memory Game </li>
 ### </ul>
@@ -64,7 +63,18 @@
 ### <li> Data Types</li>
 ### <li>Memory Usage: Temporary storage using arrays and variables </li>
 
+<br>
+<br>
 
+### Tic - Tac - Toe Game 
+### <ul>
+### <li> Inheritance</li>
+### <li></li>
+### <li></li>
+### <li></li>
+### <li></li>
+### <li></li>
+</ul>
 
 ## Sources 
 
