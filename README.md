@@ -2,8 +2,7 @@
 ## Github Codespaces used for running Java Code 
 ## Ideas for Java Projects 
 
-### <ul> 
-### <li> Currency converter ; get live rates from an API </li>    
+### <ul>    
 ### <li> Creating a Virtual Private Network (VPN) </li>
 ### <li> Weather System </li>
 ### </ul>
@@ -12,6 +11,7 @@
 ### <ul>
 ### <li> more elaborate Pokemon game </li> 
 ### <li> more elaborate Flipping Tiles Memory Game </li>
+### <li> Currency converter ; get live rates from an API </li> 
 ### </ul>
 
 ## Finished Projects 
