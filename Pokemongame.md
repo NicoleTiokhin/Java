@@ -190,7 +190,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - Pokémon Catching
 - NPC trainers and gym battles with  rewards for winning
 - simple animations for attacks
-- switching Pokémon mid-battle
+- ~~switching Pokémon mid-battle~~ **done**
 - Stamina : use certain moves a limited number of times before needing to rest or use a different move
 - Pokémon Centers to heal Pokémon
 - ~~Sound and Music~~  **aborted**
