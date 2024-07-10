@@ -189,7 +189,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - Multi-player Mode
 - Pokémon Catching
 - NPC trainers and gym battles with  rewards for winning
-- simple animations for attacks
+- simple animations 
 - ~~switching Pokémon mid-battle~~ **done**
 - Stamina : use certain moves a limited number of times before needing to rest or use a different move
 - Pokémon Centers to heal Pokémon
@@ -1987,6 +1987,79 @@ eevee is the winner!<br>
 
 
 
+## Add simple animation 
+
+I want to add a progress bar animation in the terminal for a Pokémon losing health . <br>
+Terminal because my Game runs in the Terminal , so it makes sense to do it like that . <br>
+
+I would do so by displaying the progress bar and updating it based on current health of pokemon
+I will try using JLine library <br>
+
+
+### Modified Pokemon Class
+
+displayHealthBar Methdod : <br>
+displays the health bar <br>
+
+
+
+
+```java
+public void displayHealthBar(Terminal terminal) throws IOException {
+        int totalSegments = 20; 
+        int filledSegments = (health * totalSegments) / maxHealth;
+        StringBuilder bar = new StringBuilder("[");
+        for (int i = 0; i < totalSegments; i++) {
+            if (i < filledSegments) {
+                bar.append("#"); 
+            } else {
+                bar.append(" ");
+            }
+        }
+        bar.append("] ").append(health).append("/").append(maxHealth);
+
+        terminal.puts(InfoCmp.Capability.carriage_return);
+        terminal.writer().print(bar.toString());
+        terminal.flush();
+    }
+
+```
+
+
+
+
+```java
+ public void animatedHealthChange(int healthChange, Terminal terminal) throws IOException, InterruptedException {
+        int newHealth = this.health + healthChange;
+        if (newHealth > maxHealth) newHealth = maxHealth;
+        if (newHealth < 0) newHealth = 0;
+
+        int steps = 20;
+        int healthStep = healthChange / steps;
+
+        for (int i = 0; i < steps; i++) {
+            this.health += healthStep;
+            if (this.health > maxHealth) this.health = maxHealth;
+            if (this.health < 0) this.health = 0;
+            displayHealthBar(terminal);
+            Thread.sleep(50);
+        }
+        this.health = newHealth; 
+        displayHealthBar(terminal);
+    }
+}
+```
+
+
+
+
+```java
+```
+
+
+
+```java
+```
 
 
 
