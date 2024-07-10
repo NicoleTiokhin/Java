@@ -5,7 +5,6 @@
 ### <ul> 
 ### <li> Currency converter ; get live rates from an API </li>    
 ### <li> Creating a Virtual Private Network (VPN) </li>
-### <li> Online Book Store </li>
 ### <li> Weather System </li>
 ### </ul>
 
