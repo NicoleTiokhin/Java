@@ -56,47 +56,49 @@ public static double getExchangeRate(String baseCurrency, String targetCurrency)
 
 
 ## Main Method 
-create a Scanner Object
-get Base Currency from User,convert the input to uppercase
-get Target Currency from User,convert the input to uppercase
-ask the user for how much they want to convert and read as double
-call getExchangeRate method to get the exchange rate for the given currencies
-converts by multiplying with the exchange rate
-prints the result 
-if an error occurs print an error message 
+create a Scanner Object <br> 
+get Base Currency from User,convert the input to uppercase <br> 
+get Target Currency from User,convert the input to uppercase <br> 
+ask the user for how much they want to convert and read as double <br> 
+call getExchangeRate method to get the exchange rate for the given currencies <br> 
+converts by multiplying with the exchange rate <br> 
+prints the result  <br> 
+if an error occurs print an error message  <br> 
 
 
 ```java
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the base currency (e.g., USD): ");
+        System.out.print("Please enter the base currency (e.g.. USD): ");
         String baseCurrency = scanner.next().toUpperCase();
-
-        System.out.print("Enter the target currency (e.g., EUR): ");
+        System.out.print("Please enter the target currency (e.g.. EUR): ");
         String targetCurrency = scanner.next().toUpperCase();
-
         System.out.print("Enter the amount to convert: ");
         double amount = scanner.nextDouble();
 
         try {
             double exchangeRate = getExchangeRate(baseCurrency, targetCurrency);
-
             double convertedAmount = amount * exchangeRate;
+            System.out.println(amount + " " + baseCurrency + " is equal to " + convertedAmount + " " + targetCurrency);
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        }
 
-            System.out.println(amount + " " + baseCurrency + " is equivalent to " + convertedAmount + " " + targetCurrency);
-    } catch (Exception e) {
-        System.err.println("An error occurred: " + e.getMessage());
+        scanner.close();
     }
-
-    scanner.close();
 }
+
 
 ```
 
 
 
+## Converter Experience example 
 
+Please enter the base currency (e.g.: USD): USD <br> 
+Please enter the target currency (e.g.: EUR): EUR <br> 
+Enter the amount to convert: 33 <br> 
+33.0 USD is equal to 30.3494451315 EUR <br> 
 
 ```java
 ```
