@@ -11,7 +11,7 @@
 ### <ul>
 ### <li> more elaborate Pokemon game </li> 
 ### <li> more elaborate Flipping Tiles Memory Game </li>
-### <li> Currency converter ; get live rates from an API </li> 
+### <li> more elaborate Currency converter  </li> 
 ### </ul>
 
 ## Finished Projects 
@@ -24,9 +24,6 @@
 <br>
 <br>
 
-### for all Algorithms
-<br>
-<br>
 
 ### Simple Pokemon Game : 
 ### <ul> 
@@ -36,6 +33,10 @@
 ### <li> Functions/Methods </li>
 ### <li> Control Flow </li>
 ### </ul>
+<br>
+<br>
+
+
 <br>
 <br>
 
