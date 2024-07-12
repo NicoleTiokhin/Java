@@ -2050,6 +2050,11 @@ public void displayHealthBar(Terminal terminal) throws IOException {
 }
 ```
 
+## Changes to improve the health bar "animation" 
+I would like to see the health bar after the change and for it not to disappear . <br>
+Also I would like to see the health bar change when a potion is used to improve health <br>
+
+modify the heal method to include the animatedHealthChange method call
 
 
 
