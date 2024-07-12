@@ -2000,6 +2000,13 @@ I will try using JLine library <br>
 
 displayHealthBar Methdod : <br>
 displays the health bar <br>
+bar will have a total of 20 segments <br>
+use the proportion of the current health to the maximum health to calculate how many segments should be filled based on the current health  <br>
+build the health bar string with an opening bracket [ and a closing bracket ]  <br>
+and then fill the health bar string by looping through all 20 segments and add a # to bar as long as the segments that should be filled are less than the current index of segement ; otherwise add a space to the bar  <br>
+move the Cursor Back to the Start of the Line for when overwriting of the previous line (like updating the health bar) is needed  <br>
+print out the health bar on the terminal  <br>
+flush the buffer to show health bar update immediately  <br>
 
 
 
@@ -2026,6 +2033,16 @@ public void displayHealthBar(Terminal terminal) throws IOException {
 ```
 
 
+animatedHealthChange Methdod : <br>
+animate the change in a Pokémon's health<br>
+calculate the new health by adding the health change to the current health<br>
+check that the new health does not exceed the maximum health or fall beneath 0 <br>
+animation will consist of 20 steps (amount of segments), making the change appear gradual <br>
+alculate how much the health should change in each step by dividing the total health change by the number of steps <br>
+loop through each step of the animation  <br>
+increment the health by the calculated step amount  <br>
+update the health bar display in the terminal to reflect the current health.  <br>
+pause for 50 milliseconds to create a visible animation effect  <br>
 
 
 ```java
@@ -2051,21 +2068,155 @@ public void displayHealthBar(Terminal terminal) throws IOException {
 ```
 
 ## Changes to improve the health bar "animation" 
-I would like to see the health bar after the change and for it not to disappear . <br>
 Also I would like to see the health bar change when a potion is used to improve health <br>
 
-modify the heal method to include the animatedHealthChange method call
+modify the heal method to include the animatedHealthChange method call and Terminal object <br>
+modify fight class accordingly <br>
+
+### Modified Pokemon class 
+modified heal Method : <br> 
+call animatedHealthChange to show health bar animation when healing <br>
+
+
+```java
+public void heal(int amount, Terminal terminal) throws IOException, InterruptedException {
+        if (this.health == this.maxHealth) {
+            System.out.println(this.name + " is already at full health and cannot be healed.");
+            return;
+        }
+        int healedAmount = amount;
+        if (this.health + amount > this.maxHealth) {
+            healedAmount = this.maxHealth - this.health;
+            this.health = this.maxHealth;
+        } else {
+            this.health += amount;
+        }
+        System.out.println(this.name + " healed by " + healedAmount + " hp points!");
+        animatedHealthChange(healedAmount, terminal);
+    }
+```
+
+modified attack Method <br>
+call animatedHealthChange for animated health reduction <br>
+
+```java
+public void attack(Pokemon target, Terminal terminal) throws IOException, InterruptedException {
+        System.out.println(this.name + " attacks " + target.getName() + " for " + this.attackPower + " damage!");
+        target.animatedHealthChange(-this.attackPower, terminal);
+    }
+```
+
+### Updated Fight Method 
+
+modified start Method <br>
+
+
+```java
+} else if (choice == 2 && currentPotion != null && !currentAttacker.isAtMaxHealth()) {
+                    currentAttacker.heal(currentPotion.getHealingPower(), terminal);  
+                    validChoice = true;
+```
+
+## Changes to improve the health bar "animation" 
+
+I would like to see the health bar after the change and for it not to disappear . <br> 
+
+### Modified Pokemon class 
+
+modified displayHealthBar :  overwrite the current line 
+
+
+```java
+ public void displayHealthBar(Terminal terminal) throws IOException {
+        int totalSegments = 20;
+        int filledSegments = (health * totalSegments) / maxHealth;
+        StringBuilder bar = new StringBuilder("[");
+        for (int i = 0; i < totalSegments; i++) {
+            if (i < filledSegments) {
+                bar.append("#");
+            } else {
+                bar.append(" ");
+            }
+        }
+        bar.append("] ").append(health).append("/").append(maxHealth);
+
+        terminal.puts(InfoCmp.Capability.carriage_return);
+        terminal.writer().print(bar.toString());
+        terminal.flush();
+
+    }
+```
+
+modified animatedHealthChange Method : 
+overwrite the previous health bar during each step of the animation
+after the loop, the final health bar state is displayed
 
 
 
 ```java
+ public void animatedHealthChange(int healthChange, Terminal terminal) throws IOException, InterruptedException {
+        int newHealth = this.health + healthChange;
+        if (newHealth > maxHealth) newHealth = maxHealth;
+        if (newHealth < 0) newHealth = 0;
+
+        int steps = 20;
+        int healthStep = healthChange / steps;
+
+        for (int i = 0; i < steps; i++) {
+            this.health += healthStep;
+            if (this.health > maxHealth) this.health = maxHealth;
+            if (this.health < 0) this.health = 0;
+            displayHealthBar(terminal);
+            Thread.sleep(50);
+            terminal.puts(InfoCmp.Capability.carriage_return);
+        }
+        this.health = newHealth;
+        displayHealthBar(terminal);
+        System.out.println();
+    }
 ```
 
+### New Gameplay experience 
+<br>
+If you try out runnig the code you will also see the animation <br>
+<br>
+Enter the name of your first team: 1 <br>
+How many Pokémon do you want to have in 1?  Eternatus       <br>    
+Invalid input. Please enter a number. <br>
+How many Pokémon do you want to have in 1? 1 <br>
+Please enter the name of Pokémon 1 for 1:  Eternatus <br>
+Error fetching data for  Eternatus. Please enter a valid Pokémon name:  Eternatus <br>
+Enter the name of your second team: 2 <br>
+How many Pokémon do you want to have in 2? 1 <br>
+Please enter the name of Pokémon 1 for 2:  Eternatus <br>
+Error fetching data for  Eternatus. Please enter a valid Pokémon name:  Eternatus <br>
+Do you want to use a healing potion in the battle for 1? (will be generated randomly in a range between 10 and 50) (yes/no): yes <br>
+1's potion has been created with a healing power of 10 <br>
+Do you want to use a healing potion in the battle for 2? (will be generated randomly in a range between 10 and 50) (yes/no): yes <br>
+2's potion has been created with a healing power of 45 <br>
+Begin the Pokémon battle! <br>
+ <br>
+1 Team Status: <br>
+eternatus [Current Health Level: 140, Current Power Level: 85] <br>
+<br>
+2 Team Status:<br>
+eternatus [Current Health Level: 140, Current Power Level: 85]<br>
+<br>
+eternatus's turn.<br>
+1. Attack<br>
+1<br>
+eternatus attacks eternatus for 85 damage!<br>
+[#######             ] 55/1400<br>
+<br>
+Please press Enter to continue...<br>
+<br>
+1 Team Status:<br>
+eternatus [Current Health Level: 140, Current Power Level: 85]<br>
+etc <br>
 
 
 ```java
 ```
-
 
 
 
