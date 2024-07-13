@@ -1,4 +1,4 @@
-# Complex Datasets 
+# Complex Datastructure 
 
 ## Arrays
 
@@ -142,6 +142,78 @@ stack.pop(); // remove top element of stack ( here : 2)
 stack.peek(); // get top element of stack
 
 ```
+
+## Graphs 
+In a directed graph, edges have a direction <br>
+In an undirected graph, edges don't have a direction <br>
+In a weighted graph, edges have weights  <br>
+In an unweighted graph, edges don't have weights <br>
+
+```java
+// directed graph
+import java.util.*;
+
+class DirectedGraph {
+    private Map<String, List<String>> adjVertices;
+
+    DirectedGraph() {
+        adjVertices = new HashMap<>();
+    }
+
+    void addVertex(String label) {
+        adjVertices.putIfAbsent(label, new ArrayList<>());
+    }
+
+    // create a directed edge from A to B
+    void addEdge(String source, String destination) {
+        adjVertices.get(source).add(destination);
+    }
+
+    List<String> getAdjVertices(String label) {
+        return adjVertices.get(label);
+    }
+
+    public static void main(String[] args) {
+        DirectedGraph graph = new DirectedGraph();
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+
+        // Adding directed edges
+        graph.addEdge("A", "B");
+        graph.addEdge("A", "C");
+        graph.addEdge("B", "C");
+
+        System.out.println("Adjacency List for Directed Graph: " + graph.adjVertices);
+    }
+}
+```
+
+
+```java
+```
+
+
+```java
+```
+
+## Trees 
+hierarchical data structure with a root node and child nodes -> parent-child relationship  <br>
+Binary Tree: Each node has at most two children (left and right) <br>
+Binary Search Tree (BST): A binary tree , where the left child contains only nodes with values less than the parent node, and the right child contains  only nodes with values greater than the parent node <br>
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+ 
+ 
 
 
 ## Exercise 1 
