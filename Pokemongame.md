@@ -2214,6 +2214,32 @@ Please press Enter to continue...<br>
 eternatus [Current Health Level: 140, Current Power Level: 85]<br>
 etc <br>
 
+## Add Type 
+```java
+```
+
+
+
+
+```java
+```
+
+
+
+
+```java
+```
+
+
+
+
+
+```java
+```
+
+
+
+
 
 ```java
 ```
