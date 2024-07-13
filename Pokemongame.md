@@ -2215,29 +2215,189 @@ eternatus [Current Health Level: 140, Current Power Level: 85]<br>
 etc <br>
 
 ## Add Type 
-```java
-```
+add to Pokemon class type String <br>
+add calculateEffectiveness <br>
+mofidy attack method accordingly <br>
 
+for the Game class 
+modify createPokemon Method to also fetch type info and type effectiveness<br>
 
-
-
-```java
-```
-
-
-
-
-```java
-```
-
-
+### Modified Pokemon class 
+Modified Attack Method
+calculate effectiveness by calling getEffectiveness on the typeEffectiveness object, passing in the attacker's type and the target's type
+calculate damage by multiplying the attack power by the effectiveness 
 
 
 
 ```java
+public void attack(Pokemon target, Terminal terminal) throws IOException, InterruptedException {
+    double effectiveness = typeEffectiveness.getEffectiveness(this.type, target.getType());
+    int damage = (int) (this.attackPower * effectiveness);
+    System.out.println(this.name + " attacks " + target.getName() + " for " + damage + " damage!");
+    target.animatedHealthChange(-damage, terminal);
+    System.out.println();
+}
+
 ```
 
 
+### TypeEffectiveness class 
+to get type effectiveness data fetched from the API
+doubleDamageTo: A list that keeps track of pairs where one type does double damage to another
+halfDamageTo:  A list that keeps track of pairs where one type does half damage from another
+noDamageTo: A list that keeps track of pairs where one type does no damage from another.
+
+
+```java
+public class TypeEffectiveness {
+        private List<String[]> doubleDamageTo;
+        private List<String[]> halfDamageTo;
+        private List<String[]> noDamageTo;
+    
+        public TypeEffectiveness() {
+            doubleDamageTo = new ArrayList<>();
+            halfDamageTo = new ArrayList<>();
+            noDamageTo = new ArrayList<>();
+        }
+```
+
+addDoubleDamageTo Method :
+add a pair where attackType does double damage to defenseType
+
+
+addHalfDamageTo Method :
+add a pair where attackType does half damage to defenseType
+
+addNoDamageTo Method :
+add a pair where attackType does no damage to defenseType
+
+
+```java
+public void addDoubleDamageTo(String attackType, String defenseType) {
+            doubleDamageTo.add(new String[]{attackType, defenseType});
+        }
+
+        public void addHalfDamageTo(String attackType, String defenseType) {
+            halfDamageTo.add(new String[]{attackType, defenseType});
+        }
+
+        public void addNoDamageTo(String attackType, String defenseType) {
+            noDamageTo.add(new String[]{attackType, defenseType});
+        }
+        
+```
+
+
+getEffectiveness Method :
+first check the doubleDamageTo list , return 2.0
+then check the halfDamageTo list , return 0.5 
+then check the noDamageTo list , return 0.0 .
+otherwise return 1.0 
+
+
+
+
+```java
+public double getEffectiveness(String attackType, String defenseType) {
+    for (String[] pair : doubleDamageTo) {
+        if (pair[0].equals(attackType) && pair[1].equals(defenseType)) {
+            return 2.0;
+        }
+    }
+    for (String[] pair : halfDamageTo) {
+        if (pair[0].equals(attackType) && pair[1].equals(defenseType)) {
+            return 0.5;
+        }
+    }
+    for (String[] pair : noDamageTo) {
+        if (pair[0].equals(attackType) && pair[1].equals(defenseType)) {
+            return 0.0;
+        }
+    }
+    return 1.0; 
+}
+
+```
+
+### modified PokemonAPI Class 
+
+getTypeEffectiveness Method :
+fetch type effectiveness data from the PokéAPI
+construct the URL to fetch data from the PokéAPI for the given type
+open a connection to the URL
+read the response from the API into a StringBuilder
+reads each line from the input stream and appends it to the response
+convert the response string into a JSONObject
+create an empty TypeEffectiveness object to store the type effectiveness data
+extract the double_damage_to array from the JSON , loop through each element in the array , convert name of type into uppercase andd add type pair to the TypeEffectiveness object (e.g.: {"FIRE", "GRASS"} and {"FIRE", "ICE"} ice for doubleDamageTo )
+same as for double_damage_to but for half damage and no damage 
+
+
+
+
+```java
+public static TypeEffectiveness getTypeEffectiveness(String typeName) throws Exception {
+        String typeURL = POKEAPI_URL + "type/" + typeName.toLowerCase();
+        URL url = new URL(typeURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+
+        in.close();
+        conn.disconnect();
+
+        JSONObject json = new JSONObject(response.toString());
+        TypeEffectiveness typeEffectiveness = new TypeEffectiveness();
+
+        JSONArray doubleDamageToArray = json.getJSONObject("damage_relations").getJSONArray("double_damage_to");
+        for (int i = 0; i < doubleDamageToArray.length(); i++) {
+            String doubleDamageType = doubleDamageToArray.getJSONObject(i).getString("name").toUpperCase();
+            typeEffectiveness.addDoubleDamageTo(typeName.toUpperCase(), doubleDamageType);
+        }
+
+        JSONArray halfDamageToArray = json.getJSONObject("damage_relations").getJSONArray("half_damage_to");
+        for (int i = 0; i < halfDamageToArray.length(); i++) {
+            String halfDamageType = halfDamageToArray.getJSONObject(i).getString("name").toUpperCase();
+            typeEffectiveness.addHalfDamageTo(typeName.toUpperCase(), halfDamageType);
+        }
+
+        JSONArray noDamageToArray = json.getJSONObject("damage_relations").getJSONArray("no_damage_to");
+        for (int i = 0; i < noDamageToArray.length(); i++) {
+            String noDamageType = noDamageToArray.getJSONObject(i).getString("name").toUpperCase();
+            typeEffectiveness.addNoDamageTo(typeName.toUpperCase(), noDamageType);
+        }
+
+        return typeEffectiveness;
+    }
+}
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
 
 
 
