@@ -10,7 +10,6 @@
 ## Currently "under construction"
 ### <ul>
 ### <li> more elaborate Pokemon game </li> 
-### <li> more elaborate Flipping Tiles Memory Game </li>
 ### <li> more elaborate Currency converter  </li> 
 ### </ul>
 
@@ -86,6 +85,22 @@
 ### <li>iPolymorphism></li>
 ### <li>Class Libraries</li>
 ### </ul>
+
+<br>
+<br>
+
+### Flipping Tiles Memory Game
+### <ul>
+### <li>Object-Oriented Programming </li>
+### <li>Multithreading(timer) </li>
+### <li> Control Flow</li>
+### <li>Input/Output </li>
+### <li>Algorithms(Collections.shuffle) </li>
+### <li>Data Types,Operators etc. </li>
+### <li> Complex Data Structures </li>
+### <li>Java libraries   </li>
+### </ul>
+
 
 ## Sources 
 
