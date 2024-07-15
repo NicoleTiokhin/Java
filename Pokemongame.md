@@ -2672,8 +2672,35 @@ private int calculateTotalHealthLost(ArrayList<Pokemon> team) {
     return totalHealthLost;
 }
 ```
+## Fix Error is Game Logic 
+The rounds end before starting a new round :
+fix this by adding this logic : 
+when one round is over count how much health was lost and then in the next round restore all that health in the next round and to determine the winner how much health was lost in all the rounds .
+-> track the health lost for each Pokémon during a round
+-> restore the health of each Pokémon to its maximum at the end of each round
+-> calculate the total health lost across all rounds to determine the winner
+
+modified start method : 
 
 ```java
+public void start() throws InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+
+        while (currentRound <= totalRounds) {
+            if (countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
+                System.out.println("\nRound " + currentRound + " of " + totalRounds);
+                fight(); 
+                trackHealth(); 
+                restoreHealth(); 
+                currentRound++;
+            } else {
+                break; 
+            }
+        }
+        determineWinnerByHealth();
+
+        scanner.close();
+    }
 ```
 
 
@@ -2682,12 +2709,20 @@ private int calculateTotalHealthLost(ArrayList<Pokemon> team) {
 ```
 
 
-
+calculate and update the total health lost for both teams at the end of each round
 ```java
+
 ```
 
 
 ```java
+private int calculateHealthLost(ArrayList<Pokemon> team) {
+    int healthLost = 0;
+    for (Pokemon p : team) {
+        healthLost += (p.getMaxHealth() - p.getHealth());
+    }
+    return healthLost;
+}
 ```
 
 
