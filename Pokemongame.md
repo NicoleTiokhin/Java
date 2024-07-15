@@ -2379,20 +2379,22 @@ public static TypeEffectiveness getTypeEffectiveness(String typeName) throws Exc
 }
 ```
 ## Fix error 
-I get this error : 
+I get this error : <br>
 java.io.IOException: Error executing '/bin/stty -a': stty: stdin isn't a terminal <br>
-        at org.jline.utils.ExecHelper.exec(ExecHelper.java:42)
-        at org.jline.terminal.impl.ExecPty.doGetConfig(ExecPty.java:163)
-        at org.jline.terminal.impl.ExecPty.getAttr(ExecPty.java:87)
-        at org.jline.terminal.impl.ExecPty.doSetAttr(ExecPty.java:93)
-        at org.jline.terminal.impl.AbstractPty.setAttr(AbstractPty.java:29)
-        at org.jline.terminal.impl.AbstractPosixTerminal.doClose(AbstractPosixTerminal.java:76)
-        at org.jline.terminal.impl.PosixSysTerminal.doClose(PosixSysTerminal.java:95)
-        at org.jline.terminal.impl.AbstractTerminal.close(AbstractTerminal.java:98)
-        at com.example.Game.startGame(Game.java:108)
-        at com.example.Game.main(Game.java:115)
-        at org.codehaus.mojo.exec.ExecJavaMojo$1.run(ExecJavaMojo.java:254)
-        at java.base/java.lang.Thread.run(Thread.java:833)
+        at org.jline.utils.ExecHelper.exec(ExecHelper.java:42)<br>
+        at org.jline.terminal.impl.ExecPty.doGetConfig(ExecPty.java:163) <br>
+        at org.jline.terminal.impl.ExecPty.getAttr(ExecPty.java:87)<br>
+        at org.jline.terminal.impl.ExecPty.doSetAttr(ExecPty.java:93) <br>
+        at org.jline.terminal.impl.AbstractPty.setAttr(AbstractPty.java:29) <br>
+        at org.jline.terminal.impl.AbstractPosixTerminal.doClose(AbstractPosixTerminal.java:76)<br>
+        at org.jline.terminal.impl.PosixSysTerminal.doClose(PosixSysTerminal.java:95)<br>
+        at org.jline.terminal.impl.AbstractTerminal.close(AbstractTerminal.java:98)<br>
+        at com.example.Game.startGame(Game.java:108)<br>
+        at com.example.Game.main(Game.java:115)<br>
+        at org.codehaus.mojo.exec.ExecJavaMojo$1.run(ExecJavaMojo.java:254)<br>
+        at java.base/java.lang.Thread.run(Thread.java:833)<br>
+
+The reason for this error is apparently is due to my environment (VSCode)
 
 ```java
 ```
@@ -2400,7 +2402,7 @@ java.io.IOException: Error executing '/bin/stty -a': stty: stdin isn't a termina
 
 ```java
 ```
-
+## Small Change : Don´t let the teams choose the same name
 
 ```java
 ```
