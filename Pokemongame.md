@@ -2523,9 +2523,88 @@ Enter the name of your second team: 2 <br>
 How many Pokémon do you want to have in 2? 1 <br>
 Please enter the name of Pokémon 1 for 2: eeve <br>
 
-```java
-```
 
+## Add multiple rounds to Pokemon Game 
+
+
+I need to have a number of rounds <br>
+I need to track what round I am on , to know after what round to end <br>
+Determine winner based on sth ( since i have teams where i can have different amounts of pokemon it would make sense to determine winner by overall health lost , as the amount of pokemon would have strong influence in the long term of multiple rounds ) <br>
+Make multiple rounds optional <br>
+
+-> option for multiple rounds in Game class <br>
+-> Fight class should be able to handle single-round and mutliple-round games  <br>
+->calculate overall health lost in each team to determine the winner in multiple-round games <br>
+
+### Modified Game Class 
+
+modified startGame Method : 
+ask user whether they want multiple- , or single-round games  (yes/no -> because easier to implement)
+if yes : tell user to enter how many rounds they wanna play (totalRounds)
+if no : totalRounds = 1 
+
+
+
+```java
+public void startGame() throws InterruptedException {
+        System.out.print("Enter the name of your first team: ");
+        String team1Name = scanner.nextLine();
+        ArrayList<Pokemon> team1 = createTeam(team1Name);
+    
+        String team2Name;
+        ArrayList<Pokemon> team2;
+    
+        while (true) {
+            System.out.print("Enter the name of your second team: ");
+            team2Name = scanner.nextLine();
+            if (!team2Name.equalsIgnoreCase(team1Name)) {
+                team2 = createTeam(team2Name);
+                break;
+            } else {
+                System.out.println("Team names must be different. Please enter a different name for the second team.");
+            }
+        }
+    
+        Potion team1Potion = null;
+        Potion team2Potion = null;
+    
+        System.out.print("Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+        String useTeam1Potion = scanner.nextLine();
+        if (useTeam1Potion.equalsIgnoreCase("yes")) {
+            team1Potion = createPotion();
+            System.out.println("Team 1's potion has been created with a healing power of " + team1Potion.getHealingPower());
+        }
+        System.out.print("Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+        String useTeam2Potion = scanner.nextLine();
+        if (useTeam2Potion.equalsIgnoreCase("yes")) {
+            team2Potion = createPotion();
+            System.out.println("Team 2's potion has been created with a healing power of " + team2Potion.getHealingPower());
+        }
+    
+        System.out.print("Do you want to play multiple rounds? (yes/no): ");
+        String multipleRoundsChoice = scanner.nextLine();
+        int totalRounds = 1; 
+
+        if (multipleRoundsChoice.equalsIgnoreCase("yes")) {
+            System.out.print("How many rounds do you want to play ? : ");
+            totalRounds = scanner.nextInt();
+            scanner.nextLine();
+        }
+    
+        System.out.println("Begin the Pokémon battle!");
+
+        Fight fight = new Fight(team1, team2, team1Name, team2Name, team1Potion, team2Potion, totalRounds);
+        try {
+            fight.start();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    
+        scanner.close();
+    }
+    
+```
+### Modified Fight class 
 
 ```java
 ```
