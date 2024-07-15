@@ -1,5 +1,9 @@
 package com.example;
 
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -21,9 +25,10 @@ public class Fight {
         this.team2Potion = team2Potion;
     }
 
-
-    public void start() {
+    public void start() throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
+        Terminal terminal = TerminalBuilder.terminal();
+
         Pokemon currentAttacker = team1.get(0);
         Pokemon currentDefender = team2.get(0);
         ArrayList<Pokemon> currentAttackerTeam = team1;
@@ -48,13 +53,13 @@ public class Fight {
                 int choice = getIntInput(scanner);
 
                 if (choice == 1) {
-                    currentAttacker.attack(currentDefender);
+                    currentAttacker.attack(currentDefender, terminal); // Method that might throw IOException
                     validChoice = true;
                 } else if (choice == 2 && currentPotion != null && !currentAttacker.isAtMaxHealth()) {
                     currentAttacker.heal(currentPotion.getHealingPower());
                     validChoice = true;
                 } else if (choice == 3 && countActivePokemon(currentAttackerTeam) > 1) {
-                    System.out.println("What Pokemon do you want to switch to?");
+                    System.out.println("What Pokémon do you want to switch to?");
                     printTeam(currentAttackerTeam, currentAttacker);
                     int switchChoice = getIntInput(scanner);
                     if (switchChoice > 0 && switchChoice <= currentAttackerTeam.size() && currentAttackerTeam.get(switchChoice - 1) != currentAttacker && !currentAttackerTeam.get(switchChoice - 1).hasFainted()) {
@@ -95,6 +100,7 @@ public class Fight {
         }
 
         scanner.close();
+        terminal.close();
     }
 
     private int getIntInput(Scanner scanner) {
@@ -134,7 +140,7 @@ public class Fight {
         }
         return status.toString();
     }
-    
+
     private String getTeam2Status(ArrayList<Pokemon> team2, String team2Name) {
         StringBuilder status = new StringBuilder(team2Name + " Team Status:\n");
         for (Pokemon p : team2) {
@@ -142,9 +148,6 @@ public class Fight {
         }
         return status.toString();
     }
-    
-    
-    
 
     private void printTeam(ArrayList<Pokemon> team, Pokemon currentPokemon) {
         for (int i = 0; i < team.size(); i++) {

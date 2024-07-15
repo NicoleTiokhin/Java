@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,12 +9,14 @@ import org.json.JSONObject;
 
 public class Game {
     private Scanner scanner;
+
     public Game() {
         this.scanner = new Scanner(System.in);
     }
+
     public Pokemon createPokemon(String pokemonName) {
         Scanner scanner = new Scanner(System.in);
-    
+
         while (true) {
             try {
                 JSONObject data = PokemonAPI.getPokemonData(pokemonName);
@@ -27,7 +30,6 @@ public class Game {
             }
         }
     }
-    
 
     public Potion createPotion() {
         return new Potion();
@@ -37,10 +39,9 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Pokemon> team = new ArrayList<>();
 
-        
         int teamSize = 0;
         boolean validInput = false;
-        
+
         while (!validInput) {
             System.out.print("How many Pokémon do you want to have in " + teamName + "? ");
             try {
@@ -62,9 +63,9 @@ public class Game {
         return team;
     }
 
-    public void startGame() {
+    public void startGame() throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
-    
+
         System.out.print("Enter the name of your first team: ");
         String team1Name = scanner.nextLine();
         ArrayList<Pokemon> team1 = createTeam(team1Name);
@@ -74,32 +75,38 @@ public class Game {
         ArrayList<Pokemon> team2 = createTeam(team2Name);
 
         Potion team1Potion = null;
-        Potion team2Potion = null; 
+        Potion team2Potion = null;
 
-        System.out.print("Do you want to use a healing potion in the battle for " +team1Name +"? (will be generated randomly in a range between 10 and 50) (yes/no): ");
+        System.out.print("Do you want to use a healing potion in the battle for " + team1Name + "? (will be generated randomly in a range between 10 and 50) (yes/no): ");
         String usePotion = scanner.nextLine();
         if (usePotion.equalsIgnoreCase("yes")) {
-            team1Potion  = createPotion();
-            System.out.println(team1Name +"´s potion has been created with a healing power of " + team1Potion.getHealingPower());
+            team1Potion = createPotion();
+            System.out.println(team1Name + "'s potion has been created with a healing power of " + team1Potion.getHealingPower());
         }
         System.out.print("Do you want to use a healing potion in the battle for " + team2Name + "? (will be generated randomly in a range between 10 and 50) (yes/no): ");
         String useTeam2Potion = scanner.nextLine();
         if (useTeam2Potion.equalsIgnoreCase("yes")) {
-          team2Potion = createPotion();
-           System.out.println(team2Name + "´s potion has been created with a healing power of " + team2Potion.getHealingPower());
+            team2Potion = createPotion();
+            System.out.println(team2Name + "'s potion has been created with a healing power of " + team2Potion.getHealingPower());
         }
 
-
-    
         System.out.println("Begin the Pokémon battle!");
         Fight fight = new Fight(team1, team2, team1Name, team2Name, team1Potion, team2Potion);
-        fight.start();
-    
+        try {
+            fight.start();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         scanner.close();
     }
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.startGame();
+        try {
+            Game game = new Game();
+            game.startGame();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
