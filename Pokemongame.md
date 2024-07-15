@@ -2450,6 +2450,39 @@ public void animatedHealthChange(int healthChange) throws InterruptedException {
     System.out.println();
 }
 ```
+
+
+```java
+public void attack(Pokemon target) throws InterruptedException {
+    double effectiveness = typeEffectiveness.getEffectiveness(this.type, target.getType());
+    int damage = (int) (this.attackPower * effectiveness);
+    System.out.println(this.name + " attacks " + target.getName() + " for " + damage + " damage!");
+    target.animatedHealthChange(-damage);
+    System.out.println();
+}
+
+```
+
+
+```java
+public void heal(int amount) throws InterruptedException {
+    if (this.health == this.maxHealth) {
+        System.out.println(this.name + " is already at full health and cannot be healed.");
+        return;
+    }
+    int healedAmount = amount;
+    if (this.health + amount > this.maxHealth) {
+        healedAmount = this.maxHealth - this.health;
+        this.health = this.maxHealth;
+    } else {
+        this.health += amount;
+    }
+    System.out.println(this.name + " healed by " + healedAmount + " hp points!");
+    animatedHealthChange(healedAmount);
+}
+
+```
+
 ## Small Change : Don´t let the teams choose the same name
 
 ```java
