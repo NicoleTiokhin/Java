@@ -2482,10 +2482,33 @@ public void heal(int amount) throws InterruptedException {
 }
 
 ```
-
 ## Small Change : Don´t let the teams choose the same name
 
+### Modified Game class  
+prompt the user to re-enter the second team name if it is the same as the first team name <br>
+<br>
+modified startGame method : <br>
+while loop to continuously prompt user to enter a team name until its different from the other teams name <br>
+if condition to check if the name is the same <br>
+<br>
+if second Team name is different from the first Team name (no matter the casing), then exit loop <br>
+otherwise continue loop until not same name <br> 
+
 ```java
+String team2Name;
+ArrayList<Pokemon> team2;
+
+while (true) {
+    System.out.print("Enter the name of your second team: ");
+    team2Name = scanner.nextLine();
+    if (!team2Name.equalsIgnoreCase(team1Name)) {
+        team2 = createTeam(team2Name);
+        break;
+    } else {
+        System.out.println("The Team names must be different. Please enter a different name for your second team.");
+    }
+}
+
 ```
 
 
