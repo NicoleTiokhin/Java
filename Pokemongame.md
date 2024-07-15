@@ -2511,6 +2511,17 @@ while (true) {
 
 ```
 
+## Updates in Gameplay 
+
+Enter the name of your first team: 1  <br>
+How many Pokémon do you want to have in 1? 2 <br>
+Please enter the name of Pokémon 1 for 1: eevee <br>
+Please enter the name of Pokémon 2 for 1: pikachu <br>
+Enter the name of your second team: 1 <br>
+Team names must be different. Please enter a different name for the second team <br>
+Enter the name of your second team: 2 <br>
+How many Pokémon do you want to have in 2? 1 <br>
+Please enter the name of Pokémon 1 for 2: eeve <br>
 
 ```java
 ```
