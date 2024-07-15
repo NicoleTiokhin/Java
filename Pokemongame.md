@@ -2538,10 +2538,10 @@ Make multiple rounds optional <br>
 
 ### Modified Game Class 
 
-modified startGame Method : 
-ask user whether they want multiple- , or single-round games  (yes/no -> because easier to implement)
-if yes : tell user to enter how many rounds they wanna play (totalRounds)
-if no : totalRounds = 1 
+modified startGame Method : <br>
+ask user whether they want multiple- , or single-round games  (yes/no -> because easier to implement) <br>
+if yes : tell user to enter how many rounds they wanna play (totalRounds) <br>
+if no : totalRounds = 1 <br>
 
 
 
@@ -2605,6 +2605,96 @@ public void startGame() throws InterruptedException {
     
 ```
 ### Modified Fight class 
+modified start method : <br>
+while loop runs until all rounds are completed or one of the teams has no active Pokémon left and call fight method <br>
+if more than 1 round also call determineWinnerByHealth <br>
+
+
+```java
+public void start() throws InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+
+        while (currentRound <= totalRounds && countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
+            System.out.println("\nRound " + currentRound + " of " + totalRounds);
+            fight(); // for one single round 
+            currentRound++;
+        }
+
+        if (totalRounds > 1) {
+            determineWinnerByHealth();
+        }
+
+        scanner.close();
+    }
+
+```
+
+new fight method : <br>
+does what the start method used to do <br>
+<br>
+determineWinnerByHealth Method : <br>
+determine the winner of the battle based on the total health lost<br>
+calculate and print the overall health lost by each team using the calculateTotalHealthLost method<br>
+if team1 lost less health than team2, then team1 is the winner and other way around <br>
+if both teams lost the same amount of health, the result is a draw<br>
+
+
+```java
+private void determineWinnerByHealth() {
+    int team1HealthLost = calculateTotalHealthLost(team1);
+    int team2HealthLost = calculateTotalHealthLost(team2);
+
+    System.out.println("Overall health lost by " + team1Name + ": " + team1HealthLost);
+    System.out.println("Overall health lost by " + team2Name + ": " + team2HealthLost);
+
+    if (team1HealthLost < team2HealthLost) {
+        System.out.println(team1Name + " wins by losing less health!");
+    } else if (team2HealthLost < team1HealthLost) {
+        System.out.println(team2Name + " wins by losing less health!");
+    } else {
+        System.out.println("It's a draw!");
+    }
+}
+
+```
+
+calculateTotalHealthLost Method : <br>
+totalHealthLost counts total health lost by the team <br>
+iterate through every Pokémon in the team and calculate their individual health loss (maximum health - current health) <br>
+
+
+```java
+private int calculateTotalHealthLost(ArrayList<Pokemon> team) {
+    int totalHealthLost = 0;
+    for (Pokemon p : team) {
+        totalHealthLost += (p.getMaxHealth() - p.getHealth());
+    }
+    return totalHealthLost;
+}
+```
+
+```java
+```
+
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+```java
+```
+
+
+
+```java
+```
+
 
 ```java
 ```
