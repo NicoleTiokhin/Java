@@ -2706,12 +2706,20 @@ public void start() throws InterruptedException {
 
 
 ```java
+private int healthLostInRound(ArrayList<Pokemon> team) {
+    int healthLost = 0;
+    for (Pokemon p : team) {
+        healthLost += (p.getMaxHealth() - p.getHealth());
+    }
+    return healthLost;
+}
 ```
 
-
-calculate and update the total health lost for both teams at the end of each round
 ```java
-
+private void trackHealth() {
+    team1TotalHealthLost += healthLostInRound(team1);
+    team2TotalHealthLost += healthLostInRound(team2);
+}
 ```
 
 
@@ -2725,7 +2733,71 @@ private int calculateHealthLost(ArrayList<Pokemon> team) {
 }
 ```
 
+### New Gameplay
 
+// if you run tne code you will see the animation for the health bar
+Enter the name of your first team: 1 <br>
+How many Pokémon do you want to have in 1? 1 <br>
+Please enter the name of Pokémon 1 for 1: pikachu <br>
+Enter the name of your second team: 2 <br>
+How many Pokémon do you want to have in 2? 1 <br>
+Please enter the name of Pokémon 1 for 2: eevee <br>
+Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): np <br>
+Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no <br>
+Do you want to play multiple rounds? (yes/no): yes <br>
+How many rounds do you want to play ? : 3 <br>
+Begin the Pokémon battle! <br>
+<br>
+Round 1 of 3 <br>
+1 Team Status: <br>
+pikachu [Current Health Level: 35, Current Power Level: 55] <br>
+<br> 
+2 Team Status: <br>
+eevee [Current Health Level: 55, Current Power Level: 55]<br>
+<br>
+pikachu's turn. <br>
+1. Attack <br>
+1<br>
+pikachu attacks eevee for 55 damage!<br>
+[                    ] 0/555<br>
+<br>
+eevee has fainted! Please bring to Pokémon Center to recover!<br>
+pikachu is the winner!<br>
+<br>
+Round 2 of 3<br>
+1 Team Status:<br>
+pikachu [Current Health Level: 35, Current Power Level: 55]<br>
+<br>
+2 Team Status: <br>
+eevee [Current Health Level: 55, Current Power Level: 55]  <br>
+<br>
+pikachu's turn.<br>
+1. Attack <br>
+1<br>
+pikachu attacks eevee for 55 damage!<br>
+[                    ] 0/555<br>
+<br>
+eevee has fainted! Please bring to Pokémon Center to recover!<br>
+pikachu is the winner!<br>
+<br>
+Round 3 of 3<br>
+1 Team Status:<br>
+pikachu [Current Health Level: 35, Current Power Level: 55]<br>
+<br>
+2 Team Status:<br>
+eevee [Current Health Level: 55, Current Power Level: 55]<br>
+<br>
+pikachu's turn.<br>
+1. Attack<br>
+1<br>
+pikachu attacks eevee for 55 damage!<br>
+[                    ] 0/555<br>
+<br>
+eevee has fainted! Please bring to Pokémon Center to recover!<br>
+pikachu is the winner!<br>
+Total health lost by 1: 0<br>
+Total health lost by 2: 165<br>
+1 wins by losing less health!<br>
 
 ```java
 ```
