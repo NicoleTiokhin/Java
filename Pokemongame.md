@@ -2396,11 +2396,59 @@ java.io.IOException: Error executing '/bin/stty -a': stty: stdin isn't a termina
 
 The reason for this error is apparently is due to my environment (VSCode)
 
+How I solved it :
+Removed JLine Dependencies
+
+Updated displayHealthBar Method : 
+use simple console output instead of terminal 
+instead of terminal.puts and terminal.writer().print use System.out.print
+
+Updated animatedHealthChange Method: 
+simple console output for health bar updates intead of terminal 
+
+Updated attack and heal Method :
+call animatedHealthChange without the terminal object
+
+
 ```java
+public void displayHealthBar() {
+    int totalSegments = 20;
+    int filledSegments = (health * totalSegments) / maxHealth;
+    StringBuilder bar = new StringBuilder("[");
+    for (int i = 0; i < totalSegments; i++) {
+        if (i < filledSegments) {
+            bar.append("#");
+        } else {
+            bar.append(" ");
+        }
+    }
+    bar.append("] ").append(health).append("/").append(maxHealth);
+    System.out.print("\r" + bar.toString());
+}
+
 ```
 
 
 ```java
+public void animatedHealthChange(int healthChange) throws InterruptedException {
+    int newHealth = this.health + healthChange;
+    if (newHealth > maxHealth) newHealth = maxHealth;
+    if (newHealth < 0) newHealth = 0;
+
+    int steps = 20;
+    int healthStep = healthChange / steps;
+
+    for (int i = 0; i < steps; i++) {
+        this.health += healthStep;
+        if (this.health > maxHealth) this.health = maxHealth;
+        if (this.health < 0) this.health = 0;
+        displayHealthBar();
+        Thread.sleep(50);
+    }
+    this.health = newHealth;
+    displayHealthBar();
+    System.out.println();
+}
 ```
 ## Small Change : Don´t let the teams choose the same name
 
