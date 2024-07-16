@@ -3,19 +3,20 @@
 ## Ideas for Java Projects 
 
 ### <ul>    
-### <li> Weather System </li>
 ### </ul>
 
 ## Currently "under construction"
 ### <ul>
 ### <li> more elaborate Pokemon game </li> 
 ### <li> more elaborate Currency converter  </li> 
+### <li> more elaborate Weather System </li>
 ### </ul>
 
 ## Finished Projects 
 ### <li> simple  Pokemon game  </li>
 ### <li> Flipping Tiles Memory Game </li>
 ### <li> Tic Tac Toe Game </li>
+### <li> Weather System </li>
 
 
 ## Java Topics 
