@@ -2799,6 +2799,49 @@ Total health lost by 1: 0<br>
 Total health lost by 2: 165<br>
 1 wins by losing less health!<br>
 
+## Add option to choose between simulation and main story
+
+add having the option to choose between simulation ,which would be the current game unchanged and main story , which I still haven't created but like just have the option already 
+
+### Updated Game Method
+If "simulation" is selected call the runSimulation method and exit the loop
+If "main story" is selected, inform the user that the mode is not available and continue the loop 
+If invalid input inform the user and continue the loop
+
+```java
+public void startGame() throws InterruptedException {
+        while (true) {
+            System.out.print("Choose a game mode (simulation/main story): ");
+            String gameMode = scanner.nextLine().trim().toLowerCase();
+
+            if (gameMode.equals("simulation")) {
+                runSimulation();
+                break;
+            } else if (gameMode.equals("main story")) {
+                System.out.println("Main story mode is not available yet. Please choose another game mode.");
+            } else {
+                System.out.println("Invalid choice. Please enter 'simulation' or 'main story'.");
+            }
+        }
+
+        scanner.close();
+    }
+```
+all previous game logic ,  has now been delegated to  runSimulation Method , since it logically makes up the simulation game now 
+
+```java
+```
+
+
+
+```java
+```
+
+
+
+```java
+```
+
 ```java
 ```
 
@@ -2807,10 +2850,8 @@ Total health lost by 2: 165<br>
 ```
 
 
-
 ```java
 ```
-
 
 
 ```java
