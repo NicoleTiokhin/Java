@@ -222,7 +222,7 @@ Do you want to see the exchange rate trends? (yes/no): yes<br>
 Enter the start date (e.g.: 2022-01-01T00:00:00Z): 2022-01-01T00:00:00Z<br>
 Enter the end date (e.g.: 2022-12-31T23:59:59Z): 2022-12-31T23:59:59Z<br>
 
-[Exchange Rate Trends](./Screenshot%202024-07-16%20at%2015.03.47.png)
+![Exchange Rate Trends](https://github.com/NicoleTiokhin/Java/raw/68c36d91ffd736369cc161e9b30cd03b3f19ef8c/Screenshot%202024-07-16%20at%2015.17.34.png)
 
 
 
