@@ -2893,16 +2893,134 @@ Total health lost by team 1: 0<br>
 Total health lost by team 2 : 45<br>
 team 1 wins by losing less health!<br>
 
+## Add weather influence 
+
+I found info on weather effect : https://bulbapedia.bulbagarden.net/wiki/Weather#Pokémon_Mystery_Dungeon_series <br>
+I used the Pokémon Masters EX section for it since it seemed not too excessive <br>
+
+### New Class : Weather
+Sunny:<br>
+Boosts Fire-type attacks by 50 %<br>
+Rain :<br> 
+If the attacker's type is "WATER", its attack power is increased by 50% <br>
+Hail: <br>
+Both the attacker and defender take 10 damage at the end of each round<br>
+Sandstorm:<br>
+Both the attacker and defender take 10 damage at the end of each round<br>
+<br>
+Method to  generate random weather<br>
+ 
+```java
+package com.example;
+
+import java.util.Random;
+
+public class Weather {
+    private String condition;
+
+    public Weather(String condition) {
+        this.condition = condition;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void applyWeatherEffects(Pokemon attacker, Pokemon defender) {
+        switch (condition.toLowerCase()) {
+            case "sunny":
+                if (attacker.getType().equals("FIRE")) {
+                    attacker.setAttackPower((int) (attacker.getAttackPower() * 1.5));
+                }
+                attacker.setFrozen(false);
+                defender.setFrozen(false);
+                break;
+            case "rain":
+                if (attacker.getType().equals("WATER")) {
+                    attacker.setAttackPower((int) (attacker.getAttackPower() * 1.5));
+                }
+                break;
+            case "hail":
+                attacker.damage(10);
+                defender.damage(10);
+                break;
+            case "sandstorm":
+                attacker.damage(10);
+                defender.damage(10);
+                break;
+        }
+    }
+
+    public static Weather generateRandomWeather() {
+        String[] weatherConditions = { "sunny", "rain", "hail", "sandstorm" };
+        Random random = new Random();
+        int index = random.nextInt(weatherConditions.length);
+        return new Weather(weatherConditions[index]);
+    }
+}
+
+```
+### Modified Game class 
+
+modified runSimulation method :  ask the player if they want weather influence and, if yes, randomly generate the weather condition 
 
 ```java
+ Weather weather = null;
+        System.out.print("Do you want the weather to influence the battle? (yes/no): ");
+        String weatherInfluence = scanner.nextLine();
+        if (weatherInfluence.equalsIgnoreCase("yes")) {
+            weather = Weather.generateRandomWeather();
+            System.out.println("The weather condition for this battle is: " + weather.getCondition());
+            switch (weather.getCondition().toLowerCase()) {
+                case "sunny":
+                    System.out.println("Influence: Boosts Fire-type attacks by 50%.");
+                    break;
+                case "rain":
+                    System.out.println("Influence: Boosts Water-type attacks by 50%.");
+                    break;
+                case "hail":
+                    System.out.println("Influence: Damages Pokémon by 10 HP after every action.");
+                    break;
+                case "sandstorm":
+                    System.out.println("Influence: Damages Pokémon by 10 HP after every action.");
+                    break;
+            }
+        }
+
 ```
 
+### Modified Fight class 
+
+modified fight method <br>
+before executing an attack, the weather effects are applied if weather influence is enabled <br>
 
 
 ```java
-```
-
-```java
+if (choice == 1) {
+                    if (weather != null) {
+                        weather.applyWeatherEffects(currentAttacker, currentDefender); 
+                    }
+                    currentAttacker.attack(currentDefender); 
+                    validChoice = true;
+                } else if (choice == 2 && currentPotion != null && !currentAttacker.isAtMaxHealth()) {
+                    currentAttacker.heal(currentPotion.getHealingPower());
+                    validChoice = true;
+                } else if (choice == 3 && countActivePokemon(currentAttackerTeam) > 1) {
+                    System.out.println("What Pokémon do you want to switch to?");
+                    printTeam(currentAttackerTeam, currentAttacker);
+                    int switchChoice = getIntInput(scanner);
+                    if (switchChoice > 0 && switchChoice <= currentAttackerTeam.size() && currentAttackerTeam.get(switchChoice - 1) != currentAttacker && !currentAttackerTeam.get(switchChoice - 1).hasFainted()) {
+                        currentAttacker = currentAttackerTeam.get(switchChoice - 1);
+                        validChoice = true;
+                    } else {
+                        System.out.print("Invalid choice. Please select a valid Pokémon to switch to.");
+                    }
+                } else {
+                    System.out.println("Invalid choice. Please type 1 to Attack" +
+                        (currentPotion != null && !currentAttacker.isAtMaxHealth() ? " or 2 to Use Healing Potion" : "") +
+                        (countActivePokemon(currentAttackerTeam) > 1 ? " or 3 to Switch Pokémon." : "."));
+                }
+            }
 ```
 
 
