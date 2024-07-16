@@ -212,6 +212,17 @@ public static void main(String[] args) {
 
 ```
 
+## New User experience 
+
+Please enter the base currency (e.g.: USD): USD <br>
+Please enter the target currency (e.g.: EUR): EUR<br>
+Enter the amount to convert: 1<br>
+1.0 USD is equal to 0.9171901108 EUR<br>
+Do you want to see the exchange rate trends? (yes/no): yes<br>
+Enter the start date (e.g.: 2022-01-01T00:00:00Z): 2022-01-01T00:00:00Z<br>
+Enter the end date (e.g.: 2022-12-31T23:59:59Z): 2022-12-31T23:59:59Z<br>
+
+[Exchange Rate Trends](./Screenshot%202024-07-16%20at%2015.03.47.png)
 
 
 
