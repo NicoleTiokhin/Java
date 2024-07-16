@@ -2930,14 +2930,14 @@ public class Weather {
         switch (condition.toLowerCase()) {
             case "sunny":
                 if (attacker.getType().equals("FIRE")) {
-                    attacker.setAttackPower((int) (attacker.getAttackPower() * 1.5));
+                    attacker.setAttackPower((int) (attacker.getAttackPower() * 0.5));
                 }
                 attacker.setFrozen(false);
                 defender.setFrozen(false);
                 break;
             case "rain":
                 if (attacker.getType().equals("WATER")) {
-                    attacker.setAttackPower((int) (attacker.getAttackPower() * 1.5));
+                    attacker.setAttackPower((int) (attacker.getAttackPower() * 0.5));
                 }
                 break;
             case "hail":
@@ -2962,7 +2962,7 @@ public class Weather {
 ```
 ### Modified Game class 
 
-modified runSimulation method :  ask the player if they want weather influence and, if yes, randomly generate the weather condition 
+modified runSimulation method :  ask the player if they want weather influence and, if yes, randomly generate the weather condition and tell user what was generated 
 
 ```java
  Weather weather = null;
@@ -3023,6 +3023,7 @@ if (choice == 1) {
             }
 ```
 
+## New Gameplay experience 
 
 ```java
 ```
