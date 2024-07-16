@@ -2855,43 +2855,43 @@ public void attack(Pokemon target) throws InterruptedException {
 ```
 ## New Gameplay experience
 
-Choose a game mode (simulation/main story): main story
-Main story mode is not available yet. Please choose another game mode.
-Choose a game mode (simulation/main story): g
-Invalid choice. Please enter 'simulation' or 'main story'.
-Choose a game mode (simulation/main story): simulatin
-Invalid choice. Please enter 'simulation' or 'main story'.
-Choose a game mode (simulation/main story): simulation
-Enter the name of your first team: team 1
-How many Pokémon do you want to have in team 1? 1
-Please enter the name of Pokémon 1 for team 1:  Charmander
-Enter the name of your second team: team 2 
-How many Pokémon do you want to have in team 2 ? 1
-Please enter the name of Pokémon 1 for team 2 : Bulbasaur
-Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no
-Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no
-Do you want to play multiple rounds? (yes/no): no
-Begin the Pokémon battle!
-
-Round 1 of 1
-team 1 Team Status:
-charmander [Current Health Level: 39, Current Power Level: 52]
-
-team 2  Team Status:
-bulbasaur [Current Health Level: 45, Current Power Level: 49]
-
-charmander's turn.
-1. Attack
-1
-charmander attacks bulbasaur for 104 damage!
-It's super effective!
-[                    ] 0/455
-
-bulbasaur has fainted! Please bring to Pokémon Center to recover!
-charmander is the winner!
-Total health lost by team 1: 0
-Total health lost by team 2 : 45
-team 1 wins by losing less health!
+Choose a game mode (simulation/main story): main story <br>
+Main story mode is not available yet. Please choose another game mode.<br>
+Choose a game mode (simulation/main story): g<br>
+Invalid choice. Please enter 'simulation' or 'main story'.<br>
+Choose a game mode (simulation/main story): simulatin<br>
+Invalid choice. Please enter 'simulation' or 'main story'.<br>
+Choose a game mode (simulation/main story): simulation<br>
+Enter the name of your first team: team 1<br>
+How many Pokémon do you want to have in team 1? 1<br>
+Please enter the name of Pokémon 1 for team 1:  Charmander<br>
+Enter the name of your second team: team 2 <br>
+How many Pokémon do you want to have in team 2 ? 1<br>
+Please enter the name of Pokémon 1 for team 2 : Bulbasaur<br>
+Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no<br>
+Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no<br>
+Do you want to play multiple rounds? (yes/no): no<br>
+Begin the Pokémon battle!<br>
+<br>
+Round 1 of 1<br>
+team 1 Team Status:<br>
+charmander [Current Health Level: 39, Current Power Level: 52]<br>
+<br>
+team 2  Team Status:<br>
+bulbasaur [Current Health Level: 45, Current Power Level: 49]<br>
+<br>
+charmander's turn.<br>
+1. Attack<br>
+1<br>
+charmander attacks bulbasaur for 104 damage!<br>
+It's super effective!<br>
+[                    ] 0/455<br>
+<br>
+bulbasaur has fainted! Please bring to Pokémon Center to recover!<br>
+charmander is the winner!<br>
+Total health lost by team 1: 0<br>
+Total health lost by team 2 : 45<br>
+team 1 wins by losing less health!<br>
 
 
 ```java
