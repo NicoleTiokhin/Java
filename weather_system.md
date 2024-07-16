@@ -91,7 +91,12 @@ public class WeatherSystem {
 
 ```
 
+## Example programm experience 
 
+Current Weather: <br>
+Datetime: 13:56:00<br>
+Temperature: 91.8 °F<br>
+Condition: Clear<br>
 
 
 
