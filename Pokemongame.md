@@ -3025,6 +3025,74 @@ if (choice == 1) {
 
 ## New Gameplay experience 
 
+Choose a game mode (simulation/main story): simulation <br>
+Enter the name of your first team: t<br>
+How many Pokémon do you want to have in t? 1<br>
+Please enter the name of Pokémon 1 for t: charmander <br>
+Enter the name of your second team: 4      <br>
+How many Pokémon do you want to have in 4? 1<br>
+Please enter the name of Pokémon 1 for 4: squirtle<br>
+Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no<br>
+Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no<br>
+Do you want to play multiple rounds? (yes/no): yes<br>
+How many rounds do you want to play? : 3<br>
+Do you want the weather to influence the battle? (yes/no): yes<br>
+The weather condition for this battle is: rain<br>
+Influence: Boosts Water-type attacks by 50%.<br>
+Begin the Pokémon battle!<br>
+<br>
+Round 1 of 3<br>
+t Team Status:<br>
+charmander [Current Health Level: 39, Current Power Level: 52]<br>
+<br>
+4 Team Status:<br>
+squirtle [Current Health Level: 44, Current Power Level: 48]<br>
+<br>
+charmander's turn.<br>
+1. Attack<br>
+1<br>
+charmander attacks squirtle for 26 damage!<br>
+It's not very effective...<br>
+[########            ] 18/44<br>
+<br>
+Please press Enter to continue...<br>
+t Team Status:<br>
+charmander [Current Health Level: 39, Current Power Level: 52]<br>
+<br>
+4 Team Status:<br>
+squirtle [Current Health Level: 18, Current Power Level: 48]<br>
+<br>
+squirtle's turn.<br>
+1. Attack<br>
+1<br>
+squirtle attacks charmander for 144 damage!<br>
+It's super effective!<br>
+[                    ] 0/399<br>
+<br>
+charmander has fainted! Please bring to Pokémon Center to recover!<br>
+squirtle is the winner!<br>
+<br>
+Round 2 of 3<br>
+t Team Status:<br>
+charmander [Current Health Level: 39, Current Power Level: 52]<br>
+<br>
+4 Team Status:<br>
+squirtle [Current Health Level: 44, Current Power Level: 72]<br>
+<br>
+charmander's turn.<br>
+1. Attack<br>
+1<br>
+charmander attacks squirtle for 26 damage!<br>
+It's not very effective...<br>
+[########            ] 18/44<br>
+<br>
+Please press Enter to continue...<br>
+t Team Status:<br>
+charmander [Current Health Level: 39, Current Power Level: 52]<br>
+<br>
+4 Team Status:<br>
+squirtle [Current Health Level: 18, Current Power Level: 72]<br>
+
 ```java
 ```
 
