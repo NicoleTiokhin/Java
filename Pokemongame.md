@@ -2804,9 +2804,9 @@ Total health lost by 2: 165<br>
 add having the option to choose between simulation ,which would be the current game unchanged and main story , which I still haven't created but like just have the option already 
 
 ### Updated Game Method
-If "simulation" is selected call the runSimulation method and exit the loop
-If "main story" is selected, inform the user that the mode is not available and continue the loop 
-If invalid input inform the user and continue the loop
+If "simulation" is selected call the runSimulation method and exit the loop<br>
+If "main story" is selected, inform the user that the mode is not available and continue the loop <br>
+If invalid input inform the user and continue the loop <br>
 
 ```java
 public void startGame() throws InterruptedException {
@@ -2829,9 +2829,69 @@ public void startGame() throws InterruptedException {
 ```
 all previous game logic ,  has now been delegated to  runSimulation Method , since it logically makes up the simulation game now 
 
-```java
-```
+## Add text when type advantage is used 
+change attack Method in Pokemon class <br>
+print messages when there is a type advantage, disadvantage, or no effect <br>
 
+```java
+public void attack(Pokemon target) throws InterruptedException {
+    double effectiveness = typeEffectiveness.getEffectiveness(this.type, target.getType());
+    int damage = (int) (this.attackPower * effectiveness);
+    
+    System.out.println(this.name + " attacks " + target.getName() + " for " + damage + " damage!");
+
+    if (effectiveness > 1.0) {
+        System.out.println("It's super effective!");
+    } else if (effectiveness < 1.0 && effectiveness > 0.0) {
+        System.out.println("It's not very effective...");
+    } else if (effectiveness == 0.0) {
+        System.out.println("It doesn't affect " + target.getName() + "...");
+    }
+
+    target.animatedHealthChange(-damage);
+    System.out.println();
+}
+
+```
+## New Gameplay experience
+
+Choose a game mode (simulation/main story): main story
+Main story mode is not available yet. Please choose another game mode.
+Choose a game mode (simulation/main story): g
+Invalid choice. Please enter 'simulation' or 'main story'.
+Choose a game mode (simulation/main story): simulatin
+Invalid choice. Please enter 'simulation' or 'main story'.
+Choose a game mode (simulation/main story): simulation
+Enter the name of your first team: team 1
+How many Pokémon do you want to have in team 1? 1
+Please enter the name of Pokémon 1 for team 1:  Charmander
+Enter the name of your second team: team 2 
+How many Pokémon do you want to have in team 2 ? 1
+Please enter the name of Pokémon 1 for team 2 : Bulbasaur
+Do you want team 1 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no
+Do you want team 2 to use a healing potion in the battle? (will be generated randomly in a range between 10 and 50) (yes/no): no
+Do you want to play multiple rounds? (yes/no): no
+Begin the Pokémon battle!
+
+Round 1 of 1
+team 1 Team Status:
+charmander [Current Health Level: 39, Current Power Level: 52]
+
+team 2  Team Status:
+bulbasaur [Current Health Level: 45, Current Power Level: 49]
+
+charmander's turn.
+1. Attack
+1
+charmander attacks bulbasaur for 104 damage!
+It's super effective!
+[                    ] 0/455
+
+bulbasaur has fainted! Please bring to Pokémon Center to recover!
+charmander is the winner!
+Total health lost by team 1: 0
+Total health lost by team 2 : 45
+team 1 wins by losing less health!
 
 
 ```java
