@@ -3,7 +3,6 @@
 ## Ideas for Java Projects 
 
 ### <ul>    
-### <li> Creating a Virtual Private Network (VPN) </li>
 ### <li> Weather System </li>
 ### </ul>
 
