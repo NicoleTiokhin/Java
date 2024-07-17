@@ -1,4 +1,4 @@
-# Currency Comverter 
+# Currency Converter 
 
 use org.json library for JSON parsing <br>
 java class : CurrencyConverter <br>
@@ -226,8 +226,8 @@ Enter the end date (e.g.: 2022-12-31T23:59:59Z): 2022-12-31T23:59:59Z<br>
 
 
 
-
-
+## Added Multithreading
+see in multithreading.md file
 
 ```java
 ```
