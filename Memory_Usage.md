@@ -7,10 +7,8 @@ Heap Memory:
   <li>allocate memory for objects and class instances</li>
   <li>managed automatically by the Garbage Collector, which cleans up unused objects to free memory</li>
   <li>dynamic, long-term storage</li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>every time a new object is created (new keyword) , memory is allocated</li>
+  <li>Garbage collection to automatically free up memory in the heap that is no longer needed</li>
 </ul>
 
 
