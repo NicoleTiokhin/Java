@@ -14,11 +14,14 @@
 ### <li> Color hunt </li>
 ### </ul>
 
-## Finished Projects 
+## Finished Projects
+### <ul>
 ### <li> simple  Pokemon game  </li>
 ### <li> Flipping Tiles Memory Game </li>
 ### <li> Tic Tac Toe Game </li>
 ### <li> Weather System </li>
+### <li> Currency Converter </li>
+### </ul>
 
 
 ## Java Topics 
