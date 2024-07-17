@@ -11,7 +11,6 @@
 ### <li> more elaborate Pokemon game </li> 
 ### <li> more elaborate Currency converter  </li> 
 ### <li> more elaborate Weather System </li>
-### <li> Color hunt </li>
 ### </ul>
 
 ## Finished Projects
