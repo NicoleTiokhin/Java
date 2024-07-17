@@ -181,7 +181,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 # Making the Game more elaborate 
 ## Ideas : 
 - Special Abilities : Like Volt Tackle for Pikachu , can be used once per Game 
-- Type Advantages
+- ~~Type Advantages~~ **done**
 - Leveling Up
 - ~~potions to heal~~ **done**
 - Wild Pokémon Encounters
@@ -189,7 +189,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - Multi-player Mode
 - Pokémon Catching
 - NPC trainers and gym battles with  rewards for winning
-- simple animations 
+- ~~simple animations~~ **done**
 - ~~switching Pokémon mid-battle~~ **done**
 - Stamina : use certain moves a limited number of times before needing to rest or use a different move
 - Pokémon Centers to heal Pokémon
