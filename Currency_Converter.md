@@ -229,12 +229,98 @@ Enter the end date (e.g.: 2022-12-31T23:59:59Z): 2022-12-31T23:59:59Z<br>
 ## Added Multithreading
 see in multithreading.md file
 
+## Notifications for chnages in currency 
+
+### Added libraries
+
+import libraries for notifications and scheduling tasks 
+
+```java
+import java.awt.Toolkit;
+import java.util.Timer;
+import java.util.TimerTask;
+```
+### New constant 
+
+the exchange rate should be checked every minute <br>
+minimum percentage change that triggers a notification is 1% <br>
+store the last known exchange rate for comparison<br>
+
+```java
+private static final long CHECK_INTERVAL = 60000; 
+private static final double THRESHOLD = 0.01; 
+private static double previousRate = -1; 
+```
+
+### Timer object 
+
+using a "daemon" thread,will not prevent the program from exiting if the main thread finishes (execution in a background thread)<br>
+call the getExchangeRate method to get the latest exchange rate for baseCurrency and targetCurrency <br>
+if condition check if previous rate is more than 0 and % change between new rate and the previous rate is greater than or equal to  1% <br>
+if the change exceeds the threshold, a beep sound is played and a message is printed out  <br>
+update previousRate to the current newRate for use in the next comparison<br>
+catch block for any exceptions <br>
+task starts immediately with no delay <br>
+period between successive repeated of the task 1 min<br>
+
+```java
+Timer timer = new Timer(true);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        double newRate = getExchangeRate(baseCurrency, targetCurrency);
+                        if (previousRate > 0 && Math.abs((newRate - previousRate) / previousRate) >= THRESHOLD) {
+                            Toolkit.getDefaultToolkit().beep();
+                            System.out.println("Exchange rate change detected: " + previousRate + " -> " + newRate);
+                        }
+                        previousRate = newRate;
+                    } catch (Exception e) {
+                        System.err.println("An error occurred while checking the exchange rate: " + e.getMessage());
+                    }
+                }
+            }, 0, CHECK_INTERVAL);
+
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        }
+    });
+```
+
 ```java
 ```
 
 
+```java
+```
 
 
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
 
 
 ```java
