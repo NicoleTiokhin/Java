@@ -6,7 +6,7 @@
 ## Github repo structure 
 - Data : screenshots used to demonstarte program work
 - Specific_Topics : my own summaries if topics including exercises for them
-- Backup_Code : copy pasted code just in case
+- Backup_Code : copy pasted code just in case sth doesnt correctly push into github repo
 - Pokemon : may main project
 - and other Projects like a Currency converter using API , and graph for changes 
 
