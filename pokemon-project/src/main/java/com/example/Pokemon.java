@@ -2,20 +2,21 @@ package com.example;
 
 import java.io.IOException;
 
-import org.jline.terminal.Terminal;
-import org.jline.utils.InfoCmp;
-
 public class Pokemon {
     private String name;
     private int health;
     private int attackPower;
     private int maxHealth;
+    private String type;
+    private TypeEffectiveness typeEffectiveness;
 
-    public Pokemon(String name, int health, int attackPower) {
+    public Pokemon(String name, int health, int attackPower, String type, TypeEffectiveness typeEffectiveness) {
         this.name = name;
         this.health = health;
         this.attackPower = attackPower;
         this.maxHealth = health;
+        this.type = type;
+        this.typeEffectiveness = typeEffectiveness;
     }
 
     public String getName() {
@@ -26,6 +27,10 @@ public class Pokemon {
         return health;
     }
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
     public void setHealth(int health) {
         this.health = health;
     }
@@ -33,13 +38,37 @@ public class Pokemon {
     public int getAttackPower() {
         return attackPower;
     }
-
-    public void attack(Pokemon target, Terminal terminal) throws IOException, InterruptedException {
-        System.out.println(this.name + " attacks " + target.getName() + " for " + this.attackPower + " damage!");
-        target.animatedHealthChange(-this.attackPower, terminal);
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
     }
 
-    public void heal(int amount) {
+    public String getType() {
+        return type;
+    }
+    public void damage(int amount) {
+        this.health -= amount;
+        if (this.health < 0) this.health = 0;
+    }
+    public void attack(Pokemon target) throws InterruptedException {
+        double effectiveness = typeEffectiveness.getEffectiveness(this.type, target.getType());
+        int damage = (int) (this.attackPower * effectiveness);
+        
+        System.out.println(this.name + " attacks " + target.getName() + " for " + damage + " damage!");
+    
+        if (effectiveness > 1.0) {
+            System.out.println("It's super effective!");
+        } else if (effectiveness < 1.0 && effectiveness > 0.0) {
+            System.out.println("It's not very effective...");
+        } else if (effectiveness == 0.0) {
+            System.out.println("It doesn't affect " + target.getName() + "...");
+        }
+    
+        target.animatedHealthChange(-damage);
+        System.out.println();
+    }
+    
+
+    public void heal(int amount) throws InterruptedException {
         if (this.health == this.maxHealth) {
             System.out.println(this.name + " is already at full health and cannot be healed.");
             return;
@@ -52,6 +81,7 @@ public class Pokemon {
             this.health += amount;
         }
         System.out.println(this.name + " healed by " + healedAmount + " hp points!");
+        animatedHealthChange(healedAmount);
     }
 
     public boolean hasFainted() {
@@ -62,7 +92,7 @@ public class Pokemon {
         return this.health == this.maxHealth;
     }
 
-    public void displayHealthBar(Terminal terminal) throws IOException {
+    public void displayHealthBar() {
         int totalSegments = 20;
         int filledSegments = (health * totalSegments) / maxHealth;
         StringBuilder bar = new StringBuilder("[");
@@ -74,13 +104,10 @@ public class Pokemon {
             }
         }
         bar.append("] ").append(health).append("/").append(maxHealth);
-
-        terminal.puts(InfoCmp.Capability.carriage_return);
-        terminal.writer().print(bar.toString());
-        terminal.flush();
+        System.out.print("\r" + bar.toString());
     }
 
-    public void animatedHealthChange(int healthChange, Terminal terminal) throws IOException, InterruptedException {
+    public void animatedHealthChange(int healthChange) throws InterruptedException {
         int newHealth = this.health + healthChange;
         if (newHealth > maxHealth) newHealth = maxHealth;
         if (newHealth < 0) newHealth = 0;
@@ -92,14 +119,18 @@ public class Pokemon {
             this.health += healthStep;
             if (this.health > maxHealth) this.health = maxHealth;
             if (this.health < 0) this.health = 0;
-            displayHealthBar(terminal);
+            displayHealthBar();
             Thread.sleep(50);
         }
         this.health = newHealth;
-        displayHealthBar(terminal);
+        displayHealthBar();
+        System.out.println();
     }
 
     public String pokedex() {
         return name + " [Current Health Level: " + health + ", Current Power Level: " + attackPower + "]";
     }
+
 }
+
+   

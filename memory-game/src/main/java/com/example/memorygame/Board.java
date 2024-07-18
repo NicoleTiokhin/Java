@@ -1,7 +1,7 @@
 package com.example.memorygame;
 
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Board {
     private Tile[][] tiles;
@@ -22,7 +22,6 @@ public class Board {
             numbers.add(i);
         }
 
-        // In case of odd number of tiles, add one extra tile to complete the board
         if (numberOfTiles % 2 != 0) {
             numbers.add(numberOfTiles / 2);
         }

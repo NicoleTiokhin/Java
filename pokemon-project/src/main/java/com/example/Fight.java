@@ -1,9 +1,5 @@
 package com.example;
 
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,19 +11,46 @@ public class Fight {
     private String team2Name;
     private Potion team1Potion;
     private Potion team2Potion;
+    private int totalRounds;
+    private int currentRound;
+    private int team1TotalHealthLost;
+    private int team2TotalHealthLost;
+    private Weather weather;
 
-    public Fight(ArrayList<Pokemon> team1, ArrayList<Pokemon> team2, String team1Name, String team2Name, Potion team1Potion, Potion team2Potion) {
+    public Fight(ArrayList<Pokemon> team1, ArrayList<Pokemon> team2, String team1Name, String team2Name, Potion team1Potion, Potion team2Potion, int totalRounds, Weather weather) {
         this.team1 = team1;
         this.team2 = team2;
         this.team1Name = team1Name;
         this.team2Name = team2Name;
         this.team1Potion = team1Potion;
         this.team2Potion = team2Potion;
+        this.totalRounds = totalRounds;
+        this.currentRound = 1;
+        this.team1TotalHealthLost = 0;
+        this.team2TotalHealthLost = 0;
+        this.weather = weather; 
     }
 
-    public void start() throws IOException, InterruptedException {
+    public void start() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        Terminal terminal = TerminalBuilder.terminal();
+
+        while (currentRound <= totalRounds) {
+            if (countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
+                System.out.println("\nRound " + currentRound + " of " + totalRounds);
+                fight();
+                trackHealth();
+                restoreHealth();
+                currentRound++;
+            } else {
+                break;
+            }
+        }
+        determineWinnerByHealth();
+        scanner.close();
+    }
+
+    private void fight() throws InterruptedException {
+        Scanner scanner = new Scanner(System.in);
 
         Pokemon currentAttacker = team1.get(0);
         Pokemon currentDefender = team2.get(0);
@@ -36,7 +59,7 @@ public class Fight {
         Potion currentPotion = team1Potion;
 
         while (countActivePokemon(team1) > 0 && countActivePokemon(team2) > 0) {
-            System.out.println("\n" + getTeam1Status(team1, team1Name));
+            System.out.println(getTeam1Status(team1, team1Name));
             System.out.println(getTeam2Status(team2, team2Name));
 
             boolean validChoice = false;
@@ -53,7 +76,10 @@ public class Fight {
                 int choice = getIntInput(scanner);
 
                 if (choice == 1) {
-                    currentAttacker.attack(currentDefender, terminal); // Method that might throw IOException
+                    if (weather != null) {
+                        weather.applyWeatherEffects(currentAttacker, currentDefender); 
+                    }
+                    currentAttacker.attack(currentDefender); 
                     validChoice = true;
                 } else if (choice == 2 && currentPotion != null && !currentAttacker.isAtMaxHealth()) {
                     currentAttacker.heal(currentPotion.getHealingPower());
@@ -74,6 +100,7 @@ public class Fight {
                         (countActivePokemon(currentAttackerTeam) > 1 ? " or 3 to Switch Pokémon." : "."));
                 }
             }
+
 
             if (currentDefender.hasFainted()) {
                 System.out.println(currentDefender.getName() + " has fainted! Please bring to Pokémon Center to recover!");
@@ -98,9 +125,52 @@ public class Fight {
             System.out.println("Please press Enter to continue...");
             scanner.nextLine();
         }
+    }
 
-        scanner.close();
-        terminal.close();
+    
+    private void determineWinnerByHealth() {
+        System.out.println("Total health lost by " + team1Name + ": " + team1TotalHealthLost);
+        System.out.println("Total health lost by " + team2Name + ": " + team2TotalHealthLost);
+    
+        if (team1TotalHealthLost < team2TotalHealthLost) {
+            System.out.println(team1Name + " wins by losing less health!");
+        } else if (team2TotalHealthLost < team1TotalHealthLost) {
+            System.out.println(team2Name + " wins by losing less health!");
+        } else {
+            System.out.println("It's a draw!");
+        }
+    }
+
+    private int calculateTotalHealthLost(ArrayList<Pokemon> team) {
+        int totalHealthLost = 0;
+        for (Pokemon p : team) {
+            totalHealthLost += (p.getMaxHealth() - p.getHealth());
+        }
+        return totalHealthLost;
+    }
+
+    private void trackHealth() {
+        team1TotalHealthLost += healthLostInRound(team1);
+        team2TotalHealthLost += healthLostInRound(team2);
+    }
+
+    private int healthLostInRound(ArrayList<Pokemon> team) {
+        int healthLost = 0;
+        for (Pokemon p : team) {
+            healthLost += (p.getMaxHealth() - p.getHealth());
+        }
+        return healthLost;
+    }
+
+    private void restoreHealth() {
+        restoreTeamHealth(team1);
+        restoreTeamHealth(team2);
+    }
+
+    private void restoreTeamHealth(ArrayList<Pokemon> team) {
+        for (Pokemon p : team) {
+            p.setHealth(p.getMaxHealth());
+        }
     }
 
     private int getIntInput(Scanner scanner) {
@@ -122,7 +192,7 @@ public class Fight {
         }
         return true;
     }
-
+    
     private int countActivePokemon(ArrayList<Pokemon> team) {
         int count = 0;
         for (Pokemon p : team) {
@@ -166,3 +236,4 @@ public class Fight {
         return null;
     }
 }
+ 
