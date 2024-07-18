@@ -184,6 +184,7 @@ Pokemon 2 = Bulbasaur , Health: 160 , Attack Power: 15 <br>
 - ~~Type Advantages~~ **done**
 - Leveling Up
 - ~~potions to heal~~ **done**
+- ~~weather influence~~ **done**
 - Wild Pokémon Encounters
 - add money to buy potions and stuff
 - Multi-player Mode
@@ -3285,13 +3286,13 @@ public void startGame() throws InterruptedException {
 ```
 ### New Gameplay Experience for main story 
 
-<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.13.46.png" alt="Screenshot " width="400" height="200">
+<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.13.46.png" alt="Screenshot " width="600" height="400">
 
 
-<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.14.03.png" alt="Screenshot" width="400" height="200">
+<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.14.03.png" alt="Screenshot" width="600" height="400">
 
 just used the front down buttons a bit on my keyboard
-<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.14.21.png" alt="Screenshot" width="400" height="200">
+<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.14.21.png" alt="Screenshot" width="600" height="400">
 
 
 
