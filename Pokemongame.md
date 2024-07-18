@@ -3098,9 +3098,9 @@ squirtle [Current Health Level: 18, Current Power Level: 72]<br>
 Add a main story element as a GUI , where the player gets to choose between 3 pokemon and use left and right and back and front keyboard 
 
 ### New class : GameGUI
-JPanel : can contain multiple other Swing components , used to group other components together
-class extends JFrame and implements KeyListener to handle keyboard events
-using CardLayout : stack multiple components on top of each other, with only one component visible at a time
+JPanel : can contain multiple other Swing components , used to group other components together <br>
+class extends JFrame and implements KeyListener to handle keyboard events<br>
+using CardLayout : stack multiple components on top of each other, with only one component visible at a time<br>
 
 ```java
 package com.example;
@@ -3283,68 +3283,15 @@ public void startGame() throws InterruptedException {
         scanner.close();
     }
 ```
-### New Gameplay Experience 
+### New Gameplay Experience for main story 
 
-```java
-```
-
-
-```java
-```
+<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.13.46.png" alt="Screenshot " width="400" height="200">
 
 
-```java
-```
+<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.14.03.png" alt="Screenshot" width="400" height="200">
+
+just used the front down buttons a bit on my keyboard
+<img src="https://github.com/NicoleTiokhin/Java/blob/6b874bf25a878506c9adeb8bbae5c893b8aeebca/Data/Screenshot%202024-07-18%20at%2022.14.21.png" alt="Screenshot" width="400" height="200">
 
 
 
-```java
-```
-
-
-```java
-```
-
-
-
-```java
-```
-
-
-```java
-```
-
-
-```java
-```
-
-
-
-```java
-```
-
-
-```java
-```
-
-
-```java
-```
-
-
-
-```java
-```
-
-
-```java
-```
-
-
-
-```java
-```
-
-
-```java
-```
