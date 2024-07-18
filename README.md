@@ -1,7 +1,7 @@
 # Java
 ## Github Codespaces used for running Java Code 
 ## Later on moved to local vscode , since I ran out of use time of Codespace
-## Ideas for Java Projects 
+## Maven used to get all the dependencies 
 
 ## Github repo structure 
 - Data : screenshots used to demonstarte program work
