@@ -3097,6 +3097,7 @@ squirtle [Current Health Level: 18, Current Power Level: 72]<br>
 ## Add main Story GUI 
 
 Add a main story element as a GUI , where the player gets to choose between 3 pokemon and use left and right and back and front keyboard 
+The blue blob will be the player 
 
 ### New class : GameGUI
 JPanel : can contain multiple other Swing components , used to group other components together <br>
