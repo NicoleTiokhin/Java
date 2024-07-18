@@ -3093,8 +3093,253 @@ charmander [Current Health Level: 39, Current Power Level: 52]<br>
 4 Team Status:<br>
 squirtle [Current Health Level: 18, Current Power Level: 72]<br>
 
+## Add main Story GUI 
+
+Add a main story element as a GUI , where the player gets to choose between 3 pokemon and use left and right and back and front keyboard 
+
+### New class : GameGUI
+JPanel : can contain multiple other Swing components , used to group other components together
+class extends JFrame and implements KeyListener to handle keyboard events
+using CardLayout : stack multiple components on top of each other, with only one component visible at a time
+
+```java
+package com.example;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import org.json.JSONObject;
+
+public class GameGUI extends JFrame implements KeyListener {
+    // switching between different panels
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
+    // Panel for intro screen   
+    private JPanel introPanel;
+    // Panel for the game screen
+    private JPanel gamePanel;
+    // Character in the game
+    private JLabel character;
+    // Coordinates of the character on the game pane
+    private int characterX = 100;
+    private int characterY = 100;
+    // Pokémon chosen by the player in the beginning
+    private Pokemon starterPokemon;
+
+    public GameGUI() {
+        setTitle("Pokemon main Story Game");// set Title 
+        setSize(500, 500); // size 
+        setLocationRelativeTo(null); // center on screen 
+
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        // Introduction Panel
+        introPanel = new JPanel();
+        introPanel.setLayout(new BorderLayout());// arranges components in : North, South, East, West, and Center.
+        JLabel introLabel = new JLabel("Choose your starter Pokémon: Squirtle, Charmander, or Bulbasaur", JLabel.CENTER);
+        introPanel.add(introLabel, BorderLayout.CENTER);// label is added to the center of the introPanel 
+        // Buttons for pokemon choices 
+        JPanel buttonPanel = new JPanel();
+        JButton squirtleButton = new JButton("Squirtle");
+        JButton charmanderButton = new JButton("Charmander");
+        JButton bulbasaurButton = new JButton("Bulbasaur");
+        // add action listeners to the buttons
+        squirtleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                starterPokemon = createPokemon("squirtle");
+                startGame();
+            }
+        });
+
+        charmanderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                starterPokemon = createPokemon("charmander");
+                startGame();
+            }
+        });
+
+        bulbasaurButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                starterPokemon = createPokemon("bulbasaur");
+                startGame();
+            }
+        });
+
+        buttonPanel.add(squirtleButton);
+        buttonPanel.add(charmanderButton);
+        buttonPanel.add(bulbasaurButton);
+        introPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Game Panel
+        gamePanel = new JPanel() {
+            @Override
+// draw a filled rectangle with changeble coodinates
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.BLUE);
+                g.fillRect(characterX, characterY, 50, 50);
+            }
+        };
+        gamePanel.setFocusable(true); // needed to be able to react to keyboard
+        gamePanel.addKeyListener(this);
+        // add introPanel and gamePanel to mainPanel
+        mainPanel.add(introPanel, "Intro");
+        mainPanel.add(gamePanel, "Game");
+
+        add(mainPanel);
+    }
+   //  display the game panel and set focus on it
+    private void startGame() {
+        cardLayout.show(mainPanel, "Game");
+        gamePanel.requestFocusInWindow();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+    // called when a key is pressed
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();// get key code of the pressed key
+        // Move depending on key , by changing y and x location of character
+        if (key == KeyEvent.VK_LEFT) {
+            characterX -= 10;
+        } else if (key == KeyEvent.VK_RIGHT) {
+            characterX += 10;
+        } else if (key == KeyEvent.VK_UP) {
+            characterY -= 10;
+        } else if (key == KeyEvent.VK_DOWN) {
+            characterY += 10;
+        }
+        // show character in new position
+        gamePanel.repaint();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                GameGUI game = new GameGUI();
+                game.setVisible(true);
+            }
+        });
+    }
+
+    public Pokemon createPokemon(String pokemonName) {
+        try {
+            JSONObject data = PokemonAPI.getPokemonData(pokemonName.trim().toLowerCase());
+            String name = data.getString("name");
+            int health = data.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+            int attackPower = data.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
+            String type = data.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name").toUpperCase();
+            TypeEffectiveness typeEffectiveness = PokemonAPI.getTypeEffectiveness(type);
+            return new Pokemon(name, health, attackPower, type, typeEffectiveness);
+        } catch (Exception e) {
+            System.out.println("Error fetching data for " + pokemonName + ".");
+            return null;
+        }
+    }
+}
+
+```
+### Modified Game class 
+call the GameGUI class in the startGame method when the user selects "main story"
+EventQueue.invokeLater to ensure thread safety , since the GUI is launched on the Event Dispatch Thread 
+the Event Dispatch Thread comes from Java Swingfor handling all the events and updating the user interface components
+
+```java
+public void startGame() throws InterruptedException {
+        while (true) {
+            System.out.print("Choose a game mode (simulation/main story): ");
+            String gameMode = scanner.nextLine().trim().toLowerCase();
+
+            if (gameMode.equals("simulation")) {
+                runSimulation();
+                break;
+            } else if (gameMode.equals("main story")) {
+                // Launch the GUI for main story mode
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameGUI gameGUI = new GameGUI();
+                        gameGUI.setVisible(true);
+                    }
+                });
+                break;
+            } else {
+                System.out.println("Invalid choice. Please enter 'simulation' or 'main story'.");
+            }
+        }
+
+        scanner.close();
+    }
+```
+### New Gameplay Experience 
+
 ```java
 ```
+
+
+```java
+```
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+```java
+```
+
+
+```java
+```
+
+
+
+```java
+```
+
+
+```java
+```
+
 
 
 ```java
