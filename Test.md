@@ -115,7 +115,9 @@ Examples of complex data structures in Java are ArrayList, HashMap, HashSet, Lin
 https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 I used ArrayList to store the Pokémon teams (team1 and team2).
 I used it because it has dynamic resizing and my teams can choose their own teams sizes 
-
+https://github.com/NicoleTiokhin/Java/blob/main/Specific_Topics/Complex_Datastructure.md
+I wrote a Java program to append the specified element to the end of a hash set
+I created a new HashSet instance set for integers , added 1, 2, and 3 to the HashSet, print the HashSet before adding the new element,created an int variable newElement and assigned it the value 4 ,appended newElement (4) to the HashSet and printed the HashSet after adding the new element
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
