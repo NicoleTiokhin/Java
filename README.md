@@ -9,7 +9,8 @@
 - Backup_Code : copy pasted code just in case sth doesnt correctly push into github repo
 - Pokemon : may main project
 - and other Projects like a Currency converter using API , and graph for changes
-- vscode code pushed to finalcode branch (small risk that there could be small errors in code due to worng git actions , so I recommend checking up in Backup_Code where I have the code that worked copy pasted into neat markup code blocks in case 
+- vscode code pushed to finalcode branch (small risk that there could be small errors in code due to worng git actions , so I recommend checking up in Backup_Code where I have the code that worked copy pasted into neat markup code blocks in case
+- In the test md is the exam file 
 
 
 
