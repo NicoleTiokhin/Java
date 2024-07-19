@@ -240,7 +240,7 @@ Lamda allows for short, anonymous functions( defined without a name often for sh
 I used it to write a Java program to implement a lambda expression to check if a list of strings are all uppercase or all lowercase or mixedcase
 First I created a list of Strings
 Then I used Lambda Expressions to check if each string in the list is: all uppercase , all lowercase or mixed case
-
+I used Predicates (functional interface in the java.util.function package , used for evaluating conditions) in The Lambda Expressions 
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
@@ -265,7 +265,18 @@ Serialization is the process of converting an object into a stream of bytes to s
 ### Database Connectivity
 Web applications use databases to store data. Please explain how you have connected to a database in your project and provide an example of how you have used database connectivity in your code. The link does not have to be to your project and can be to your practice code. Do not use code from other classes, like database programming, Web Engineering, or theoretical informatics.
 This topic appeared in your learning agreement as the last point in the table under advanced topics.
+I used the PokeApi in my project , meaining I used a web-based APi rather than a traditional Database .
+Using the PokeApi I got access to Pokemon Data which I queried over the Internet 
+I connected to the API usin the PokemonAPI Class :
+I created a base URL for the Pokémon API
+I had a getPokemonData Method : 
+takes a String (the Pokémon's name) as an argument and returns a JSONObject ; can throw an Exception Add Pokemon name to to base URL and create a URL object
+I opened a connection to the URL Set the request method to "GET" and retrieved data from the server
+I created a BufferedReader to read the response . It gets the input stream from the HTTP connection (conn.getInputStream()), takes the raw byte input stream(InputStreamReader) and converts into characters and read the lines of test (in) String variable to temporarily hold each line of text one at a time Create a new StringBuilder object to append strings
+I read each line from the BufferedReader until there are no more lines (readLine returns null) and appened each line to the StringBuilder
+I closed the BufferedReader , disconnected the HttpURLConnection ,converted  the complete response to a String and  created a new JSONObject from that string
 
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
