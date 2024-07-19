@@ -264,6 +264,12 @@ It also doesnt have many extra dependencies
 ### Multi-threading
 multi-threading is the ability of a CPU to execute multiple processes or threads concurrently. Please explain the concept of multi-threading and provide an example of how you have used multi-threading in your code. The link does not have to be to your project and can be to your practice code.
 
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/CurrencyConverter.md
+
+handles fetching exchange rates and displaying the exchange rate trends concurrently , which wouldve been very useul for if I had enough time to make this project bigger 
+a thread is created and started to fetch the current exchange rate and display the converted amount
+another thread is created and started to generate and display a trend chart
+another thread that runs in the background  , for the Timer is also created to check for changes in the exchange rate . This is especially useful since the timer constantly checls for changes , so it helps not disturb the other processes in case sth goes wrong and here the risk is high and its also a more efficient way to use the CPU .  
 
 *your text*
 
