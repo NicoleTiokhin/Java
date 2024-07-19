@@ -56,7 +56,7 @@ Good luck with your evaluation!
 Please answer the following questions to the best of your ability to show your understanding of the learning outcomes. Please provide examples from your project code to support your answers. Only links to your own git will count. When you explain what you did make sure to explain why you did it this way with clear reasoning relating to your own work and not generic statements that anyone could make. 
 
 ## Evaluation Material
-
+link to entire github repository : https://github.com/NicoleTiokhin/Java/tree/main
 ### Algorithms
 
 Algorithms are manyfold and Java can be used to program these. Examples are sorting or search strategies but also mathematical calculations. Please refer to **two** areas in either your regular coding practice or within your project, where you have coded an algorithm. Do not make reference to code written for other classes, like theoretical informatics.
