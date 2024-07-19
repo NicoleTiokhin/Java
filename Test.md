@@ -57,7 +57,6 @@ Please answer the following questions to the best of your ability to show your u
 
 ## Evaluation Material
 
-
 ### Algorithms
 
 Algorithms are manyfold and Java can be used to program these. Examples are sorting or search strategies but also mathematical calculations. Please refer to **two** areas in either your regular coding practice or within your project, where you have coded an algorithm. Do not make reference to code written for other classes, like theoretical informatics.
@@ -118,6 +117,10 @@ I used it because it has dynamic resizing and my teams can choose their own team
 https://github.com/NicoleTiokhin/Java/blob/main/Specific_Topics/Complex_Datastructure.md
 I wrote a Java program to append the specified element to the end of a hash set
 I created a new HashSet instance set for integers , added 1, 2, and 3 to the HashSet, print the HashSet before adding the new element,created an int variable newElement and assigned it the value 4 ,appended newElement (4) to the HashSet and printed the HashSet after adding the new element
+for this file : https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Memory_Game.md
+The initializeBoard method in the Board class uses an ArrayList to store and mix the tile numbers before showing them on the board, this is useful for the available methods for an ArrayList like add() get() that make managing the tiles easier 
+Collections.shuffle() also works well with ArrayLists 
+The Board class uses a 2D array of Tile objects to represent the game board to have quick access to the location of the tiles (direct access to each element based on row and column indices)(more intuitive since it resembles a grid)
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
@@ -254,6 +257,9 @@ I used org.json to handle JSON Responses from the PokeAPI
 I chose it because its the easiets wayy to parse JSON data
 It has all methods needed to handle json data in one place 
 It also doesnt have many extra dependencies 
+
+for this code here : https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Memory_Game.md
+java.util library for  : Timer, and TimerTask for example to handle the timing of couning the time how long it takes to finish the game 
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
@@ -271,6 +277,9 @@ a thread is created and started to fetch the current exchange rate and display t
 another thread is created and started to generate and display a trend chart
 another thread that runs in the background  , for the Timer is also created to check for changes in the exchange rate . This is especially useful since the timer constantly checls for changes , so it helps not disturb the other processes in case sth goes wrong and here the risk is high and its also a more efficient way to use the CPU .  
 
+for this code here  : https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Memory_Game.md
+startTimer method in the MemoryGame class uses Timer and TimerTask to manage the countdown timer for the game.
+It runs parallely  with the main game 
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
