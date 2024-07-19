@@ -310,7 +310,11 @@ I used Predicates (functional interface in the java.util.function package , used
 ### Serialization
 
 Serialization is the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file. Please explain why you would use serialization and provide an example of how you have used serialization in your code. The link does not have to be to your project and can be to your practice code.
-
+for this code : https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Weather_System.md
+I wouldve used serialization by creating a class to hold the weather data, by representing the weather data with attributes for datetime, temperature, and condition and implementing Serializable to allow for serialization 
+In my WeatherSystem Class I wouldbe added methods to get current weather data and store it in a WeatherData object 
+I wouldve serialized it like that weatherSystem.saveWeatherData("weatherData.ser");
+I wouldve deserialized it like that : WeatherData loadedData = weatherSystem.loadWeatherData("weatherData.ser");
 
 
 *your text*
