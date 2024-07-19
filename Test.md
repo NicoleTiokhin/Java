@@ -178,7 +178,18 @@ https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 
 ### Advanced Class Concepts
 Advanced class concepts include constructors, abstract classes, interfaces, access modifiers, static methods, and variables. Please provide an example of how you have used **two** of these class concepts in your **project** code and explain why you have chosen these class concepts and how they work within your code.
-
+Constructor : 
+= initialize objects when they are created
+In the Pokemon Class for example I have a constructor to initialize the attributes of a Pokemon object
+In my GameGUI class the constructor sets up the game window and its components
+I set up the Window Properties like the title and size , I initialze the components like the card layout, I set up the  Introduction Panel with a label and buttons for Pokémon selection .
+By using the Constructor in the GameGUI class I make sure that all components (panels, buttons, labels) are correctly created and configured by the time the game window is displayed
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
+Access modifiers :
+= control the visibility of attributes and methods 
+In the Pokemon class, attributes are private and methods are public
+Attributes are private in order to only accesse them  within the Pokemon class , control how they are accessed and modified, protects from sudden unexpected changes 
+Methods in order to acces them  from anywhere in my program
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
@@ -191,8 +202,13 @@ Java code is tested by using JUnit. Please explain how you have used JUnit in yo
 Be detailed about what you are testing and how you argue for your test cases. 
 Test cases usually cover the following areas:
 * boundary cases
+method allFainted checks if all Pokémon in a team have fainted
 * normal cases
-* error cases / catching exceptions 
+fight method handles a normal battle
+* error cases / catching exceptions
+method getIntInput handles InputMismatchException to ensure valid integer input.
+createPokemon method in the Game class handles exceptions when fetching Pokémon data
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 
 
 *your text*
@@ -205,6 +221,8 @@ Test cases usually cover the following areas:
 ### Operator/Method Overloading
 An example of operator overloading is the "+" operator that can be used to add two numbers or concatenate two strings. An example of method overloading is having two methods with the same name but different parameters. Please provide an example of how you have used operator or method overloading in your code and explain why you have chosen this method of coding.
 The link does not have to be to your project and can be to your practice code.
+https://github.com/NicoleTiokhin/Java/blob/main/Specific_Topics/method_overload.md
+the add method is overloaded to accept different types of parameters: one version of the add method takes two integers, and another version takes two doubles
 
 *your text*
 
@@ -217,6 +235,7 @@ The link does not have to be to your project and can be to your practice code.
 
 ### Generics
 Generics in java are used to create classes, interfaces, and methods that operate on objects of specified types. Please provide an example of how you have used generics in your code and explain why you have chosen to use generics. The link does not have to be to your project and can be to your practice code.
+https://github.com/NicoleTiokhin/Java/blob/main/Specific_Topics/generic_templates.md
 
 *your text*
 
