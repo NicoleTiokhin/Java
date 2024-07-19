@@ -236,6 +236,10 @@ List<String> list = new ArrayList<>();
 list.forEach((String s) -> System.out.println(s));
 ```
 Please explain the concept of lambda expressions and provide an example of how you have used lambda expressions in your code. The link does not have to be to your project and can be to your practice code.
+Lamda allows for short, anonymous functions( defined without a name often for short one-time tasks) , helps make code shorter and more readable 
+I used it to write a Java program to implement a lambda expression to check if a list of strings are all uppercase or all lowercase or mixedcase
+First I created a list of Strings
+Then I used Lambda Expressions to check if each string in the list is: all uppercase , all lowercase or mixed case
 
 *your text*
 
