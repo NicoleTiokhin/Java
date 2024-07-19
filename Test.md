@@ -315,7 +315,7 @@ I wouldve used serialization by creating a class to hold the weather data, by re
 In my WeatherSystem Class I wouldbe added methods to get current weather data and store it in a WeatherData object 
 I wouldve serialized it like that weatherSystem.saveWeatherData("weatherData.ser");
 I wouldve deserialized it like that : WeatherData loadedData = weatherSystem.loadWeatherData("weatherData.ser");
-
+Imagine i have a loadWeatherData and saveWeatherData Method in the WeatherSystemClass to read the now deserialized file and serializing a WeatherData object and saving it to a file
 
 *your text*
 
