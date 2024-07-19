@@ -236,7 +236,11 @@ the add method is overloaded to accept different types of parameters: one versio
 ### Generics
 Generics in java are used to create classes, interfaces, and methods that operate on objects of specified types. Please provide an example of how you have used generics in your code and explain why you have chosen to use generics. The link does not have to be to your project and can be to your practice code.
 https://github.com/NicoleTiokhin/Java/blob/main/Specific_Topics/generic_templates.md
-
+takes a map of any type and prints each key-value pair
+I created a method  using generics with <K, V>, meaning that it can operate on any key type K and value type V
+The method method iterates through the map entries using entrySet() and prints each key-value pair.
+I used generics so I could use the method  with any type of map
+In the code i used the same method for : Integer-String Maps , String-Integer Maps and String-String Maps
 *your text*
 
 | Total Achievable Points | Points Reached During Grading |
@@ -291,6 +295,7 @@ I used Predicates (functional interface in the java.util.function package , used
 ### Serialization
 
 Serialization is the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file. Please explain why you would use serialization and provide an example of how you have used serialization in your code. The link does not have to be to your project and can be to your practice code.
+
 
 
 *your text*
