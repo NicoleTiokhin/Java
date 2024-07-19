@@ -61,7 +61,13 @@ Please answer the following questions to the best of your ability to show your u
 ### Algorithms
 
 Algorithms are manyfold and Java can be used to program these. Examples are sorting or search strategies but also mathematical calculations. Please refer to **two** areas in either your regular coding practice or within your project, where you have coded an algorithm. Do not make reference to code written for other classes, like theoretical informatics.
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
+In my project I needed to count the number of non-fainted Pokemon in my team , mym algorithm in the countActivePokemon Method  iteratesd through the list of Pokémon and checked their status
 
+I also have an algorithm to track and restore the health of Pokémon . I track the health lost by each team during a round and restore Pokémon health to the maximum Health after each round:
+trackHealth(): calls healthLostInRound for each team and updates the total health lost
+healthLostInRound(): iiterates through the team list, calculates the health lost for each Pokémon, and sums it up
+restoreTeamHealth(): iterates through the team list and restores each Pokémon's health to its maximum
 
 *your text*
 
@@ -77,9 +83,20 @@ Algorithms are manyfold and Java can be used to program these. Examples are sort
 Please explain the concept of data types and provide examples of different data types in Java.
 Typical data types in java are int, double, float, char, boolean, long, short, byte, String, and arrays. Please provide one example for each of the **three** following data types in your code. One of these links must be to your project.
 * Array
+are a collection of variables of the same type
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
+In the weather class I used an array of strings to store all possible weathers , then I selected a random element from the array 
 * Strings
+Strings are a series of characters to represent text
+I used String to store and manage the names of teams and Pokémon
+I also used String to store user input
+I used StringBuilder to create Status Messaged on the Pokemon
+I also used String to display messages on the console
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 * boolean
-
+returns true or false
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
+allFainted method returns a boolean to show if  all Pokémon in a given team have fainted
 Regarding the link to your project, explain the context in which you have used this data type being specific to your project. 
 
 *your text*
