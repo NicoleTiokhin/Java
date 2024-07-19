@@ -129,9 +129,17 @@ I used it because it has dynamic resizing and my teams can choose their own team
 Concepts of OOP are the basic building blocks of object-oriented programming, such as classes, objects, methods, and attributes. 
 Explain HOW and WHY your **project** demonstrates the use of OOP by using all of the following concepts:
 * Classes/Objects
+I have several classes such as Fight, Pokemon, Potion, and Weather
+I created instances of the classes to represent specific Pokémon, battles, potions, and weather conditions
+An instance of the Pokemon class would be an actual Pokémon with specific values for the attributes in the Class 
+I used it to break down my program into smaller, reusable parts
 * Methods
+For example in the Pokemon class I have the Methods : attack, heal, and hasFainted
+They define an action a Pokemon can perform in the Game 
 * Attributes 
 Link to the code in your project that demonstrates what you have explained above.
+For example in my Pokemon class I have attributes such as name, health, attackPower, and type as states of my Pokemon object
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 
 *your text*
 
@@ -145,7 +153,17 @@ Link to the code in your project that demonstrates what you have explained above
 
 ### OO Design
 Please showcase **two** areas **where** you have used object orientation in your project. (How and why you use it will be the next question below.)
-Examples in Java of good oo design are composition, encapsulation, inheritance, polymorphism, and abstraction. 
+Examples in Java of good oo design are composition, encapsulation, inheritance, polymorphism, and abstraction.
+composition : 
+= a class is composed of one or more objects from other classes
+Fight class contains objects of Pokemon, Potion, and Weather
+team1 and team2 (arrays of Pokemon), team1Potion and team2Potion (objects of Potion), and weather (object of Weather)
+-> easy to create a more complex program by keeping the code organized 
+encapsulation :
+= internal state of an object is hidden from the outside
+Pokemon class has private attributes and getter and setter methods to access them (name, health, attackPower, maxHealth, type, typeEffectiveness)
+->  controlled access to the attributes 
+https://github.com/NicoleTiokhin/Java/blob/main/BackupCode/Pokemon_code.md
 
 *your text*
 
